@@ -9,11 +9,15 @@
         flex-direction: column;
         position: absolute;
         z-index: 99999;
+        max-width: 1940px;
+        min-width: 1440px;
         .topMenusBox {
             width: 100%;
             height: 62px;
             display: flex;
             align-items: center;
+            min-width: 1440px;
+            max-width: 1940px;
             .topLogo {
                 margin-left: 37px;
                 margin-right: 22px;
@@ -25,6 +29,7 @@
                 display: flex;
                 justify-content: space-between;
                 .topMenusLeft {
+                    margin-right: 300px;
                     :global {
                         .current {
                             color:#000000;
@@ -43,10 +48,19 @@
                 .topMenusLeft, .topMenusRight {
                     display: flex;
                     a {
-                        padding: 4px 10px;
-                        margin-right: 2px;
+                       
                         color: #DC3942;
                         border-radius: 3px;
+                        .small{
+                            padding: 4px 10px;
+                            width:56px;
+                            margin-right: 2px;
+                        }
+                        .large{
+                            padding: 4px 10px;
+                            width:92px;
+                            margin-right: 2px;
+                        }
                     }
                 }
             }

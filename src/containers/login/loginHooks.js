@@ -52,6 +52,7 @@ export default function(props) {
                 }
                 saveUser(data.data.user); // 登录后保存用户信息
                 userLogin(data.data.token);// 保存token
+
                 message.success(data.msg);
                 setLoading(true);
                 setTimeout(() => {

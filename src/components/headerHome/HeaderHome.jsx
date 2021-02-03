@@ -9,107 +9,145 @@ export default function HeaderHome() {
     const leftMenus = [
         {
             name: '首页',
-            to: '/home'
+            to: '/home',
+            width: 'small'
         },
         {
             name: '字体',
-            to: '/home/fonts'
+            // to: '',
+            to: '/home/fonts',
+            width: 'small'
         },
         {
             name: '图片',
-            to: '/home/images'
+            // to: '',
+            to: '/home/images',
+            width: 'small'
         },
         {
             name: '视频',
-            to: '/home/video'
+            // to: '',
+            to: '/home/video',
+            width: 'small'
         },
         {
             name: '设计素材',
-            to: '/home/designMaterial'
+            // to: '',
+            to: '/home/designMaterial',
+            width: 'large'
+
         },
         {
             name: '办公文档',
-            to: '/home/officeDocument'
+            // to: '',
+            to: '/home/officeDocument',
+            width: 'large'
         },
         {
             name: '音乐',
-            to: '/home/music'
+            // to: '',
+            to: '/home/music',
+            width: 'small'
         },
         {
             name: '发现',
-            to: '/home/found'
+            // to: '',
+            to: '/home/found',
+            width: 'small'
         },
         {
             name: '店主',
-            to: '/home/shopKeeper'
+            // to: '',
+            to: '/home/shopKeeper',
+            width: 'small'
         }
     ];
 
     const rightMenus = [
         {
             name: '我要开店',
-            to: '/userCenter/7'
+            // to: '',
+            to: '/userCenter/7',
+            width: 'large'
         },
         {
             name: '授权查询',
-            to: '/authorizationQuery'
+            // to: '',
+            to: '/authorizationQuery',
+            width: 'large'
         },
         {
             name: '排行榜单',
-            to: '/rank'
+            // to: '',
+            to: '/rank',
+            width: 'large'
         }
     ];
     const options = [
         {
             name: '我的资料',
+            // to: ''
             to: '/userCenter/1'
         },
         {
             name: '我的订单',
+            
+            // to: ''
             to: '/userCenter/2'
         },
         {
             name: '我的购物车',
+            // to: ''
             to: '/userCenter/3'
         },
         {
             name: '我的动态',
+            // to: ''
             to: '/userCenter/5'
         },
         {
             name: '我的钱包',
+            // to: ''
             to: '/userCenter/4'
         },
         {
             name: '我的荣誉',
+            // to: ''
             to: '/userCenter/6'
         },
         {
             name: '申请成为',
+            // to: ''
             to: '/userCenter/7'
         },
         {
             name: '我的授权',
+            // to: ''
             to: '/userCenter/8'
         },
         {
             name: '我要续费',
+            // to: ''
             to: '/userCenter/9'
         },
         {
             name: '我的消息',
+            // to: ''
             to: '/userCenter/10'
         },
         {
             name: '推广二维码',
+            // to: ''
             to: '/userCenter/11'
         },
         {
             name: '客服',
+            // to: ''
             to: '/userCenter/myPromotion'
         },
         {
             name: '退出',
+            // to: ''
             to: '/userCenter/logout'
         }
     ];
@@ -139,13 +177,26 @@ export default function HeaderHome() {
                         <div className={styles.topMenusLeft}>
                             {
                                 leftMenus.map(item => {
+                                    let Messages;
+                                    if (item.width === 'small') {
+                                        Messages = (
+                                            <div className={styles.small}>{item.name}</div>
+                                        );
+                                    } else {
+                                        Messages = (
+                                            <div className={styles.large}>{item.name}</div>
+                                        );
+                                    }
                                     return (
                                         <NavLink
                                             to={item.to}
                                             key={item.name}
                                             isActive={() => { return pathname === item.to; }}
                                             activeClassName="current">
-                                            <div>{item.name}</div>
+                                               
+                                            {/* <div className={item.width}>{item.name}</div> */
+                                                Messages
+                                            }
                                         </NavLink>
                                     );
                                 })
@@ -154,13 +205,26 @@ export default function HeaderHome() {
                         <div className={styles.topMenusRight}>
                             {
                                 rightMenus.map(item => {
+                                    let Messages;
+                                    if (item.width === 'small') {
+                                        Messages = (
+                                            <div className={styles.small}>{item.name}</div>
+                                        );
+                                    } else {
+                                        Messages = (
+                                            <div className={styles.large}>{item.name}</div>
+                                        );
+                                    }
+
                                     return (
                                         <NavLink
                                             to={item.to}
                                             key={item.name}
                                             isActive={() => { return pathname === item.to; }}
                                             activeClassName="current">
-                                            <div>{item.name}</div>
+                                            {/* { <div>{item.name}</div>} */
+                                                Messages
+                                            }
                                         </NavLink>
                                     );
                                 })}

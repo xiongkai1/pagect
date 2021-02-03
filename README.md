@@ -1,6 +1,6 @@
 # app-name
 
-****
+***
 
 # 脚手架介绍
 用于开发基于 React 的 Web 应用.
@@ -239,4 +239,4 @@ https://nodejs.org/en/download/package-manager/
 sudo npm install --unsafe-perm -g node-sass
 ```
 参考
-https://github.com/sass/node-sass/blob/master/TROUBLESHOOTING.md# pagect
+https://github.com/sass/node-sass/blob/master/TROUBLESHOOTING.md
