@@ -1,0 +1,115 @@
+.getBackAccount {
+    .userInfo,.resetPassword {
+        padding-top: 30px;
+        .sliderPart {
+            width: 680px;
+            height: 60px;
+            line-height: 60px;
+            font-size: 18px;
+            color: #999999;
+            border: 1px solid hsl(0, 0%, 0%);
+            text-align: center;
+        }
+        :global {
+            .ant-form-item {
+                display: flex;
+                align-items: center;
+            }
+            .ant-form-item-label {
+                width: 150px;
+                text-align: center;
+                border: 1px solid #000000;
+                border-right: 1px dashed #000000;
+                label {
+                    font-size: 18px;
+                    height: 60px;
+                    line-height: 60px;
+                    &:after, &:before {
+                        display: none;
+                    }
+                }
+            }
+            .ant-input {
+                width: 530px;
+                height: 62px;
+                line-height: 62px;
+                border: 1px solid #000000;
+                border-left-color: transparent;
+                border-radius: 0;
+                font-size: 18px;
+            }
+            .ant-input:focus {
+                box-shadow: none;
+            }
+            .ant-checkbox-checked .ant-checkbox-inner {
+                background: #e62129;
+                border-color: #e62129;
+            }
+            .ant-checkbox-wrapper:hover .ant-checkbox-inner, .ant-checkbox:hover .ant-checkbox-inner, .ant-checkbox-input:focus + .ant-checkbox-inner {
+                border-color: #e62129;
+            }
+            .ant-btn {
+                width: 680px;
+                height: 50px;
+                line-height: 50px;
+                background: #e62129;
+                border-color: #e62129;
+                font-size: 18px;
+            }
+        }
+    }
+    .content {
+        min-height: 830px;
+        .title {
+            font-size: 28px;
+            font-weight: 500;
+            color:  #e62129;
+            padding: 0 50px;
+            div {
+                padding: 30px 0 15px 0;
+                border-bottom: 2px solid #f9f9f9;
+            }
+        }
+        .stepsContent {
+            width: 80%;
+            margin: 0 auto;
+            padding: 30px 420px 0 420px;
+            .stepContainer {
+                width: 600px;
+                margin: 0 auto;
+                margin-bottom: 20px;
+                display: flex;
+                justify-content: space-between;
+                :global {
+                    .ant-steps-item-icon {
+                        display: block;
+                        margin-left: 15px;
+                    }
+                    .ant-steps-item-process .ant-steps-item-icon {
+                        background-color:  #e62129;
+                        border-color:  #e62129;
+                    }
+                }
+            }
+        }
+    }
+    .resetComplied{
+        text-align: center;
+        color: #e62129;
+        font-weight: 400;
+        font-size: 52px;
+        .firstRow {
+            font-weight: 700;
+            margin-bottom: 30px;
+        }
+        .secondRow {
+            letter-spacing:4px;
+            margin-bottom: 35px;
+        }
+        .goHome {
+            cursor: pointer;
+            color: #839acd;
+            font-size: 20px;
+        }
+    }
+}

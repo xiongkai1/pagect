@@ -1,0 +1,52 @@
+.applyForOpen {
+    padding: 50px 70px;
+    .partTitle {
+        color: #000000;
+        font-size: 18px;
+        font-weight: 700;
+        margin-bottom: 30px;
+    }
+    .agentInfo {
+        display: flex;
+        align-items: center;
+        font-size: 18px;
+        margin-bottom: 20px;
+    }
+    .labelName {
+        width: 90px;
+        text-align: right;
+        margin-right: 30px;
+    }
+    .agentName {
+        width: 300px;
+        color: #dcdddd;
+    }
+    .btnsPart {
+        display: flex;
+        >div {
+            min-width: 120px;
+            height: 45px;
+            line-height: 45px;
+            border-radius: 5px;
+            text-align: center;
+            color: #ffffff;
+            margin-right: 20px;
+            cursor: pointer;
+            padding: 0 15px;
+            &:hover {
+                color: #e62129;
+                border: 1px solid #e62129;
+                background: #ffffff;
+            }
+        }
+        .opened {
+            background: #e62129;
+        }
+        .notOpened {
+            background: #dcdddd;
+        }
+        .promote {
+            background: #cab013;
+        }
+    }
+}

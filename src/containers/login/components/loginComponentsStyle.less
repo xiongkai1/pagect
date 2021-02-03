@@ -1,0 +1,142 @@
+.scanLogin {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    .qrCodeBox {
+        width: 230px;
+        height: 230px;
+        border: 1px solid #ffffff;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        .qrCode {
+            width: 210px;
+            height: 210px;
+            background: url('../../../images/codeimage.png') center center no-repeat;
+        }
+    }
+    .tips {
+        font-size: 18px;
+        color: #ffffff;
+        margin-top: 20px;
+    }
+}
+.accountLogin {
+    :global {
+        .ant-form-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 40px;
+        }
+        .ant-form-item-label {
+            width: 150px;
+            text-align: center;
+            border: 1px solid #ffffff;
+            border-right: 1px dashed #ffffff;
+            label {
+                font-size: 20px;
+                height: 52px;
+                line-height: 52px;
+                color: #ffffff;
+                &:after, &:before {
+                    display: none;
+                }
+            }
+        }
+        .ant-form-explain,.ant-form-split {
+            position: absolute;
+            bottom: -25px;
+        }
+        ::-webkit-input-placeholder {
+            color: #ffffff;
+            font-size: 20px;
+        }
+        .ant-input {
+            width: 395px;
+            height: 54px;
+            line-height: 54px;
+            background: transparent;
+            border: 1px solid #ffffff;
+            border-left-color: transparent;
+            border-radius: 0;
+            font-size: 18px;
+        }
+        .ant-input:focus {
+            box-shadow: none;
+        }
+        .ant-checkbox-checked .ant-checkbox-inner {
+            background: #e62129;
+            border-color: #e62129;
+        }
+        .ant-checkbox-wrapper:hover .ant-checkbox-inner, .ant-checkbox:hover .ant-checkbox-inner, .ant-checkbox-input:focus + .ant-checkbox-inner {
+            border-color: #e62129;
+        }
+        .ant-btn {
+            width: 488px;
+            height: 50px;
+            line-height: 50px;
+            font-size: 20px;
+            background: #e62129;
+            border-color: #e62129;
+        }
+    }
+    .tips {
+        font-size: 16px;
+        color: #ffffff;
+        a {
+            color: #e62129;
+        }
+    }
+    .passwordOptions {
+        width: 488px;
+        font-size: 16px;
+        display: flex;
+        justify-content: space-between;
+        margin-top: -10px;
+        color: #ffffff;
+        .remenberPassword {
+            >label {
+                margin-right: 10px;
+            }
+        }
+    }
+}
+.otherLogin {
+    color: #ffffff;
+    .loginWayBox {
+        width: 488px;
+        height: 50px;
+        line-height: 50px;
+        border: 1px solid #ffffff;
+        margin-bottom: 20px;
+        display: flex;
+        align-items: center;
+        .left {
+            width: 93px;
+            height: 50px;
+            line-height: 50px;
+            border-right: 1px dashed #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            img {
+                width: 30px;
+                height: 30px;
+            }
+        }
+        .right {
+            width: 395px;
+            height: 50px;
+            line-height: 50px;
+            font-size: 20px;
+            text-align: center;
+            cursor: pointer;
+        }
+    }
+    .tips {
+        font-size: 16px;
+        a {
+            color: #e62129;
+        }
+    }
+}

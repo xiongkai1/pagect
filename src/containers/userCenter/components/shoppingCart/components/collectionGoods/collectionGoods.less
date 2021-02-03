@@ -1,0 +1,150 @@
+.collectionGoods {
+    padding: 0 20px;
+    font-size: 16px;
+    .goodsInfoHeader {
+        display: flex;
+        align-items: center;
+        margin-bottom: 20px;
+        .searchBtn {
+            width: 90px;
+            height: 32px;
+            line-height: 32px;
+            text-align: center;
+            border-radius: 3px;
+            color: #ffffff;
+            background: #e62129;
+            cursor: pointer;
+        }
+    }
+    .goodsInfoContent {
+        position: relative;
+        .contentHeader, .statisticalPart {
+            display: flex;
+            align-items: center;
+            height: 40px;
+            line-height: 40px;
+            color: #000000;
+            background: #eaeaea;
+            padding: 0 55px;
+            >div {
+                width: 15%;
+                text-align: center;
+                &:nth-child(1) {
+                    width: 25%;
+                }
+            }
+        }
+        .contentRows {
+            height: 750px;
+            overflow: auto;
+            .row {
+                padding: 10px;
+                border-bottom: 1px solid #c2c1c1;
+                .shop {
+                    margin:  0 0 20px 35px;
+                }
+                .rowContent {
+                    display: flex;
+                    align-items: center;
+                    border: 1px solid #c2c1c1;
+                    padding: 25px 35px;
+                    >div {
+                        display: flex;
+                        align-items: center;
+                        width: 15%;
+                        text-align: center;
+                        &:nth-child(1) {
+                            width: 25%;
+                        }
+                    }
+                    .info {
+                        display: flex;
+                        align-items: center;
+                        img {
+                            width: 80px;
+                            height: 80px;
+                            margin-right: 20px;
+                        }
+                    }
+                    .option,.count,.price,.rowTotalPrice {
+                        justify-content: center;
+                    }
+                    .operations {
+                        flex-direction: column;
+                        >div {
+                            margin-bottom: 5px;
+                            cursor: pointer;
+                        }
+                    }
+                }
+                .addTime {
+                    margin: 20px 0 0 60px;
+                }
+            }
+        }
+        .statisticalPart {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+            margin-top: 20px;
+            .left, .right {
+                display: flex;
+                align-items: center;
+            }
+            .left {
+                .delSelect,.clearGoods {
+                    margin-left: 30px;
+                }
+            }
+            .right {
+                width: 30%;
+                .selectedCount {
+                    margin-right: 60px;
+                    >span {
+                        margin: 0 10px;
+                        font-size: 18px;
+                        font-weight: 700;
+                        color: #e62129;
+                    }
+                }
+                .totalPrice {
+                    margin-right: 50px;
+                    >span {
+                        margin: 0 10px;
+                        font-size: 18px;
+                        font-weight: 700;
+                        color: #e62129;
+                    }
+                }
+                .settlementBtn {
+                    width: 90px;
+                    background: #e62129;
+                    color: #ffffff;
+                    cursor: pointer;
+                }
+            }
+        }
+        .paginationPart {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 20px;
+        }
+    }
+    :global {
+        .ant-select-selection--single {
+            width: 120px;
+            margin-right: 20px;
+        }
+        .ant-input {
+            width: 280px;
+            margin-right: 20px;
+        }
+        .ant-select-dropdown {
+            width: 120px!important;
+        }
+        .ant-checkbox-wrapper {
+            margin-right: 15px;
+        }
+    }
+}

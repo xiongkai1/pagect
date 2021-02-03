@@ -1,0 +1,138 @@
+{
+  "name": "xinan-mall-pc",
+  "version": "0.1.0",
+  "parcel": {
+    "publicPath": "/",
+    "format": "zip"
+  },
+  "description": "This scaffolding use for development web application by React.",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "homepage": "",
+  "bugs": {
+    "url": ""
+  },
+  "scripts": {
+    "build:dev": "webpack --config webpack.config.dev.babel.js --colors --display-error-details",
+    "build:prod": "webpack --config webpack.config.prod.babel.js --colors --display-error-details",
+    "start": "webpack-dev-server --config webpack.config.dev.babel.js --colors",
+    "mock": "mock-server ./mock/data --static ./mock/static --config ./mock/mock.config.js --watch",
+    "start:mock": "concurrently \"cross-env npm start\" \"npm run mock\"",
+    "lint:js": "eslint -c .eslintrc.prod.js src/ --ext .js,.jsx --fix",
+    "lint:css": "stylelint \"src/**/*.{css,less,scss}\" --cache --fix",
+    "test": "jest",
+    "package": "cross-env NODE_ENV=package npm run build:prod",
+    "deploy": "npm run package && gulp deploy",
+    "git:push": "gulp git-push"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "src/**/*.{js,jsx}": [
+      "eslint -c .eslintrc.prod.js --fix",
+      "git add"
+    ],
+    "src/**/*.{css,less,scss}": [
+      "stylelint --cache --fix",
+      "git add"
+    ]
+  },
+  "dependencies": {
+    "@ant-design/icons": "^4.3.0",
+    "@babel/polyfill": "^7.11.5",
+    "@babel/runtime": "^7.0.0",
+    "@easytool/http": "^0.1.4",
+    "ahooks": "^2.9.3",
+    "antd": "^3.26.18",
+    "classnames": "2.2.6",
+    "copy-to-clipboard": "^3.3.1",
+    "echarts": "^4.9.0",
+    "echarts-for-react": "2.0.16",
+    "element-react": "^1.4.34",
+    "element-theme-default": "^1.4.13",
+    "js-cookie": "^2.2.0",
+    "js-md5": "^0.7.3",
+    "prop-types": "^15.7.2",
+    "react": "^16.8.0",
+    "react-dom": "^16.8.0",
+    "react-hot-loader": "^4.5.3",
+    "react-router-dom": "^5.2.0",
+    "swiper": "^6.3.5"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.0.1",
+    "@babel/plugin-proposal-class-properties": "^7.1.0",
+    "@babel/plugin-proposal-export-default-from": "^7.0.0",
+    "@babel/plugin-proposal-export-namespace-from": "^7.2.0",
+    "@babel/plugin-proposal-optional-chaining": "^7.0.0",
+    "@babel/plugin-proposal-pipeline-operator": "^7.3.2",
+    "@babel/plugin-syntax-dynamic-import": "^7.2.0",
+    "@babel/plugin-transform-runtime": "^7.0.0",
+    "@babel/preset-env": "^7.0.0",
+    "@babel/preset-react": "^7.0.0",
+    "@babel/register": "^7.0.0",
+    "@easytool/define-config": "^0.1.0",
+    "@easytool/mock-server": "^0.2.2",
+    "@easytool/proxy-config": "^0.1.0",
+    "autoprefixer": "^9.1.5",
+    "babel-core": "^7.0.0-bridge.0",
+    "babel-eslint": "^10.0.1",
+    "babel-jest": "^24.1.0",
+    "babel-loader": "^8.0.2",
+    "babel-plugin-import": "^1.13.0",
+    "case-sensitive-paths-webpack-plugin": "^2.1.2",
+    "clean-webpack-plugin": "^3.0.0",
+    "concurrently": "^4.0.1",
+    "copy-webpack-plugin": "^6.1.1",
+    "cross-env": "^5.2.0",
+    "css-loader": "^1.0.0",
+    "enzyme": "^3.9.0",
+    "enzyme-adapter-react-16": "^1.10.0",
+    "eslint": "^5.6.0",
+    "eslint-loader": "^2.1.0",
+    "eslint-plugin-react": "^7.12.3",
+    "file-loader": "^2.0.0",
+    "filemanager-webpack-plugin": "^2.0.5",
+    "html-webpack-plugin": "^4.3.0",
+    "husky": "^1.2.0",
+    "identity-obj-proxy": "^3.0.0",
+    "jest": "^24.1.0",
+    "less": "^3.12.2",
+    "less-loader": "^7.0.1",
+    "lint-staged": "^9.3.0",
+    "mini-css-extract-plugin": "^0.4.2",
+    "moment-locales-webpack-plugin": "^1.2.0",
+    "optimize-css-assets-webpack-plugin": "^5.0.3",
+    "postcss-loader": "^3.0.0",
+    "postcss-nested": "^4.1.0",
+    "postcss-simple-vars": "^5.0.2",
+    "style-loader": "^0.23.0",
+    "stylelint": "^10.1.0",
+    "stylelint-webpack-plugin": "^0.10.5",
+    "terser-webpack-plugin": "^2.3.6",
+    "url-loader": "^1.1.1",
+    "webpack": "^4.19.0",
+    "webpack-bundle-analyzer": "^3.3.2",
+    "webpack-cli": "^3.1.0",
+    "webpack-dev-server": "^3.1.8",
+    "webpack-merge": "^4.1.4"
+  },
+  "devEnvironments": {
+    "servers": {
+      "local": 8089,
+      "mock": 3000
+    },
+    "proxies": {
+      "(/proxy)": "http://8.134.8.97:8084"
+    },
+    "globals": {
+      "__DEV__": true
+    }
+  }
+}

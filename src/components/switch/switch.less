@@ -1,0 +1,41 @@
+.switchBox {
+    display: flex;
+    font-size: 16px;
+    letter-spacing: 1px;
+    align-items: center;
+    color: #868483;
+    .text {
+        margin: 20px;
+    }
+    .selectedText {
+        color: #E62129;
+        font-weight: 550;
+    }
+    .selectedAll {
+        color: #E62129;
+    }
+    .slideBox {
+        width: 80px;
+        height: 20px;
+        border-radius: 10px;
+        border: 1px solid #E62129;
+        box-sizing: border-box;
+        margin: 0 5px;
+        display: flex;
+        align-items: center;
+        position: relative;
+        .slide {
+            width: 50%;
+            height: 14px;
+            background-color: #E62129;
+            border-radius: 8px;
+            position: absolute;
+        }
+        .greySlide {
+            background-color: #868483;
+        }
+    }
+    .greySlideBox {
+        border: 1px solid #868483;
+    }
+}

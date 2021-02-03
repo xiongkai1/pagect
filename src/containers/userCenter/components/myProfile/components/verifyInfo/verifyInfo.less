@@ -1,0 +1,61 @@
+.verifyInfo {
+    .infoPart {
+        width: 60%;
+        font-size: 18px;
+        .title {
+            color: #000000;
+            font-size: 20px;
+            font-weight: 700;
+            margin: 40px 0 40px 100px;
+            img {
+                width: 18px;
+                height: 18px;
+                margin-left: 5px;
+            }
+        }
+        .contentPart {
+            padding-left: 100px;
+            font-size: 18px;
+            .row {
+                display: flex;
+                align-items: center;
+                color: #000000;
+                font-weight: 500;
+                .tabItem {
+                    margin-right: 20px;
+                    cursor: pointer;
+                }
+                .activeItem {
+                    border: 2px solid #e62129;
+                    font-weight: 700;
+                    color: #e62129;
+                    padding: 5px 15px;
+                    border-radius: 5px;
+                }
+            }
+            .tabContent {
+                font-size: 18px;
+                color: #000000;
+                margin-top: 40px;
+                .personalWithInfo, .companyWithInfo {
+                    display: flex;
+                    align-items: center;
+                    >div {
+                        margin-right: 40px;
+                    }
+                    .vSuccess { 
+                        color: #93a7d4;
+                    }
+                }
+            }
+            .addInfo {
+                margin-top: 20px;
+                cursor: pointer;
+                color: #adbcde;
+                .redColor {
+                    color: #e62129;
+                }
+            }
+        }
+    }
+}

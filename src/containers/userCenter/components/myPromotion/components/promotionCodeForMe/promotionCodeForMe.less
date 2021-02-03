@@ -1,0 +1,131 @@
+.promotionCodeForMe {
+    position: relative;
+    .changeLayoutIcon {
+        position: absolute;
+        top: -55px;
+        right: 50px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        >span {
+            font-size: 18px;
+            margin-left: 5px;
+        }
+    }
+    .iconContainer {
+        width: 32px;
+        height: 32px;
+    }
+    .listIcon {
+        background: url('../../../../../../images/showlist.png') center center no-repeat;
+    }
+    .notListIcon {
+        background: url('../../../../../../images/notList.png') center center no-repeat;
+    }
+    .listContainer {
+        .row {
+            display: flex;
+            align-items: center;
+            padding: 30px 50px ;
+            border-bottom: 1px solid#e6e6e6;
+            cursor: pointer;
+            .date {
+                width: 100px;
+            }
+            .content {
+                width: 1300px;
+            }
+            .share, .download {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                border: 1px solid #a1a1a1;
+                border-radius: 3px;
+                padding: 5px;
+                >div {
+                    width: 32px;
+                    height: 32px;
+                    background: url('../../../../../../images/share_icon.png') center center no-repeat;
+                }
+                &:hover{
+                    border: 1px solid #e62129;
+                    >div {
+                        background: url('../../../../../../images/share_icon_active.png') center center no-repeat;
+                    }
+                }
+            }
+            .download {
+                margin-right: 20px;
+                >div {
+                    background: url('../../../../../../images/clouddownload_icon.png') center center no-repeat;
+                }
+                &:hover{
+                    border: 1px solid #e62129;
+                    >div {
+                        background: url('../../../../../../images/clouddownload_icon_active.png') center center no-repeat;
+                    }
+                }
+            }
+        }
+    }
+    .dataContainer {
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        .item {
+            width: 250px;
+            height: 400px;
+            margin: 25px 15px 0;
+            background: #c0c0c0;
+            padding: 15px;
+            font-size: 18px;
+            .date {
+                margin-bottom: 110px;
+            }
+            .content {
+                width: 100%;
+                text-align: center;
+                font-size: 20px;
+                margin-bottom: 110px;
+            }
+            .btnsPart {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                .share, .download {
+                    width: 42px;
+                    height: 42px;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    border: 1px solid #e62129;
+                    border-radius: 3px;
+                    padding: 5px;
+                    cursor: pointer;
+                    >div {
+                        width: 32px;
+                        height: 32px;
+                        background: url('../../../../../../images/share_icon_active.png') center center no-repeat;
+                    }
+                }
+                .download {
+                    margin-right: 20px;
+                    >div {
+                        background: url('../../../../../../images/clouddownload_icon_active.png') center center no-repeat;
+                    }
+                }
+            }
+        }
+    }
+        
+    .paginationPart {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        padding: 20px;
+        font-size: 18px;
+        >span {
+            margin-right: 20px;
+        }
+    }
+}

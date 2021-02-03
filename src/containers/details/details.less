@@ -1,0 +1,378 @@
+.detailsBox {
+    width: 100%;
+    min-height: 832px;
+    :global {
+        .ant-tabs-nav {
+            margin-left: 8px;
+        }
+        .ant-tabs-nav .ant-tabs-tab {
+            font-size: 20px;
+            text-align: center;
+            color: #B7B7B7;
+        }
+        .ant-tabs-nav .ant-tabs-tab-active,
+        .ant-tabs-nav .ant-tabs-tab:hover {
+            color: #333333;
+        }
+        .ant-tabs-ink-bar{
+            background-color: #e62129;
+        }
+        .ant-radio-checked .ant-radio-inner {
+            border-color: #333333;
+        }
+        .ant-radio-wrapper:hover .ant-radio, .ant-radio:hover .ant-radio-inner, .ant-radio-input:focus + .ant-radio-inner {
+            color: #333333;
+            border-color:#333333;
+        }
+        .ant-radio-inner::after {
+            background-color: #333333;
+        }
+        .ant-radio-checked::after {
+            border-color: #333333;
+        }
+        .ant-btn-group {
+            width: 100%;
+            height: 50px;
+        }
+        .ant-btn {
+            width: 50%;
+            height: 100%;
+            font-size: 20px;
+        }
+        .ant-btn-danger:active, .ant-btn-danger.active {
+            color: #fff;
+            background-color:#E62129;
+            border-color:#E62129
+        }
+        .ant-btn-background-ghost.ant-btn-danger {
+            color: #E62129;
+            background-color: transparent;
+            border-color: #E62129;
+            text-shadow: none;
+        }
+    }
+    .goStore {
+        color: #7F9ACB;
+    }
+    .containerBox {
+        width: 92%;
+        margin: 10px auto;
+        display: flex;
+        flex-direction: column;
+        .typeContainerBox {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            .containerTopBox {
+                width: 100%;
+                display: flex;
+                justify-content: space-between;
+                border-bottom: 2px solid #F9F9F9;
+                .showGoodsBox {
+                    width: 75%;
+                    display: flex;
+                    flex-direction: column;
+                    .footsGoodsBox {
+                        width: 100%;
+                        height: 100%;
+                        display: flex;
+                        justify-content: space-between;
+                        background-color: #EEEEEF;
+                        .leftGoodsBox {
+                            width: 75%;
+                            height: 100%;
+                            border-right: 1px solid #E8E8E9;
+                            display: flex;
+                            flex-direction: column;
+                            align-items: start;
+                            padding: 30px;
+                            position: relative;
+                            .logoBox {
+                                display: flex;
+                                color: #E6252D;
+                                font-size: 20px;
+                                img {
+                                    width: 30px;
+                                    height: 30px;
+                                    border: 1px solid #E6252D;
+                                    margin-right: 5px;
+                                }
+                            }
+                            .contentBox {
+                                width: 100%;
+                                font-size: 62px;
+                                color: #332D2C;
+                                margin-top: 20px;
+                                letter-spacing: 2px;
+                            }
+                            .goodsStyleBox {
+                                width: 100%;
+                                display: flex;
+                                margin-top: 35px;
+                                span {
+                                    color: #B7B7B7;
+                                    border: 2px solid #CDCDCE;
+                                    margin-right: 15px;
+                                    border-radius: 5px;
+                                    font-size: 22px;
+                                    padding: 2px 8px;
+                                }
+                            }
+                            .changeBox {
+                                width: 100%;
+                                display: flex;
+                                position: absolute;
+                                bottom: 20px;
+                                input {
+                                    width: 70%;
+                                    border-style: none;
+                                    background-color: #EEEEEF;
+                                    border: 1px solid #CDCDCE;
+                                    font-size: 20px;
+                                    border-radius: 5px;
+                                    height: 40px;
+                                }
+                                input::-webkit-input-placeholder{
+                                    color: #B7B7B7;
+                                    font-size: 20px;
+                                }
+                                button {
+                                    border-style: none;
+                                    width: 100px;
+                                    background-color: #B6B6B7;
+                                    border-radius: 5px;
+                                    color: #FFFFFF;
+                                    font-size: 22px;
+                                    margin-left: 20px;
+                                    line-height: 40px;
+                                }
+                            }
+                        }
+                        .rightGoodsBox {
+                            width: calc(100% - 75% - 15px);
+                            border-left: 1px solid #E8E8E9;
+                            display: flex;
+                            flex-direction: column;
+                            justify-content: space-between;
+                            align-items: center;
+                            padding: 20px;
+                            .topContentBox {
+                                writing-mode: tb-rl;
+                                font-size: 30px;
+                                letter-spacing: 2px;
+                                .logoBox {
+                                    color: red;
+                                    margin-left: 15px;
+                                }
+                                .contentBox {
+                                    color: #332D2C;
+                                }
+                            }
+                            .controlBox {
+                                width: 90%;
+                                margin: 20px auto;
+                                margin-bottom: 10px;
+                                display: flex;
+                                color: #B9B9BA;
+                                align-items: center;
+                                font-size: 24px;
+                                .controlLine {
+                                    width: 75%;
+                                    border-top: 2px solid #BCBCBD;
+                                    margin: 0 10px;
+                                    display: flex;
+                                    justify-content: center;
+                                    position: relative;
+                                    .redLine {
+                                        width: 10px;
+                                        border-top: 4px solid #E62129;
+                                        position: absolute;
+                                        top: -3px;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    .goodsKeywordBox {
+                        width: 100%;
+                        margin: 15px 0;
+                        background-color: #EEEEEF;
+                        display: flex;
+                        padding: 20px 0;
+                        .keywordTitle {
+                            width: 80px;
+                            margin-left: 10px;
+                            font-size: 18px;
+                            font-weight: 600px;
+                            color: #8D8D8C;
+                        }
+                        .keywordBox {
+                            width: 95%;
+                            display: flex;
+                            flex-wrap: wrap;
+                            .workItemBox {
+                                padding: 0px 5px;
+                                border: 1px solid #E0E0E1;
+                                border-radius: 3px;
+                                color: #B9B9BA;
+                                font-size: 14px;
+                                margin: 3px 10px 10px 0;
+                            }
+                        }
+                    }
+                }
+                .showStoreBox {
+                    width: calc(100% - 75% - 20px);
+                    background-color: #EEEEEF;
+                    margin-left: 20px;
+                    display: flex;
+                    flex-direction: column;
+                    position: relative;
+                    .storeInfoBox {
+                        margin: 20px;
+                        display: flex;
+                        .storeAvatar {
+                            width: 60px;
+                            height: 60px;
+                            border-radius: 50%;
+                            overflow: hidden;
+                        }
+                        .storeInfo {
+                            display: flex;
+                            flex-direction: column;
+                            .follow {
+                                width: 50px;
+                                background-color: #E62129;
+                                color: #FFFFFF;
+                                font-size: 14px;
+                                border-radius: 3px;
+                                padding: 0 3px;
+                                letter-spacing: 1px;
+                            }
+                            .storeName {
+                                font-size: 18px;
+                                margin: 5px 0;
+                                color: #333333;
+                            }
+                        }
+                    }
+                    .otherInfo {
+                        font-size: 13px;
+                        color: #BFBFC0;
+                        margin-bottom: 4px;
+                        .locationIcon {
+                            width: 8px;
+                            height: 13px;
+                            margin-right: 5px;
+                        }
+                    }
+                    .honorBox {
+                        padding: 0 12px;
+                        display: flex;
+                        align-items: center;
+                        color: #333333;
+                        font-size: 13px;
+                        .honorIconBox {
+                            display: flex;
+                            justify-content: space-between;
+                            img {
+                                width: 26px;
+                                height: 26px;
+                                margin-left: 10px;
+                            }
+                        }
+                    }
+                    .wantOpenStore {
+                        border-style: none;
+                        width: 94%;
+                        margin: 15px auto;
+                        height: 40px;
+                        background-color: #E62129;
+                        color: #FFFFFF;
+                        font-size: 18px;
+                        letter-spacing: 2px;
+                        border-radius: 5px;
+                    }
+                    .storeGoodsBox {
+                        border-top: 1px solid #E0E0E1;
+                        display: flex;
+                        flex-direction: column;
+                        .goodsInfoBox {
+                            width: 90%;
+                            margin: 10px auto;
+                            display: flex;
+                            flex-direction: column;
+                            .operationBox {
+                                display: flex;
+                                margin: 8px auto;
+                                justify-content: space-between;
+                                img {
+                                    width: 34px;
+                                    height: 34px;
+                                    margin-right: 12px;
+                                }
+                            }
+                        }
+                        .informationBox {
+                            width: 100%;
+                            margin: 0 auto;
+                            .tabBox {
+                                width: 85%;
+                                margin: 0 auto;
+                                display: flex;
+                                flex-direction: column;
+                                color: #BFBFC0;
+                                font-size: 14px;
+                                line-height: 28px;
+                                .copy {
+                                    padding: 0 8px;
+                                    font-size: 14px;
+                                    border: 1px solid #BFBFC0;
+                                    border-radius: 5px;
+                                    margin-left: 20px;
+                                }
+                                .copy:hover {
+                                    cursor: pointer
+                                }
+                                img {
+                                    object-fit: cover;
+                                    margin-top: 5px;
+                                }
+                            }
+                        }
+                        .downloadBox {
+                            width: 86%;
+                            margin: 0 7%;
+                            position: absolute;
+                            bottom: 36px;
+                            .radioBox {
+                                display: flex;
+                                align-items: center;
+                                color: #333333;
+                                font-size: 14px;
+                                .specs {
+                                    border: 1px solid #333333;
+                                    border-radius: 3px;
+                                    line-height: normal;
+                                }
+                                .specsContent {
+                                    margin-left: 20px;
+                                }
+                            }
+                            .buttonGroupBox {
+                                margin-top: 8px;
+                            }
+                        }
+                        .explain {
+                            width: 100%;
+                            position: absolute;
+                            bottom: 8px;
+                            text-align: center;
+                            color: #BFBFC0;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

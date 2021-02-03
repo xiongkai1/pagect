@@ -1,0 +1,499 @@
+.homePage {
+    width: 100%;
+    margin: 0 auto;
+    padding-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    .topBox {
+        width: 100%;
+        height: 450px;
+        position: relative;
+        .carousel {
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            .carouselDiv {
+                width: 100%;
+                height: 450px;
+            }
+        }
+        .topSelectBox {
+            width: 500px;
+            display: flex;
+            background: #ffffff;
+            border-radius: 4px;
+            position: absolute;
+            top: 200px;
+            left: calc((100% - 500px) / 2);
+            :global {
+                .ant-select-selection--single {
+                    border: 0;
+                    // background: transparent;
+                }
+                .ant-input {
+                    border: 0;
+                    // background: transparent;
+                }
+            }
+        }
+    }
+    .modularBox {
+        width: 94%;
+        margin: 20px auto;
+        display: flex;
+        flex-direction: column;
+        border-bottom: 2px solid #f4f4f4;
+        .modularTitle {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 20px 0;
+            .line{
+                display: inline-block;
+                width: 100px;
+                border-top: 1px solid #DBD8DA;
+                vertical-align: 5px;  
+            }
+            .titleBox {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                margin: 0 15px;
+                .titleChinese {
+                    font-size: 30px;
+                    color: #E62129;
+                    font-weight: 550;
+                    letter-spacing: 4px;
+                }
+                .titleEnglish {
+                    color: #868483;
+                    font-size: 16px;
+                    margin-top: 5px;
+                    letter-spacing: 1px;
+                }
+            }
+        }
+        .galleryIntroduce {
+            width: 100%;
+            height: 150px;
+            margin: 20px 0;
+            background: url('../images/topBack.png') center center no-repeat;
+            background-size: 100% 100%;
+            border-radius: 5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            .distribution {
+                display: flex;
+                flex-direction: column;
+                margin-left: 20px;
+                font-size: 14px;
+                color: white;
+                span {
+                    margin: 5px 0;
+                }
+                .all {
+                    font-size: 22px;
+                    font-weight: 600px;
+                }
+                .redFont {
+                    color: #E62129;
+                }
+            }
+            .openStore {
+                width: 200px;
+                height: 50px;
+                background-color: white;
+                border-radius: 5px;
+                color: #E62129;
+                font-size: 18px;
+                text-align: center;
+                line-height: 50px;
+                margin-right: 200px;
+            }
+        }
+        .swiperBox {
+            width: 90%;
+            margin: 0 auto;
+            justify-self: center;
+            margin-bottom: 20px;
+            .swiperContainer {
+                width: 100%;
+                height: 100%;
+                border: 1px solid gray;
+            }
+            .swiperSlide {
+                width: 120px !important;
+                text-align: center;
+                font-size: 18px;
+                background: #fff;
+                /* Center slide text vertically */
+                display: flex;
+                -webkit-box-pack: center;
+                -ms-flex-pack: center;
+                -webkit-justify-content: center;
+                justify-content: center;
+                -webkit-box-align: center;
+                -ms-flex-align: center;
+                -webkit-align-items: center;
+                align-items: center;
+            }
+        }
+        .moudularContent {
+            width: 100%;
+            .gutterBox {
+                padding: 5px 0;
+                .itemGutter {
+                    padding: 5px 0;
+                }
+                .selfSupportBox {
+                    background-color: #E62129;
+                    color: white;
+                    font-size: 26px;
+                    text-align: center;
+                    line-height: 135px;
+                    height: 135px;
+                    letter-spacing: 10px;
+                }
+                .fontSearch {
+                    height: 55px;
+                    display: flex;
+                    align-items: center;
+                }
+                .otherBox {
+                    height: 55px;
+                    display: flex;
+                    align-items: center;
+                    margin: 0 20px;
+                    .shopBox {
+                        background-color: #E62129;
+                        color: white;
+                        font-size: 13px;
+                        letter-spacing: 1px;
+                        padding: 8px 5px 8px 13px;
+                        border-radius: 5px;
+                    }
+                    .moreFont {
+                        font-size: 14px;
+                        color: #89A2CE;
+                        margin: 0 25px;
+                    }
+                }
+                .fontItemBox {
+                    height: 65px;
+                    border: 1px solid #EEEEEE;
+                    .showBox {
+                        width: 100%;
+                        height: 100%;
+                        display: flex;
+                        align-items: center;
+                        .fontGoodsImg {
+                            width: 65px;
+                            height: 100%;
+                        }
+                        .fontGoodsName {
+                            width: calc(100% - 65px);
+                            text-align: center;
+                            line-height: 65px;
+                            font-size: 20px;
+                            color: #333333;
+                        }
+                    }
+                }
+                .hideBox {
+                    display: none;
+                    width: 100%;
+                    height: 100%;
+                    background-color: #FFFFFF;
+                    box-shadow: 2px 2px 5px #cac9c9;
+                    .operationBox {
+                        width: 100%;
+                        height: 100%;
+                        display: flex;
+                        justify-content: space-around;
+                        align-items: center;
+                        img {
+                            width: 40px;
+                            height: 40px;
+                            border-radius: 3px;
+                            overflow: hidden;
+                        }
+                    }
+                }
+                .fontItemBox:hover .showBox{
+                    display: none;
+                }
+                .fontItemBox:hover .hideBox{
+                    display: block;
+                }
+                .videoBox {
+                    height: 200px;
+                    border-radius: 6px;
+                    overflow: hidden;
+                }
+                .videoBox:hover .hideCommonBox {
+                    display: block;
+                }
+                .musicItemBox {
+                    height: 60px;
+                    border: 1px solid #EEEEEE;
+                    color: #333333;
+                    border-top-left-radius: 30px;
+                    border-bottom-left-radius: 30px;
+                    display: flex;
+                    .avatar {
+                        width: 60px;
+                        height: 100%;
+                        border-radius: 50%;
+                        overflow: hidden;
+                        background-color: red;
+                        margin-right: 15px;
+                    }
+                    .showBox {
+                        width: calc(100% - 75px);
+                        height: 100%;
+                        display: flex;
+                        align-items: center;
+                        .musicinfoBox {
+                            height: 45px;
+                            display: flex;
+                            flex-direction: column;
+                            justify-content: space-between;
+                        }
+                        .musicAuthor {
+                            height: 45px;
+                            margin-left: 5px;
+                            display: flex;
+                            flex-direction: column;
+                            justify-content: flex-end;
+                        }
+                    }
+                    .hideBox {
+                        width: calc(100% - 75px);
+                    }
+                }
+                .musicItemBox:hover .showBox {
+                    display: none;
+                }
+                .musicItemBox:hover .hideBox {
+                    display: block;
+                }
+            }
+            .classification {
+                width: 100%;
+                display: flex;
+                justify-content: center;
+                margin-top: 10px;
+                margin-bottom: 30px;
+                .typeItem {
+                    font-size: 18px;
+                    color: #868483;
+                    margin: 0 10px;
+                }
+                .activeItem {
+                    color: #E62129;
+                }
+            }
+            .discoverBox {
+                width: 100%;
+                display: flex;
+                flex-direction: column;
+                justify-content: start;
+                .discoverItemBox {
+                    width: 100%;
+                    display: flex;
+                    flex-direction: column;
+                    border-top: 1px solid #F8F8F8;
+                    .discoverStore {
+                        width: 100%;
+                        display: flex;
+                        margin: 10px 0;
+                        .storeInfo {
+                            display: flex;
+                            flex-direction: column;
+                            font-size: 14px;
+                            letter-spacing: 2px;
+                            margin-left: 10px;
+                            .follow {
+                                width: 45px;
+                                background-color: #E62129;
+                                color: white;
+                                margin-bottom: 5px;
+                                border-radius: 3px;
+                            }
+                        }
+                    }
+                }
+                .storeContent {
+                    width: 100%;
+                    display: flex;
+                    .contentIten {
+                        width: 300px;
+                        height: 150px;
+                        margin-right: 5px;
+                        background-color: yellowgreen;
+                    }
+                }
+            }
+        }
+        .imgCart {
+            background-image: url('../../../images/shoppingCart.png');
+            background-size: 100% 100%;
+        }
+        .imgCart:hover {
+            background-image: url('../../../images/shoppingCartActive.png');
+            background-size: 100% 100%;
+        }
+        .imgDetails {
+            background-image: url('../../../images/details.png');
+            background-size: 100% 100%;
+        }
+        .imgDetails:hover {
+            background-image: url('../../../images/detailsActive.png');
+            background-size: 100% 100%;
+        }
+        .imgCollection {
+            background-image: url('../../../images/collection.png');
+            background-size: 100% 100%;
+        }
+        .imgCollection:hover {
+            background-image: url('../../../images/collectionActive.png');
+            background-size: 100% 100%;
+        }
+        .imgDownload {
+            background-image: url('../../../images/download.png');
+            background-size: 100% 100%;
+        }
+        .imgDownload:hover {
+            background-image: url('../../../images/downloadActive.png');
+            background-size: 100% 100%;
+        }
+        .imgGood {
+            background-image: url('../../../images/good.png');
+            background-size: 100% 100%;
+        }
+        .imgGood:hover {
+            background-image: url('../../../images/goodActive.png');
+            background-size: 100% 100%;
+        }
+        .hideCommonBox {
+            display: none;
+            .download {
+                position: absolute;
+                top: 15px;
+                right: 4%;
+                img {
+                    width: 30px;
+                    height: 30px;
+                    border-radius: 5px;
+                    overflow: hidden;
+                    background-color: #FFFFFF;
+                    margin-right: 5px;
+                }
+            }
+            .otherOperation {
+                width: 92%;
+                position: absolute;
+                left: 4%;
+                right: 4%;
+                bottom: 20px;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                .rowBox {
+                    width: 50%;
+                    display: flex;
+                    .logoBox {
+                        width: 55px;
+                        height: 55px;
+                        border-radius: 50%;
+                        overflow: hidden;
+                        background-color: red;
+                        margin-right: 15px;
+                    }
+                    img {
+                        margin-top: 10px;
+                    }
+                }
+                .rowBox:last-of-type {
+                    justify-content: flex-end;
+                    img {
+                        width: 30px;
+                        height: 30px;
+                        border-radius: 5px;
+                        overflow: hidden;
+                        background-color: #FFFFFF;
+                        margin-right: 5px;
+                        margin-top: 0;
+                    }
+                }
+            }
+        }
+        .imgMoudularContent {
+            width: 100%;
+            .imgBox {
+                width: 100%;
+                column-count: 4;
+                column-gap: 6px;
+                margin: 6px;
+                .imgItemBox {
+                    padding: 7px 5px;
+                    break-inside: avoid;
+                    position: relative;
+                }
+                .imgItemBox:hover .hideCommonBox {
+                    display: block;
+                }
+            }
+        }
+        .moreLoading {
+            width: 100px;
+            height: 30px;
+            line-height: 30px;
+            background-color: #E62129;
+            color: white;
+            font-size: 13px;
+            margin: 30px auto;
+            text-align: center;
+            border-radius: 5px;
+        }
+        .modularTitleBox {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 22px;
+            margin: 10px 0;
+            .titleItem {
+                color:#868483;
+                margin: 0 10px;
+            }
+            .titleActiveItem {
+                color: #E62129;
+            }
+        }
+        .cooperationBox {
+            width: 100%;
+            display: flex;
+            justify-content: space-around;
+            border-top: 2px solid #f4f4f4;
+            padding-top: 40px;
+            color: #AEA38F;
+            .cooperationItem {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-self: center;
+                text-align: center;
+                .companyName {
+                    margin-top: 10px;
+                }
+            }
+        }
+    }
+    .modularBox:last-of-type {
+        border-bottom: none;
+    }
+}

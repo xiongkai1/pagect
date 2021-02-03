@@ -1,0 +1,206 @@
+.newArrival {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    .pageItem {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 60px;
+        .itemTitle {
+            width: 100%;
+            display: flex;
+            padding: 15px 0;
+            border-top: 1px solid #f4f4f4;
+            border-bottom: 1px solid #f4f4f4;
+            font-size: 22px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            color: #868483;
+            position: relative;
+            .titleEnglish {
+                margin-left: 30px;
+            }
+            .wantStore {
+                position: absolute;
+                right: 10px;
+                font-size: 18px;
+                font-weight: normal;
+            }
+        }
+        .itemContent {
+            width: 100%;
+            // border-bottom: 1px solid #f4f4f4;
+            .selfSupport {
+                width: 25%;
+                height: 150px;
+                background: chocolate;
+                color: white;
+                font-size: 22px;
+                text-align: center;
+                line-height: 150px;
+            }
+            .classification {
+                width: 100%;
+                display: flex;
+                justify-content: start;
+                margin: 20px 0;
+                font-size: 18px;
+                .typeItem {
+                    color: #868483;
+                    margin-right: 20px;
+                }
+                .activeItem {
+                    color: #E62129;
+                }
+                .more {
+                    color: #7B99CE;
+                    margin-left: 30px;
+                }
+            }
+            .contentBox {
+                width: 100%;
+                border-top: 1px solid #EEF3F6;
+                .fontItemBox {
+                    height: 120px;
+                    display: flex;
+                    justify-self: center;
+                    align-items: center;
+                    border-bottom: 1px solid #EEF3F6;
+                    .storeAvatar {
+                        width: 90px;
+                        height: 90px;
+                        border-radius: 50%;
+                        overflow: hidden;
+                        border: 1px solid red;
+                        margin-left: 10px;
+                    }
+                    .storeBox {
+                        margin-left: 20px;
+                        display: flex;
+                        flex-direction: column;
+                        .follow {
+                            width: 40px;
+                            background-color: #E62129;
+                            color: white;
+                            font-size: 14px;
+                        }
+                        .storeName {
+                            font-size: 18px;
+                            margin: 5px 0;
+                        }
+                        .storeAddressBox {
+                            display: flex;
+                            align-items: center;
+                            .location {
+                                font-size: 14px;
+                            }
+                            .goStore {
+                                font-size: 12px;
+                                color: #7B99CE;
+                                margin-left: 35px;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        .recommendationTitle {
+            width: 100%;
+            height: 60px;
+            background-color: #f0f1f1;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: #B9B9BA;
+            font-size: 20px;
+            letter-spacing: 1px;
+            .platform {
+                color: #000000;
+                margin-left: 25px;
+                margin-right: 10px;
+            }
+            .here {
+                color: #B9B9BA;
+                margin-right: 15px;
+            }
+            .here:hover {
+                color: #E62129;
+            }
+            .typeTitleItem {
+                margin: 0 15px;
+                font-size: 18px;
+            }
+            .activeTitleItem {
+                color: #E62129;
+            }
+        }
+        .goodsBox {
+            width: 100%;
+            margin-top: 30px;
+            padding: 20px 0;
+            border-top: 1px solid #EEF3F6;
+            border-bottom: 1px solid #EEF3F6;
+            .goodsItemBox {
+                height: 300px;
+                display: flex;
+                flex-direction: column;
+                justify-self: center;
+                align-items: center;
+                background-color: #EFEFF0;
+                .goodsImg {
+                    width: 100%;
+                    height: 65%;
+                    background-color: red;
+                }
+                .goodsInfo {
+                    width: 100%;
+                    display: flex;
+                    margin: 10px 0;
+                    .leftInfo {
+                        display: flex;
+                        flex-direction: column;
+                        margin: 0 20px;
+                        justify-content: center;
+                        align-items: center;
+                        .goodsStoreAvatar {
+                            width: 50px;
+                            height: 50px;
+                            border-radius: 50%;
+                            overflow: hidden;
+                            background-color: red;
+                            margin-bottom: 10px;
+                        }
+                        .followStore {
+                            width: 35px;
+                            background-color: #E62129;
+                            color: white;
+                            font-size: 12px;
+                            border-radius: 2px;
+                        }
+                    }
+                    .rightInfo {
+                        display: flex;
+                        flex-direction: column;
+                        color: #000000;
+                        font-size: 18px;
+                        text-overflow: ellipsis;
+                        .goodsPrice {
+                            color: #E62129;
+                            font-size: 20px;
+                            letter-spacing: 1px;
+                            .discount {
+                                font-size: 10px;
+                                letter-spacing: normal;
+                                margin-left: 3px;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    .pageItem:last-of-type {
+        margin-bottom: 30px;
+    }
+}
