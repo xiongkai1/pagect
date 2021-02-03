@@ -1,0 +1,38 @@
+.sideBar {
+    width: 10%;
+    min-width: 160px;
+    // height: 1000px;
+    color: #b5b5b5;
+    text-align: center;
+    font-size: 18px;
+    background: #eeeeef;
+    .content {
+        .itemContainer {
+            .title {
+                height: 40px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                background: #e62129;
+                color: #ffffff;
+                img {
+                    width: 25px;
+                    height: 25px;
+                    margin-right: 5px;
+                }
+            }
+        }
+        .sideBarItem {
+            height: 40px;
+            line-height: 40px;
+            cursor: pointer;
+            &:last-child {
+                margin-bottom: 80px;
+            }
+        }
+        .activeItem {
+            background: #e62129;
+            color: #ffffff;
+        }
+    }
+}

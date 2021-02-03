@@ -1,0 +1,220 @@
+.goodsItemBox {
+    width: 100%;
+    padding: 30px 4%;
+    border-bottom: 1px solid #f4f4f4;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    :global {
+        .ant-btn-round.ant-btn-lg {
+            width: 200px;
+            margin-top: 30px;
+            height: 35px;
+            font-size: 18px;
+        }
+        .ant-btn-primary {
+            background-color:#DADBDE;
+            border-color:#DADBDE;
+            color: #FDFDFD;
+        }
+        .ant-btn-primary:hover {
+            background-color:#E62129;
+            border-color:#E62129;
+            color: #ffffff;
+        }
+    }
+    .goodsRightBox {
+        width: 30%;
+        display: flex;
+        flex-direction: column;
+        justify-content: start;
+        .storeInfoBox {
+            display: flex;
+            align-items: center;
+            .storeAvatar {
+                width: 50px;
+                height: 50px;
+                border-radius: 50%;
+                overflow: hidden;
+                border: 1px solid red;
+            }
+            .storeBox {
+                display: flex;
+                flex-direction: column;
+                font-size: 16px;
+                letter-spacing: 1px;
+                margin-left: 10px;
+                .follow {
+                    width: 50px;
+                    background-color: #E62129;
+                    color: #ffffff;
+                    margin-bottom: 5px;
+                    text-align: center;
+                    border-radius: 3px;
+                }
+            }
+        }
+        .storeHonour {
+            display: flex;
+            margin-top: 5px;
+        }
+        .operationBox {
+            margin-top: 30px;
+            display: flex;
+            button {
+                min-width: 70px;
+                height: 30px;
+                line-height: 30px;
+                border-style: none;
+                background-color: #ffffff;
+                font-size: 16px;
+                border: 1px solid  #E62129;
+                color:  #E62129;
+                margin-right: 10px;
+                border-radius: 5px;
+                box-sizing: border-box;
+            }
+            img {
+                width: 35px;
+                height: 35px;
+                border-radius: 3px;
+                background-color: #FFFFFF;
+                margin-right: 15px;
+            }
+            .imgCart {
+                background-image: url('../../../images/shoppingCart.png');
+                background-size: cover;
+            }
+            .imgCart:hover {
+                background-image: url('../../../images/shoppingCartActive.png');
+                background-size: 100% 100%;
+            }
+            .imgDetails {
+                background-image: url('../../../images/details.png');
+                background-size: 100% 100%;
+            }
+            .imgDetails:hover {
+                background-image: url('../../../images/detailsActive.png');
+                background-size: 100% 100%;
+            }
+            .imgCollection {
+                background-image: url('../../../images/collection.png');
+                background-size: 100% 100%;
+            }
+            .imgCollection:hover {
+                background-image: url('../../../images/collectionActive.png');
+                background-size: 100% 100%;
+            }
+            .imgDownload {
+                background-image: url('../../../images/download.png');
+                background-size: 100% 100%;
+            }
+            .imgDownload:hover {
+                background-image: url('../../../images/downloadActive.png');
+                background-size: 100% 100%;
+            }
+            .imgGood {
+                background-image: url('../../../images/good.png');
+                background-size: 100% 100%;
+            }
+            .imgGood:hover {
+                background-image: url('../../../images/goodActive.png');
+                background-size: 100% 100%;
+            }
+        }
+    }
+    .leftBox {
+        width: 70%;
+        display: flex;
+        align-items: center;
+        .selectItemBox {
+            display: flex;
+            align-items: center;
+            margin-right: 40px;
+            .colorBox {
+                margin-left: 20px;
+                display: flex;
+                align-items: center;
+                .colorItemBox {
+                    width: 15px;
+                    height: 15px;
+                    margin-right: 5px;
+                }
+            }
+        }
+        .selectItemBox:hover {
+            cursor: pointer;
+        }
+        .goodsImage {
+            width: 250px;
+            height: 160px;
+            border: 1px solid red;
+        }
+        .goodsIntroduce {
+            width: calc(100% - 270px);
+            display: flex;
+            flex-direction: column;
+            margin-left: 20px;
+            .goodsPriceBox {
+                display: flex;
+                align-items: flex-end;
+                .nowPrice {
+                    font-size: 20px;
+                    color: #E62129;
+                }
+                .oldPrice {
+                    font-size: 16px;
+                    color: #000000;
+                    text-decoration: line-through;
+                    margin-left: 20px;
+                }
+                .priceIntroduce {
+                    font-size: 8px;
+                    margin-left: 5px;
+                }
+            }
+        }
+        .goodsInfoBox {
+            display: flex;
+            flex-direction: column;
+            .goodsName {
+                font-size: 52px;
+                letter-spacing: 10px;
+                margin: 10px 0;
+            }
+            .goodsShowStyle {
+                width: 100%;
+                display: flex;
+                font-size: 18px;
+                .styleItem {
+                    margin-right: 20px;
+                }
+                .goodsDetails {
+                    margin-left: 10px;
+                    color: #649bd3;
+                }
+            }
+        }
+    }
+    .rightBox {
+        width: 30%;
+        display: flex;
+        align-items: center;
+        letter-spacing: 1px;
+        .selectedItemBox {
+            padding: 3px;
+            display: flex;
+            align-items: center;
+            border: 1px solid #868483;
+            margin-right: 5px;
+            border-radius: 5px;
+        }
+        .selectedItemBox:hover {
+            cursor: pointer;
+        }
+        .clearOptions {
+            margin-left: 20px;
+            color: #649bd3;
+        }
+    }
+}

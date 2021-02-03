@@ -1,0 +1,85 @@
+.myDynamic {
+    .dynamicHeader {
+        display: flex;
+        .tabItem {
+            width: 120px;
+            padding: 10px 5px;
+            text-align: center;
+            border: 1px solid #a1a1a1;
+            border-radius: 3px;
+            font-size: 16px;
+            margin-right: 20px;
+            cursor: pointer;
+            &:nth-child(3) {
+                margin-right: 100px;
+            }
+        }
+        .activeItem {
+            color: #e62129;
+            border-color: #e62129;
+        }
+    }
+    .dynamicContent {
+        .dynamicList {
+            margin-top: 50px;
+            .itemRow {
+                display: flex;
+                align-items: center;
+                justify-content: space-around;
+                margin-bottom: 10px;
+                padding: 10px;
+                font-size: 18px;
+                cursor: pointer;
+                img {
+                    width: 80px;
+                    height: 80px;
+                }
+                .operateTime {
+                    width: 110px;
+                }
+                .operatorThumb {
+                    border-radius: 50%;
+                }
+                .operatInfo, .from {
+                    width: 375px;
+                    >span {
+                        color: #92a7d3;
+                    }
+                }
+                .from {
+                    width: 150px;
+                }
+                .addLikeInfo {
+                    width: 130px;
+                    display: flex;
+                    align-items: center;
+                    .addlikeIcon {
+                        width: 32px;
+                        height: 32px;
+                        background: url('../../../../images/addlike_icon.png') center center no-repeat;
+                        margin-right: 5px;
+                    }
+                }
+                &:hover {
+                    background-color: #eaeaea;
+                    .addLikeInfo {
+                        color:#e62129;
+                        .addlikeIcon {
+                            background: url('../../../../images/addlike_icon_active.png') center center no-repeat;
+                        }
+                    }
+                }
+            }
+        }
+        .paginationPart {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            padding: 20px;
+            font-size: 18px;
+            >span {
+                margin-right: 20px;
+            }
+        }
+    }
+}

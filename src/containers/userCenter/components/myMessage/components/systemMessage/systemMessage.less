@@ -1,0 +1,49 @@
+.systemMessage {
+    .listContainer {
+        .row {
+            display: flex;
+            align-items: center;
+            padding: 30px 50px ;
+            border-bottom: 1px solid #e6e6e6;
+            cursor: pointer;
+            .date {
+                width: 100px;
+            }
+            .content {
+                width: 1300px;
+            }
+            .share {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                border: 1px solid #a1a1a1;
+                border-radius: 3px;
+                padding: 5px;
+                >div {
+                    width: 32px;
+                    height: 32px;
+                    background: url('../../../../../../images/share_icon.png') center center no-repeat;
+                }
+            }
+            &:hover{
+                .share {
+                    border: 1px solid #e62129;
+                    >div {
+                        background: url('../../../../../../images/share_icon_active.png') center center no-repeat;
+                    }
+                }
+            }
+        }
+    }
+    
+    .paginationPart {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        padding: 20px;
+        font-size: 18px;
+        >span {
+            margin-right: 20px;
+        }
+    }
+}

@@ -1,0 +1,117 @@
+.fontsPage {
+    width: 100%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    .topBox {
+        width: 100%;
+        position: relative;
+        .carousel {
+            width: 100%;
+            height: 450px;
+            z-index: -1;
+            .carouselDiv {
+                width: 100%;
+                height: 450px;
+            }
+        }
+        .videoTopBox {
+            width: 100%;
+            height: 100vh;
+            z-index: -1;
+        }
+        .topSelectBox {
+            width: 500px;
+            display: flex;
+            background: #ffffff;
+            border-radius: 4px;
+            position: absolute;
+            top: 200px;
+            left: calc((100% - 500px) / 2);
+            :global {
+                .ant-select-selection--single {
+                    border: 0;
+                    // background: transparent;
+                }
+                .ant-input {
+                    border: 0;
+                    // background: transparent;
+                }
+            }
+        }
+    }
+    .populationIntroduceBox {
+        width: 100%;
+        padding: 40px 0;
+    }
+    .slideBox {
+        width: 94%;
+        height: 450px;
+        // padding: 40px 0;
+        margin: 50px auto;
+    }
+    .pageItem {
+        width: 94%;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 60px;
+        .itemTitle {
+            width: 100%;
+            display: flex;
+            padding: 15px 0;
+            border-top: 1px solid #f4f4f4;
+            border-bottom: 1px solid #f4f4f4;
+            font-size: 22px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            color: #868483;
+            .titleEnglish {
+                margin-left: 30px;
+            }
+        }
+        .itemContent {
+            width: 100%;
+            border-bottom: 1px solid #f4f4f4;
+            .selfSupport {
+                width: 240px;
+                height: 150px;
+                background: chocolate;
+                color: white;
+                font-size: 22px;
+                text-align: center;
+                line-height: 150px;
+                background-image: url(../../../images/banner2.png);
+                background-size: 100% 100%;
+            }
+            .classification {
+                width: 100%;
+                display: flex;
+                justify-content: start;
+                margin: 20px 0;
+                font-size: 18px;
+                .typeItem {
+                    color: #868483;
+                    margin-right: 20px;
+                }
+                .activeItem {
+                    color: #E62129;
+                }
+                .more {
+                    color: #7B99CE;
+                }
+            }
+            .contentBox {
+                width: 100%;
+                .fontItemBox {
+                    height: 200px;
+                    display: flex;
+                    justify-self: center;
+                    align-items: center;
+                }
+            }
+        }
+    }
+}

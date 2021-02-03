@@ -1,0 +1,42 @@
+.stepCircle {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    .circle {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        font-size: 20px;
+        line-height: 50px;
+        text-align: center;
+        background-color: #b6b6b7;
+        position: relative;
+        color: #fff;
+        &:after {
+            content: '';
+            width: 160px;
+            height: 3px;
+            border-top: 3px dashed #b6b6b7;
+            position: absolute;
+            top: 50%;
+            left: 80px;
+        }
+    }
+    .title {
+        text-align: center;
+        margin-top: 15px;
+        color: #999999;
+        font-size: 24px;
+        font-weight: 400;
+    }
+    .activeStyle {
+        background-color: #e62129;
+    }
+}
+.stepCircle:last-child {
+    .circle {
+        &:after{
+            display: none;
+        }
+    }
+}

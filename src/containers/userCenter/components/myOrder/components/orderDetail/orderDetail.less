@@ -1,0 +1,101 @@
+.detailContainer {
+    padding: 20px;
+    .detailHeader {
+        display: flex;
+        align-items: center;
+        color: #888888;
+        font-size: 20px;
+        padding-left: 30px;
+        .backBtn {
+            margin-right: 20px;
+            position: relative;
+            cursor: pointer;
+            &:before {
+                content: '<';
+                position: absolute;
+                top: 0px;
+                left: -15px;
+            }
+        }
+    }
+    .firstPart, .secondPart,.thridPart {
+        display: flex;
+        padding: 30px 10px 10px;
+        border-bottom: 1px solid #eaeaea;
+        .leftPart {
+            width: 400px;
+            height: 400px;
+            margin-right: 50px;
+            img {
+                width: 100%;
+                height: 100%;
+            }
+        }
+        .title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #000000;
+            margin-bottom: 20px;
+        }
+        .centerPart, .rightPart {
+            .prise {
+                display: flex;
+                align-items: center;
+                margin-bottom: 20px;
+                .currentPrise {
+                    display: flex;
+                    align-items: center;
+                    color: #e62129;
+                    font-size: 24px;
+                    font-weight: 700;
+                    margin-right: 40px;
+                    >span {
+                        font-size: 16px;
+                        font-weight: 400;
+                        color: #000000;
+                        margin-left: 5px;
+                    }
+                }
+                .oldPrise {
+                    font-size: 16px;
+                    color: #000000;
+                    >span {
+                        margin-left: 5px;
+                        text-decoration: line-through;
+                    }
+                }
+            }
+            .infoPart {
+                .info {
+                    >div {
+                        font-size: 16px;
+                        margin-bottom: 15px;
+                    }
+                    .shopName {
+                        display: flex;
+                        align-items: center;
+                        .focus {
+                            padding: 3px 8px;
+                            border: 1px solid #e62129;
+                            border-radius: 5px;
+                            margin-left: 50px;
+                            cursor: pointer;
+                            >span {
+                                color: #e62129;
+                                margin-right: 5px;
+                            }
+                        }
+                        .toShop {
+                            margin-left: 50px;
+                            color: #999999;
+                            cursor: pointer;
+                        }
+                    }
+                }
+            }
+        }
+        .centerPart {
+            width: 800px;
+        }
+    }
+}

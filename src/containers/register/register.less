@@ -1,0 +1,37 @@
+.register {
+    .content {
+        min-height: 830px;
+        .title {
+            font-size: 28px;
+            font-weight: 500;
+            color:  #e62129;
+            padding: 0 50px;
+            div {
+                padding: 30px 0 15px 0;
+                border-bottom: 2px solid #f9f9f9;
+            }
+        }
+        .stepsContent {
+            width: 80%;
+            margin: 0 auto;
+            padding: 30px 420px 0 420px;
+            .stepContainer {
+                width: 600px;
+                margin: 0 auto;
+                margin-bottom: 20px;
+                display: flex;
+                justify-content: space-between;
+                :global {
+                    .ant-steps-item-icon {
+                        display: block;
+                        margin-left: 15px;
+                    }
+                    .ant-steps-item-process .ant-steps-item-icon {
+                        background-color:  #e62129;
+                        border-color:  #e62129;
+                    }
+                }
+            }
+        }
+    }
+}

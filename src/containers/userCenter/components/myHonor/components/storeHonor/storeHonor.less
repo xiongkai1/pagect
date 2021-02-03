@@ -1,0 +1,121 @@
+.storeHonor {
+    padding: 50px 70px;
+    color: #000000;
+    .partTitle {
+        font-size: 18px;
+        font-weight: 700;
+        margin-bottom: 30px;
+    }
+    .topPart {
+        margin-bottom: 50px;
+        .honorList {
+            display: flex;
+            .labelName {
+                width: 90px;
+                font-size: 16px;
+                text-align: right;
+                margin-right: 30px;
+            }
+            .listContainer {
+                display: flex;
+                align-items: center;
+                flex-wrap: wrap;
+                .listItem {
+                    width: 30px;
+                    height: 30px;
+                    line-height: 30px;
+                    text-align: center;
+                    border-radius: 5px;
+                    border: 1px solid #000000;
+                    margin-right: 30px;
+                    margin-bottom: 10px;
+                }
+            }
+        }
+    }
+    .secondPart {
+        position: relative;
+        padding-right: 300px;
+        font-size: 18px;
+        .tabHeader {
+            display: flex;
+            color: #000000;
+            width: 80%;
+            padding-left: 90px;
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #eaeaea;
+            position: absolute;
+            top: 0;
+            li {
+                width: 25%;
+                text-align: center;
+            }
+        }
+        .tabSidebar {
+            position: absolute;
+            left: -49px;
+            display: flex;
+            flex-direction: column;
+            li {
+                width: 130px;
+                text-align: right;
+                padding: 28px 0;
+            }
+        }
+        .tabContent {
+            margin-left: 90px;
+            .row {
+                display: flex;
+                padding: 20px 0;
+                border-bottom: 1px solid #eaeaea;
+                .labelName {
+                    display: flex;
+                    color: #000000;
+                    span {
+                        display: block;
+                        width: 140px;
+                        text-align: right;
+                    }
+                }
+                >div{
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    width: 25%;
+                    >span {
+                        margin-right: 5px;
+                    }
+                }
+                .operation {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    .imgContainer{
+                        width: 42px;
+                        height: 42px;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        border-radius: 5px;
+                        border: 1px solid #eaeaea;
+                        cursor: pointer;
+                        >div {
+                            width: 32px;
+                            height: 32px;
+                            background: url('../../../../../../images/share_icon.png') center center no-repeat;
+                        }
+                    }
+                    &:hover {
+                        .imgContainer {
+                            border: 1px solid #e62129;
+                            >div {
+                                background: url('../../../../../../images/share_icon_active.png') center center no-repeat;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
