@@ -4,6 +4,7 @@ import { Form, Input, Button, Select, DatePicker  } from 'antd';
 import Cookies from 'Utils/cookie';
 import { basicInformation } from 'Services/userCenter';
 import { physicalAddress } from 'Services/userAddress';
+import moment from 'moment';
 
 const { Option } = Select;
 const { TextArea } = Input;
@@ -16,6 +17,8 @@ class BaseInfoPart extends Component {
             userInfo: {},
             modifyBtn: false,
             userSex: '',
+            userBirthday: '',
+            userName: '',
             // 国家
             country: [],
             province: [],
@@ -35,6 +38,11 @@ class BaseInfoPart extends Component {
             if (res.data.code === 200) {
                 this.setState({
                     userInfo: res.data.data
+                });
+                console.log(this.state.userInfo);
+                this.setState({
+                    userBirthday: res.data.data.userBirthday,
+                    userName: res.data.data.userName
                 });
                 if (this.state.userInfo.userSex === 1) {
                     this.setState({
@@ -75,14 +83,16 @@ class BaseInfoPart extends Component {
     }
     // 文本输入
     onChange(e) {
-
+        console.log(e.target.value);
         this.setState({
-            [e.target.name]: e.target.value
+            userName: e.target.value
         });
     }
     // 时间选择器
     dateOnChange(date, dateString) {
-        // this.changeState('userInfo', 'userSex', value);
+        this.setState({
+            userBirthday: dateString
+        });
     }
 
     // 下拉
@@ -274,7 +284,7 @@ class BaseInfoPart extends Component {
                     <Form.Item label="用户名" >
                         <Input 
                             type="userName"
-                            value={this.state.userInfo.userName} 
+                            value={this.state.userName} 
                             name = "userInfo.userName"
                             onChange={this.onChange.bind(this)}
                         />
@@ -297,7 +307,7 @@ class BaseInfoPart extends Component {
                     </Form.Item>
                     <Form.Item label="生日">
                         {/* <span>{this.state.userInfo.userBirthday}</span> */}
-                        <DatePicker onChange={this.dateOnChange.bind(this)} />
+                        <DatePicker defaultValue={moment(this.state.userBirthday, 'YYYY.MM.DD')} format={'YYYY.MM.DD'} onChange={this.dateOnChange.bind(this)} />
                         <div className={styles.belowPos}>你的祝福你，我不想少了我</div>
                     </Form.Item>
                     <Form.Item label="居住地址">
