@@ -27,4 +27,27 @@ export function basicInformation(data) {
         params: data
     });
 }
+/**
+ * 修改个人信息接口
+ * @param {*} data 
+ */
+export function updBasicInformation(data) {
+    return http({
+        url: '/shopping-center/personalCenterData/updBasicInformation',
+        method: HttpMethod.POST,
+        data
+    });
+}
+
+/**
+ * 获取个人信息接口
+ * @param {*} data 
+ */
+export function contactInformation(data) {
+    return http({
+        url: '/shopping-center/personalCenterData/contactInformation',
+        method: HttpMethod.GET,
+        params: data
+    });
+}
 

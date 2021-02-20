@@ -1,8 +1,16 @@
 import React, { Component } from 'react';
 import styles from './contactInfo.less';
 import { Form, Input, Button } from 'antd';
+import { contactInformation } from 'Services/userCenter';
 
 class ContactInfoPart extends Component {
+    constructor() {
+        super();
+        // contactInformation({
+        //     account:
+        // })
+
+    }
     componentDidMount() {
         
     }
@@ -21,32 +29,38 @@ class ContactInfoPart extends Component {
                         <div className={styles.title}>联系信息</div>
                         <Form.Item label="QQ号">
                             {getFieldDecorator('qqNumr', {})(
-                                <span>12362946</span>
+                                // <span>12362946</span>
+                                <Input/>,
                             )}
                         </Form.Item>
                         <Form.Item label="微信号">
                             {getFieldDecorator('wechatNum', {})(
-                                <span>14124csdv</span>
+                                // <span>14124csdv</span>
+                                <Input/>,
                             )}
                         </Form.Item>
                         <Form.Item label="手机号码">
                             {getFieldDecorator('phoneNum', {})(
-                                <span>135325646</span>
+                                // <span>135325646</span>
+                                <Input/>,
                             )}
                         </Form.Item>
                         <Form.Item label="邮箱">
                             {getFieldDecorator('mail', {})(
-                                <span>1232407@163.com</span>
+                                // <span>1232407@163.com</span>
+                                <Input/>,
                             )}
                         </Form.Item>
                         <Form.Item label="真实姓名">
                             {getFieldDecorator('truename', {})(
-                                <span>对方是个</span>
+                                // <span>对方是个</span>
+                                <Input/>,
                             )}
                         </Form.Item>
                         <Form.Item label="身份证号码">
                             {getFieldDecorator('idNum', {})(
-                                <span>1470247204742</span>
+                                // <span>1470247204742</span>
+                                <Input/>,
                             )}
                         </Form.Item>
                         {/* <Form.Item className={styles.saveBtn}>

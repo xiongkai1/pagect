@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import styles from './baseInfo.less';
-import { Form, Input, Button, Select, DatePicker  } from 'antd';
+import { Form, Input, Button, Select, DatePicker, message  } from 'antd';
 import Cookies from 'Utils/cookie';
-import { basicInformation } from 'Services/userCenter';
+import { basicInformation, updBasicInformation } from 'Services/userCenter';
 import { physicalAddress } from 'Services/userAddress';
 import moment from 'moment';
+// import AppContext from '../../../../../../AppContext';
 
 const { Option } = Select;
 const { TextArea } = Input;
@@ -19,6 +20,7 @@ class BaseInfoPart extends Component {
             userSex: '',
             userBirthday: '',
             userName: '',
+            userIntroduce: '',
             // 国家
             country: [],
             province: [],
@@ -29,6 +31,7 @@ class BaseInfoPart extends Component {
             secondRegion: ''
 
         };
+         
         this.changeState = this.changeState.bind(this);
 
         // 获取用户信息
@@ -42,7 +45,8 @@ class BaseInfoPart extends Component {
                 console.log(this.state.userInfo);
                 this.setState({
                     userBirthday: res.data.data.userBirthday,
-                    userName: res.data.data.userName
+                    userName: res.data.data.userName,
+                    userIntroduce: res.data.data.userIntroduce
                 });
                 if (this.state.userInfo.userSex === 1) {
                     this.setState({
@@ -136,30 +140,30 @@ class BaseInfoPart extends Component {
             if (res.data.code === 200) {
                 // 区
                 this.setState({
-                    city: res.data.data.fourLevel,
+                    city: res.data.data .fourLevel,
                     secondCity: res.data.data.fourLevel[0].cname
                 });
                 this.setState({
                     region: []
                 });
-
                 physicalAddress({
                     provinceId: this.state.city[0].id
                 }).then(res => {
                     if (res.data.code === 200) {
-                      
                         // 城市
                         this.setState({
                             region: res.data.data.threeLevel,
                             secondRegion: res.data.data.threeLevel[0].cname
+                            
                         });
+                     
                     }
                 });
             }
             
         });
-
     }
+
     provinceCity(value, key) {
         this.setState({
             region: []
@@ -182,14 +186,21 @@ class BaseInfoPart extends Component {
                 });
             }
         });
+        console.log(this.state.secondProvince + '省' + this.state.secondCity + '市' + this.state.secondRegion + '区');
+
     }
 
     provinceRegion(value, key) {
+        console.log(key.props.children);
         this.setState({
             secondRegion: key.props.children
         });
 
-        console.log(this.state.secondProvince + '省' + this.state.secondCity + '市' + this.state.secondRegion + '区');
+    }
+    userIntroduceRegion(e) {
+        this.setState({
+            userIntroduce: e.target.value
+        });
     }
 
     dateChange() {
@@ -203,7 +214,59 @@ class BaseInfoPart extends Component {
 
     };
     handleSave = () => {
-        console.log(' 基本信息1 ');
+        let sex = 0;
+        if (this.state.userSex === '男') {
+            sex = 1;
+        } else {
+            sex = 2;
+        }
+        updBasicInformation({
+            invitationCode: this.state.userInfo.invitationCode,
+            userBirthday: this.state.userBirthday,
+            userDress: this.state.secondProvince + '省' + this.state.secondCity + '市' + this.state.secondRegion + '区',
+            userIntroduce: this.state.userIntroduce,
+            userName: this.state.userName,
+            userSex: sex,
+            userMobile: Cookies.get('account'),
+            userPortrait: 'http://localhost:8080'
+        }).then(res => {
+            console.log(res);
+            if (res.data.code === 200) {
+                message.success(res.data.msg);
+                // 获取用户信息
+                basicInformation({
+                    account: Cookies.get('account')
+                }).then(res => {
+                    if (res.data.code === 200) {
+                        this.setState({
+                            userInfo: res.data.data
+                        });
+                        console.log(this.state.userInfo);
+                        this.setState({
+                            userBirthday: res.data.data.userBirthday,
+                            userName: res.data.data.userName,
+                            userIntroduce: res.data.data.userIntroduce
+                        });
+                        if (this.state.userInfo.userSex === 1) {
+                            this.setState({
+                                userSex: '男'
+                            });
+                        } else if (this.state.userInfo.userSex === 2) {
+                            this.setState({
+                                userSex: '女'
+                            });
+                        } else {
+                            // 说明userSex不存在;
+
+                        }
+
+                    } else {
+                        message.error('未知异常!');
+                    }
+            
+                });
+            }
+        });
     };
     // 修改
     modify = () => {
@@ -249,7 +312,8 @@ class BaseInfoPart extends Component {
 
         if (!this.state.modifyBtn) {
             modifyContent = (
-                <Form onSubmit={this.handleSubmit}>
+                <Form >
+                    {/* onSubmit={this.handleSubmit} */}
                     <Form.Item label="邀请码">
                         {this.state.userInfo.invitationCode}
                     </Form.Item>
@@ -276,10 +340,10 @@ class BaseInfoPart extends Component {
             );
         } else {
             modifyContent = (
-                <Form onSubmit={this.handleSubmit}>
+                <Form >
                     <Form.Item label="邀请码">
                         <span className={styles.text}>{this.state.userInfo.invitationCode}</span> 
-                        <span className={styles.below}>(123123)</span>
+                        <span className={styles.below}>(系统自动分配,不可改变)</span>
                     </Form.Item>
                     <Form.Item label="用户名" >
                         <Input 
@@ -369,7 +433,12 @@ class BaseInfoPart extends Component {
                         </Select>
                     </Form.Item>
                     <Form.Item label="自我简介">
-                        <span>{this.state.userInfo.userIntroduce}</span>
+                        <TextArea 
+                            value={this.state.userIntroduce}
+                            autoSize={true} rows={4} onChange = {this.userIntroduceRegion.bind(this)}>
+                            {this.state.userInfo.userIntroduce}
+                        </TextArea>
+                        {/* <span>{this.state.userInfo.userIntroduce}</span> */}
                     </Form.Item>
                     <Form.Item className={styles.saveBtn}>
                         <Button className={styles.modifyBtn} type="primary" onClick={this.modify}>修改</Button>

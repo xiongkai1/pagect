@@ -35,10 +35,20 @@ import USER_TIT_ICON from './images/userTitleIcon.png';
 import AGENT_TIT_ICON from './images/agentTitleIcon.png';
 import SHOP_TIT_ICON from './images/shopTitleIcon.png';
 
+import Cookies from 'Utils/cookie';
+import { Redirect, Route } from 'react-router-dom';
+
 export default class UserCenter extends Component {
     constructor(props) {
         super(props); 
         let defaultKey = this.props.match.params.key;
+
+        // console.log('accountlog:' +);
+
+        // setTimeout(() => {
+        //     history.push('/home');
+        // }, 1000);
+
         this.state = {
             activeKey: Number(defaultKey) || 1,
             menuInfo: [
@@ -197,8 +207,17 @@ export default class UserCenter extends Component {
     }
     render() {
         let { menuInfo, activeKey } = this.state;
+        let account =  Cookies.get('account');
         return (
             <div className={styles.userCenter}>
+                {/* 登录判断 */}
+                <div>
+                    {
+                        account ? <Route {...this.props}></Route> :
+                            <Redirect to="/login"></Redirect>
+                    }
+                </div>
+
                 <Header/>
                 <div className={styles.setShopContainer}>
                     <SideBar
