@@ -6,7 +6,9 @@ export function userLogin(data) {
 
 export function getToken() {
     const data = Cookies.get('token');
-    return data && data !== 'null' ? JSON.parse(data).accessToken : null;
+    console.log(data);
+    // return data && data !== 'null' ? JSON.parse(data).accessToken : null;
+    return data && data !== 'null' ? data : null;
 }
 
 export function getRefreshToken() {

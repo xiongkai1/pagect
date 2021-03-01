@@ -1,8 +1,20 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext  } from 'react';
 import styles from './myShopSystem.less';
 import { Checkbox } from 'antd';
-
+import { selectShopInfoList } from 'Services/mallinfo';
+import AppContext from '../../../../../../AppContext';
 export default function(props) {
+    const {
+        saveUser
+    } = useContext(AppContext);
+    useEffect(() => {
+        console.log(saveUser);
+        // selectShopInfoList({
+        //     current:1,
+        //     size:10,
+        //     userId: 
+        // })
+    });
 
     const daysTabInfo = [
         {
@@ -494,6 +506,7 @@ export default function(props) {
         activeDaysKey,
         activeTableKey,
         basicData,
+        // tableData,
         rowSelection,
         pagination,
         columns,
