@@ -39,5 +39,16 @@ export function shopCommodityUpAndDownFrame(data) {
     });
 }
 
-
-
+/**
+ * 店铺商品添加(字体)
+ * @param {*} data 
+ */
+export function shopFontUpload(data) {
+    return http({
+        url: '/shopping-center/commodityinfo/shopFontUpload',
+        method: HttpMethod.POST,
+        params: {
+            data
+        }
+    });
+}

@@ -18,14 +18,12 @@ export default class FontsPage extends Component {
         commodityClassification({
             type: 1
         }).then(res => {
-            console.log(res.data.data);
             if (res.data.code === 200) {
                 let data = res.data.data;
 
                 this.setState({
                     fontTypeTitle: res.data.data
                 });
-                console.log(this.state.fontTypeTitle[0].list);
             } else {
                 message.error(res.data.msg);
             }
@@ -108,9 +106,6 @@ export default class FontsPage extends Component {
         fontTypeTitle.map(item => {
             // 字体类型
             if (item.code === 'FONT_TYPE') {
-                console.log(item.code);
-
-                console.log(item.list);
                 fontType = (
                     <div className={styles.classification}>
                         {

@@ -18,14 +18,12 @@ export default class ImagesPage extends Component {
         commodityClassification({
             type: 3
         }).then(res => {
-            console.log(res.data.data);
             if (res.data.code === 200) {
                 let data = res.data.data;
 
                 this.setState({
                     fontTypeTitle: res.data.data
                 });
-                console.log(this.state.fontTypeTitle[0].list);
             } else {
                 message.error(res.data.msg);
             }
@@ -109,8 +107,6 @@ export default class ImagesPage extends Component {
         fontTypeTitle.map(item => {
 
             if (item.code === 'VIDEO_TYPE') {
-                console.log(item.code);
-                console.log(item.list);
 
                 videoType = (
                     <div className={styles.classification}>

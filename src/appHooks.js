@@ -18,8 +18,6 @@ export default function() {
 
     // 保存用户信息
     const saveUser = useCallback((userRes) => {
-        console.log('useRes');
-        console.log(userRes);
         // if (!userRes.roleKey) {
         //     userRes.roleKey = getRoleKey(userRes);
         // }

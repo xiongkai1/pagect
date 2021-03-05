@@ -13,6 +13,7 @@ const { TabPane } = Tabs;
 export default class WorksUploading extends Component {
     state = {
         tabInfo: [
+
             {
                 key: '1',
                 text: '字体',
@@ -50,7 +51,9 @@ export default class WorksUploading extends Component {
         let { activeKey, tabInfo } = this.state;
         return (
             <div className={styles.worksUploading}>
+                
                 <Tabs defaultActiveKey={activeKey}>
+                    
                     {
                         tabInfo.map(item => {
                             return (

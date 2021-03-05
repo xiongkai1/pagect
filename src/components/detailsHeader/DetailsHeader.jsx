@@ -136,7 +136,6 @@ export default function DetailsHeader(props) {
         </Menu>
     );
     React.useEffect(() => {
-        // console.log(props.typeActiveKey);
     });
     const { pathname } = useLocation();
     return (
