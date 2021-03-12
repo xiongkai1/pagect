@@ -208,12 +208,17 @@ export default class UserCenter extends Component {
     render() {
         let { menuInfo, activeKey } = this.state;
         let account =  Cookies.get('account');
+        let userId = Cookies.get('userId');
         return (
             <div className={styles.userCenter}>
                 {/* 登录判断 */}
                 <div>
                     {
                         account ? <Route {...this.props}></Route> :
+                            <Redirect to="/login"></Redirect>
+                    }
+                    {
+                        userId ? <Route {...this.props}></Route> :
                             <Redirect to="/login"></Redirect>
                     }
                 </div>

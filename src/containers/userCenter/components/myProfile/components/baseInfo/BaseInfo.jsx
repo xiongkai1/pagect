@@ -62,7 +62,7 @@ class BaseInfoPart extends Component {
                 }
 
             } else {
-                message.error('未知异常!');
+                message.error('请登录');
             }
             
         });

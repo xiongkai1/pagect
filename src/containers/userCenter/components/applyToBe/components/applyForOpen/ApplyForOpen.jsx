@@ -1,25 +1,24 @@
 import React, { useState, useRef, useEffect, useLayoutEffect } from 'react';
 import styles from './applyForOpen.less';
 import { NavLink, useHistory, useLocation } from 'react-router-dom';
-import { Icon, Radio, Input, Button } from 'antd';
+import { Icon, Radio, Input, Button, message } from 'antd';
 
-import { getToken } from 'Utils/auth';
 import { create } from 'Services/orderInfo';
-import Cookies from 'Utils/cookie';
 import QRCode from 'qrcode.react';
 import Websocket from 'react-websocket';
 
 // import QRCode from 'qrcode'
 
 export default function ApplyForOpen() {
- 
+    const history  = useHistory(); 
+    const [partTitle, setPartTitle] = useState(0);
+
     const [showContent, setShowContent] = useState(1);
     useEffect(() => {
         let i = 1;
         setCodeValue(i++);
         if (showContent === 3) {
-
-            console.log('partTitle:' + partTitle);
+           
             create({
                 anonymityType: 0,
                 cartIds: '',
@@ -31,8 +30,16 @@ export default function ApplyForOpen() {
             }).then(res => {
                 console.log(res);   
                 if (res.data.code === 200) {
-                    setZfbCodeValue(res.data.msg);
-                }             
+                    setZfbCodeValue(res.data.data.aipay);
+                    setWxCodeValue(res.data.data.wxpay);
+                } 
+                if (res.data.code === 500) {
+                    message.error(res.data.data);
+                }    
+                if (res.data.code === 615) {
+                    message.error(res.data.msg);
+                    
+                }       
             });
         }
 
@@ -49,6 +56,9 @@ export default function ApplyForOpen() {
                 console.log(res);   
                 if (res.data.code === 200) {
                     setZfbCodeValue(res.data.msg);
+                }        
+                if (res.data.code === 500) {
+                    message.error(res.data.data);
                 }             
             });
         }
@@ -57,13 +67,7 @@ export default function ApplyForOpen() {
             console.log(5);
         }
     }, [showContent]);
-
-    // useLayoutEffect(() => {
-    //     const ws = new WebSocket('ws://8.134.8.97:8084/shopping-center/paymentCallback');
-
-    // });
-
-    const history = useHistory();
+   
     const shopInfo = [
         {
             key: 1,
@@ -112,18 +116,17 @@ export default function ApplyForOpen() {
         value: 1
     };
     const [zfbCodeValue, setZfbCodeValue] = useState('');
+    const [wxCodeValue, setWxCodeValue] = useState('');
     const [codeValue, setCodeValue] = useState(0);
     const [radioValue, setRadioValue] = useState(1);
 
     // 店铺信息
-    const [partTitle, setPartTitle] = useState(0);
 
     const onChange = (e) => {
         setRadioValue(e.target.value);
     };
 
     const handleOpen = () => {
-        console.log('打开连接');
     };
     const handleData = (e) => {
         if (e) {
@@ -131,7 +134,6 @@ export default function ApplyForOpen() {
         }
     };
     const handleClose = () => {
-        console.log('关闭连接');
     };
     const showContent1 = (e, data) => {
         setPartTitle(data);
@@ -223,8 +225,14 @@ export default function ApplyForOpen() {
                     value={zfbCodeValue}
                     size={200} // 二维码的大小
                     fgColor="#000000" // 二维码的颜色
-                    style={{ margin: 'auto' }}
-                 
+                    style={{ marginRight: '15px' }}
+                /> 
+                <QRCode
+                    id="qrCode"
+                    value={wxCodeValue}
+                    size={200} // 二维码的大小
+                    fgColor="#000000" // 二维码的颜色
+                    // style={{ margin: 'auto' }}
                 /> 
             </div>
         }
@@ -238,8 +246,15 @@ export default function ApplyForOpen() {
                         value={zfbCodeValue}
                         size={200} // 二维码的大小
                         fgColor="#000000" // 二维码的颜色
-                        style={{ margin: 'auto' }}
+                        style={{ marginRight: '15px' }}
                  
+                    /> 
+                    <QRCode
+                        id="qrCode"
+                        value={wxCodeValue}
+                        size={200} // 二维码的大小
+                        fgColor="#000000" // 二维码的颜色
+                        // style={{ margin: 'auto' }}
                     /> 
 
                     <Websocket url="ws://8.134.8.97:8084/shopping-center/paymentCallback"

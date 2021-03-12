@@ -6,7 +6,6 @@ export function userLogin(data) {
 
 export function getToken() {
     const data = Cookies.get('token');
-    console.log(data);
     // return data && data !== 'null' ? JSON.parse(data).accessToken : null;
     return data && data !== 'null' ? data : null;
 }
