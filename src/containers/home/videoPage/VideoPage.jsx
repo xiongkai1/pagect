@@ -7,11 +7,29 @@ import HotRecommendation from '../components/newArrival/HotRecommendation';
 import { Row, Col, Select, Input } from 'antd';
 import { SEARCH_OPTION } from '../../../constants/common';
 import { Carousel } from 'element-react';
+import { commodityClassification } from 'Services/classification';
 
 const { Search } = Input;
 const { Option } = Select;
 
 export default class ImagesPage extends Component {
+    constructor() {
+        super();
+        commodityClassification({
+            type: 3
+        }).then(res => {
+            if (res.data.code === 200) {
+                let data = res.data.data;
+
+                this.setState({
+                    fontTypeTitle: res.data.data
+                });
+            } else {
+                message.error(res.data.msg);
+            }
+        });
+    }
+
     state = {
         commontPartList: [
             { key: 1, imgurl: require('../images/boutique.png'),
@@ -36,15 +54,15 @@ export default class ImagesPage extends Component {
             { key: 3, title: '平台推荐' }
         ],
         fontTypeTitle: [
-            { key: 1, title: '常规' },
-            { key: 2, title: '航拍' },
-            { key: 3, title: '延时' },
-            { key: 4, title: '慢动作' },
-            { key: 5, title: '微距' },
-            { key: 6, title: '红外' },
-            { key: 7, title: '跟踪' },
-            { key: 8, title: '计时' },
-            { key: 9, title: '其他' }
+            // { key: 1, title: '常规' },
+            // { key: 2, title: '航拍' },
+            // { key: 3, title: '延时' },
+            // { key: 4, title: '慢动作' },
+            // { key: 5, title: '微距' },
+            // { key: 6, title: '红外' },
+            // { key: 7, title: '跟踪' },
+            // { key: 8, title: '计时' },
+            // { key: 9, title: '其他' }
         ],
         fontList: [
             { key: 1, value: require('../../../images/img1.JPG') },
@@ -83,6 +101,55 @@ export default class ImagesPage extends Component {
     }
     render() {
         let { commontPartList, hotActiveKey, hotTypeTitle, fontList, videoArray, fontTypeTitle, storeList } = this.state;
+        let videoType;
+        // 拍摄手法
+        let shootingTechnique;
+        fontTypeTitle.map(item => {
+
+            if (item.code === 'VIDEO_TYPE') {
+
+                videoType = (
+                    <div className={styles.classification}>
+                        {
+                            item.list.map(item => {
+                                return (
+                                    <span
+                                        style={{ 'cursor': 'pointer' }}
+                                        // key={i++}
+                                        className={cls(styles.typeItem, hotActiveKey === item.ITEM_VALUE ? styles.activeItem : null)}
+                                        onClick={() => this.changeHotActiveKey(item.ITEM_VALUE)}>
+                                        {item.ITEM_TEXT}
+                                    </span>
+                                );
+                            })
+                        }
+                        <span className={styles.more}>更多</span>
+                    </div>
+                );
+            }
+
+            if (item.code === 'SHOOTING_TECHNIQUE') {
+                shootingTechnique = (
+                    <div className={styles.classification}>
+                        {
+                            item.list.map(item => {
+                                return (
+                                    <span
+                                        style={{ 'cursor': 'pointer' }}
+                                        // key={i++}
+                                        className={cls(styles.typeItem, hotActiveKey === item.ITEM_VALUE ? styles.activeItem : null)}
+                                        onClick={() => this.changeHotActiveKey(item.ITEM_VALUE)}>
+                                        {item.ITEM_TEXT}
+                                    </span>
+                                );
+                            })
+                        }
+                        <span className={styles.more}>更多</span>
+                    </div>
+                );
+            }
+            
+        });
         return (
             <div className={styles.fontsPage}>
                 <div className={styles.topBox}>
@@ -167,7 +234,9 @@ export default class ImagesPage extends Component {
                         <span className={styles.titleEnglish}>PAISHESHOUFA</span>
                     </div>
                     <div className={styles.itemContent}>
-                        <div className={styles.classification}>
+                        {videoType
+                        
+                        /* <div className={styles.classification}>
                             {
                                 fontTypeTitle.map(item => {
                                     return (
@@ -181,7 +250,7 @@ export default class ImagesPage extends Component {
                                 })
                             }
                             <span className={styles.more}>更多</span>
-                        </div>
+                        </div> */}
                         <div className={styles.contentBox}>
                             <Row gutter={[16, 16]}>
                                 {
@@ -205,7 +274,9 @@ export default class ImagesPage extends Component {
                         <span className={styles.titleEnglish}>FENLEI</span>
                     </div>
                     <div className={styles.itemContent}>
-                        <div className={styles.classification}>
+                        {
+                            shootingTechnique
+                        /* <div className={styles.classification}>
                             {
                                 fontTypeTitle.map(item => {
                                     return (
@@ -219,7 +290,7 @@ export default class ImagesPage extends Component {
                                 })
                             }
                             <span className={styles.more}>更多</span>
-                        </div>
+                        </div> */}
                         <div className={styles.contentBox}>
                             <Row gutter={[16, 16]}>
                                 {

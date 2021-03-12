@@ -1,62 +1,462 @@
 import React, { Component } from 'react';
 import styles from './baseInfo.less';
-import { Form, Input, Button, Select } from 'antd';
+import { Form, Input, Button, Select, DatePicker, message  } from 'antd';
+import Cookies from 'Utils/cookie';
+import { basicInformation, updBasicInformation } from 'Services/userCenter';
+import { physicalAddress } from 'Services/userAddress';
+import moment from 'moment';
+// import AppContext from '../../../../../../AppContext';
 
 const { Option } = Select;
 const { TextArea } = Input;
-class BaseInfoPart extends Component {
+const { MonthPicker, RangePicker, WeekPicker } = DatePicker;
 
+class BaseInfoPart extends Component {
+    constructor() {
+        super();
+        this.state = { 
+            userInfo: {},
+            modifyBtn: false,
+            userSex: '',
+            userBirthday: '',
+            userName: '',
+            userIntroduce: '',
+            // 国家
+            country: [],
+            province: [],
+            city: [],
+            region: [],
+            secondProvince: '',
+            secondCity: '',
+            secondRegion: ''
+
+        };
+         
+        this.changeState = this.changeState.bind(this);
+
+        // 获取用户信息
+        basicInformation({
+            account: Cookies.get('account')
+        }).then(res => {
+            if (res.data.code === 200) {
+                this.setState({
+                    userInfo: res.data.data
+                });
+                console.log(this.state.userInfo);
+                this.setState({
+                    userBirthday: res.data.data.userBirthday,
+                    userName: res.data.data.userName,
+                    userIntroduce: res.data.data.userIntroduce
+                });
+                if (this.state.userInfo.userSex === 1) {
+                    this.setState({
+                        userSex: '男'
+                    });
+                } else if (this.state.userInfo.userSex === 2) {
+                    this.setState({
+                        userSex: '女'
+                    });
+                } else {
+                    // 说明userSex不存在;
+
+                }
+
+            } else {
+                message.error('未知异常!');
+            }
+            
+        });
+
+        // 获取地址  ----- 国家
+        physicalAddress({
+            cityId: 1
+        }).then(res => {
+            if (res.data.code === 200) {
+                // 获取国家
+                this.setState({
+                    country: [res.data.data.oneLevel]
+                });
+                
+                // 获取省
+                this.setState({
+                    province: res.data.data.twoLevel
+                });
+
+            }
+        });
+    }
+    // 文本输入
+    onChange(e) {
+        console.log(e.target.value);
+        this.setState({
+            userName: e.target.value
+        });
+    }
+    // 时间选择器
+    dateOnChange(date, dateString) {
+        this.setState({
+            userBirthday: dateString
+        });
+    }
+
+    // 下拉
+    fetchUser() {
+
+    }
+    changeState(type, type_chiled, data) {
+        let start = { ...this.state };
+        start[type][type_chiled] = data;
+        this.setState({
+            ...start
+        });
+        return false;
+    }
+    handleChange(value) {
+        if (this.state.userInfo.userSex === '' || this.state.userInfo.userSex === 0 ) {
+            this.changeState('userInfo', 'userSex', value);
+            if (this.state.userInfo.userSex === '1') {
+                this.setState({
+                    userSex: '男'
+                });
+            } else if (this.state.userInfo.userSex === '2') {
+                this.setState({
+                    userSex: '女'
+                });
+            }
+        }
+
+    }
+
+    provinceChange(value, key) {
+        this.setState({
+            secondProvince: key.props.children
+        });
+        this.setState({
+            city: []
+        });
+        physicalAddress({
+            cityId: value
+        }).then(res => {
+            if (res.data.code === 200) {
+                // 区
+                this.setState({
+                    city: res.data.data .fourLevel,
+                    secondCity: res.data.data.fourLevel[0].cname
+                });
+                this.setState({
+                    region: []
+                });
+                physicalAddress({
+                    provinceId: this.state.city[0].id
+                }).then(res => {
+                    if (res.data.code === 200) {
+                        // 城市
+                        this.setState({
+                            region: res.data.data.threeLevel,
+                            secondRegion: res.data.data.threeLevel[0].cname
+                            
+                        });
+                     
+                    }
+                });
+            }
+            
+        });
+    }
+
+    provinceCity(value, key) {
+        this.setState({
+            region: []
+        });
+        // console.log();
+        // 判断点的是哪个城市
+        this.setState({
+            secondCity: key.props.children
+        });
+        physicalAddress({
+            provinceId: value
+        }).then(res => {
+            if (res.data.code === 200) {
+                // 城市
+               
+                this.setState({
+                    region: res.data.data.threeLevel,
+                    secondRegion: res.data.data.threeLevel[0].cname
+                   
+                });
+            }
+        });
+        console.log(this.state.secondProvince + '省' + this.state.secondCity + '市' + this.state.secondRegion + '区');
+
+    }
+
+    provinceRegion(value, key) {
+        console.log(key.props.children);
+        this.setState({
+            secondRegion: key.props.children
+        });
+
+    }
+    userIntroduceRegion(e) {
+        this.setState({
+            userIntroduce: e.target.value
+        });
+    }
+
+    dateChange() {
+
+    }
     componentDidMount() {
         
     }
     handleSubmit = () => {
+        console.log('基本信息');
 
     };
     handleSave = () => {
+        let sex = 0;
+        if (this.state.userSex === '男') {
+            sex = 1;
+        } else {
+            sex = 2;
+        }
+        updBasicInformation({
+            invitationCode: this.state.userInfo.invitationCode,
+            userBirthday: this.state.userBirthday,
+            userDress: this.state.secondProvince + '省' + this.state.secondCity + '市' + this.state.secondRegion + '区',
+            userIntroduce: this.state.userIntroduce,
+            userName: this.state.userName,
+            userSex: sex,
+            userMobile: Cookies.get('account'),
+            userPortrait: 'http://localhost:8080'
+        }).then(res => {
+            console.log(res);
+            if (res.data.code === 200) {
+                message.success(res.data.msg);
+                // 获取用户信息
+                basicInformation({
+                    account: Cookies.get('account')
+                }).then(res => {
+                    if (res.data.code === 200) {
+                        this.setState({
+                            userInfo: res.data.data
+                        });
+                        console.log(this.state.userInfo);
+                        this.setState({
+                            userBirthday: res.data.data.userBirthday,
+                            userName: res.data.data.userName,
+                            userIntroduce: res.data.data.userIntroduce
+                        });
+                        if (this.state.userInfo.userSex === 1) {
+                            this.setState({
+                                userSex: '男'
+                            });
+                        } else if (this.state.userInfo.userSex === 2) {
+                            this.setState({
+                                userSex: '女'
+                            });
+                        } else {
+                            // 说明userSex不存在;
 
+                        }
+
+                    } else {
+                        message.error('未知异常!');
+                    }
+            
+                });
+            }
+        });
+    };
+    // 修改
+    modify = () => {
+        console.log('修改');
+        if (!this.state.modifyBtn) {
+            this.setState({
+                modifyBtn: true
+            });
+        } else {
+            this.setState({
+                modifyBtn: false
+            });
+        }
+        
     }
     handleLogInfoSave = () => {
-
+        console.log(' 修改1 ');
     }
     render() {
+        // 获取cookis
         let { getFieldDecorator } = this.props.form;
+        let userSex;
+        let modifyContent;
+        let statelen = this.state;
+        if (this.state.userInfo.userSex === 1) {
+            userSex = (
+                <span>男</span>
+            );
+        } else {
+            userSex = (
+                <span>女</span>
+            );
+        }
+        let cityContext;
+
+        if (this.state.city.length === 0) {
+            cityContext = ('');
+        } else {
+            cityContext = (
+                statelen.city
+            );
+        }
+
+        if (!this.state.modifyBtn) {
+            modifyContent = (
+                <Form >
+                    {/* onSubmit={this.handleSubmit} */}
+                    <Form.Item label="邀请码">
+                        {this.state.userInfo.invitationCode}
+                    </Form.Item>
+                    <Form.Item label="用户名">
+                        <span>{this.state.userInfo.userName}</span>
+                    </Form.Item>
+                    <Form.Item label="性别">
+                        <span>{userSex}</span>
+                    </Form.Item>
+                    <Form.Item label="生日">
+                        <span>{this.state.userInfo.userBirthday}</span>
+                    </Form.Item>
+                    <Form.Item label="居住地址">
+                        <span>{this.state.userInfo.userDress}</span>
+                    </Form.Item>
+                    <Form.Item label="自我简介">
+                        <span>{this.state.userInfo.userIntroduce}</span>
+                    </Form.Item>
+                    <Form.Item className={styles.saveBtn}>
+                        <Button className={styles.modifyBtn} type="primary" onClick={this.modify}>修改</Button>
+                        <Button type="primary" htmlType="submit" onClick={this.handleSave}>保存</Button>
+                    </Form.Item>
+                </Form>
+            );
+        } else {
+            modifyContent = (
+                <Form >
+                    <Form.Item label="邀请码">
+                        <span className={styles.text}>{this.state.userInfo.invitationCode}</span> 
+                        <span className={styles.below}>(系统自动分配,不可改变)</span>
+                    </Form.Item>
+                    <Form.Item label="用户名" >
+                        <Input 
+                            type="userName"
+                            value={this.state.userName} 
+                            name = "userInfo.userName"
+                            onChange={this.onChange.bind(this)}
+                        />
+                    </Form.Item>
+                    <Form.Item label="性别">
+                        <Select 
+                            size="default" 
+                            value={this.state.userSex} 
+                            className ={styles.select}
+                            name="userInfo.userSex"
+                            filterOption={false}
+                            onSearch={this.fetchUser.bind(this)}
+                            onChange={this.handleChange.bind(this)}
+                            style ={{ width: '530px', height: '40px', lineHeight: '40px', fontSize: '14px' }}
+                        >
+                            <Option value="1">男</Option>
+                            <Option value="2">女</Option>
+                        </Select>
+                        <div className={styles.belowPos}>选择性别，不可更改</div>
+                    </Form.Item>
+                    <Form.Item label="生日">
+                        {/* <span>{this.state.userInfo.userBirthday}</span> */}
+                        <DatePicker defaultValue={moment(this.state.userBirthday, 'YYYY.MM.DD')} format={'YYYY.MM.DD'} onChange={this.dateOnChange.bind(this)} />
+                        <div className={styles.belowPos}>你的祝福你，我不想少了我</div>
+                    </Form.Item>
+                    <Form.Item label="居住地址">
+                        <Select 
+                            size="default" 
+                            value={this.state.country[0].cname}
+                            className={styles.country}
+                            name="country"
+                            filterOption={false}
+                            style = {{ width: '100px' }}>
+                            {
+                                this.state.country.map((item, idx) => (
+                                    <Option key = {idx} value={item.cname}>{item.cname}</Option>
+                                ))
+                            }
+                        </Select>
+                        <Select 
+                            size="default" 
+                            value={this.state.secondProvince}
+                            className={styles.country}
+                            name="province"
+                            filterOption={false}
+                            onChange={this.provinceChange.bind(this)}
+                            style = {{ width: '100px', marginLeft: '20px' }}>
+                            {
+                                this.state.province.map((item, idx) => (
+                                    <Option key = {idx} value={item.id}>{item.cname}</Option>
+                                ))
+                            }
+                        </Select>
+                        
+                        <Select 
+                            size="default" 
+                            className={styles.country}
+                            name="city"
+                            value={this.state.secondCity}
+                            filterOption={false}
+                            onChange = {this.provinceCity.bind(this)}
+                            style = {{ width: '100px' }}>
+                            {
+                                this.state.city.map((item, idx) => (
+                                    <Option key = {idx} value={item.id}>{item.cname}</Option>
+                                ))
+                            }
+                        </Select>
+                        <Select 
+                            size="default" 
+                            value={this.state.secondRegion}
+                            className={styles.country}
+                            name="region"
+                            onChange = {this.provinceRegion.bind(this)}
+                            filterOption={false}
+                            style = {{ width: '100px' }}>
+                            {
+                                this.state.region.map((item, idx) => (
+                                    <Option key = {idx} value={item.id}>{item.cname}</Option>
+                                ))
+                            }
+                        </Select>
+                    </Form.Item>
+                    <Form.Item label="自我简介">
+                        <TextArea 
+                            value={this.state.userIntroduce}
+                            autoSize={true} rows={4} onChange = {this.userIntroduceRegion.bind(this)}>
+                            {this.state.userInfo.userIntroduce}
+                        </TextArea>
+                        {/* <span>{this.state.userInfo.userIntroduce}</span> */}
+                    </Form.Item>
+                    <Form.Item className={styles.saveBtn}>
+                        <Button className={styles.modifyBtn} type="primary" onClick={this.modify}>修改</Button>
+                        <Button type="primary" htmlType="submit" onClick={this.handleSave}>保存</Button>
+                    </Form.Item>
+                </Form>
+            );
+        }
+
         return (
+           
             <div className={styles.baseInfo}>
+               
                 <div className={styles.formPart}>
+                    
                     <div className={styles.title}>基本信息</div>
-                    <Form onSubmit={this.handleSubmit}>
-                        <Form.Item label="邀请码">
-                        ABCDEF1234
-                        </Form.Item>
-                        <Form.Item label="用户名">
-                            {getFieldDecorator('username', {})(
-                                <span>呵呵</span>
-                            )}
-                        </Form.Item>
-                        <Form.Item label="性别">
-                            {getFieldDecorator('gender', {})(
-                                <span>男</span>
-                            )}
-                        </Form.Item>
-                        <Form.Item label="生日">
-                            {getFieldDecorator('birthday', {})(
-                                <span>2020-12-07</span>
-                            )}
-                        </Form.Item>
-                        <Form.Item label="居住地址">
-                            {getFieldDecorator('address', {})(
-                                <span>四川省成都市飒飒大苏打是否</span>
-                            )}
-                        </Form.Item>
-                        <Form.Item label="自我简介">
-                            {getFieldDecorator('profile', {})(
-                                <span>暂无介绍</span>
-                            )}
-                        </Form.Item>
-                        {/* <Form.Item className={styles.saveBtn}>
-                            <Button type="primary" htmlType="submit" onClick={this.handleSave}>保存</Button>
-                        </Form.Item> */}
-                    </Form>
+
+                    {modifyContent}
                 </div>
                 <div className={styles.avatarPart}> </div>
             </div>

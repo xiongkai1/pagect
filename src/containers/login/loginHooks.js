@@ -47,11 +47,13 @@ export default function(props) {
         }).then(res => {
             let { data } = res;
             if (data.code === 200) {
-                if (fieldsValue.rememberMe) {// 记住用户名
-                    Cookies.set('account', fieldsValue.account, { expires: 7 });
-                }
+                // console.log(fieldsValue.rememberMe);
+                // if (fieldsValue.rememberMe) {// 记住用户名
+                Cookies.set('account', fieldsValue.account, { expires: 7 });
+                // }
                 saveUser(data.data.user); // 登录后保存用户信息
                 userLogin(data.data.token);// 保存token
+
                 message.success(data.msg);
                 setLoading(true);
                 setTimeout(() => {

@@ -136,7 +136,6 @@ export default function DetailsHeader(props) {
         </Menu>
     );
     React.useEffect(() => {
-        // console.log(props.typeActiveKey);
     });
     const { pathname } = useLocation();
     return (
@@ -144,7 +143,9 @@ export default function DetailsHeader(props) {
             <div className={styles.topBox}>
                 <div className={styles.topMenusBox}>
                     <img className={styles.topLogo} width="205px" height="55px" src={require('../headerHome/images/home_logo.png')}/>
+
                     <div className={styles.menusTitleBox}>
+
                         <div className={styles.topMenusLeft}>
                             {
                                 leftMenus.map(item => {
@@ -154,7 +155,7 @@ export default function DetailsHeader(props) {
                                             key={item.name}
                                             isActive={() => { return pathname === item.to; }}
                                             className={props.typeActiveKey === item.id ? styles.current : ''}>
-                                            <div>{item.name}</div>
+                                            <div className="">{item.name}</div>
                                         </NavLink>
                                     );
                                 })

@@ -7,6 +7,7 @@ import TypePieChart from './components/charts/TypePieChart';
 import InfoLineChart from './components/charts/InfoLineChart';
 
 export default function MyShopSystem() {
+
     const {
         daysTabInfo,
         tableTabInfo,

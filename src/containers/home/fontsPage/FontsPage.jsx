@@ -5,12 +5,30 @@ import CommonPart from '../components/commonPart/CommonPart';
 import NewArrival from '../components/newArrival/NewArrival';
 import HotRecommendation from '../components/newArrival/HotRecommendation';
 import { Link } from 'react-router-dom';
-import { Row, Col, Carousel, Select, Input } from 'antd';
+import { Row, Col, Carousel, Select, Input, message } from 'antd';
 import { SEARCH_OPTION } from '../../../constants/common';
+
+import { commodityClassification } from 'Services/classification';
 
 const { Search } = Input;
 const { Option } = Select;
 export default class FontsPage extends Component {
+    constructor() {
+        super();
+        commodityClassification({
+            type: 1
+        }).then(res => {
+            if (res.data.code === 200) {
+                let data = res.data.data;
+
+                this.setState({
+                    fontTypeTitle: res.data.data
+                });
+            } else {
+                message.error(res.data.msg);
+            }
+        });
+    }
     state = {
         commontPartList: [
             { key: 1, imgurl: require('../images/xinanFonts.png'),
@@ -35,19 +53,20 @@ export default class FontsPage extends Component {
             { key: 3, title: '平台推荐' }
         ],
         fontTypeTitle: [
-            { key: 1, title: '全体' },
-            { key: 2, title: '黑体' },
-            { key: 3, title: '魏碑' },
-            { key: 4, title: '全体' },
-            { key: 5, title: '黑体' },
-            { key: 6, title: '魏碑' },
-            { key: 7, title: '全体' },
-            { key: 8, title: '黑体' },
-            { key: 9, title: '魏碑' },
-            { key: 10, title: '全体' },
-            { key: 11, title: '黑体' },
-            { key: 12, title: '魏碑' }
+            // { key: 1, title: '全体' },
+            // { key: 2, title: '黑体' },
+            // { key: 3, title: '魏碑' },
+            // { key: 4, title: '全体' },
+            // { key: 5, title: '黑体' },
+            // { key: 6, title: '魏碑' },
+            // { key: 7, title: '全体' },
+            // { key: 8, title: '黑体' },
+            // { key: 9, title: '魏碑' },
+            // { key: 10, title: '全体' },
+            // { key: 11, title: '黑体' },
+            // { key: 12, title: '魏碑' }
         ],
+
         fontList: [
             { key: 1, value: require('../../../images/font1.png') },
             { key: 2, value: require('../../../images/font2.png') },
@@ -80,6 +99,97 @@ export default class FontsPage extends Component {
     }
     render() {
         let { commontPartList, hotActiveKey, hotTypeTitle, fontList, fontList2, fontList3, fontTypeTitle, storeList } = this.state;
+        let fontType;
+        let fontLanguageSystem;
+        let fontStyle;
+        let fontCoding;
+        fontTypeTitle.map(item => {
+            // 字体类型
+            if (item.code === 'FONT_TYPE') {
+                fontType = (
+                    <div className={styles.classification}>
+                        {
+                            item.list.map(item => {
+                                return (
+                                    <span
+                                        style={{ 'cursor': 'pointer' }}
+                                        // key={i++}
+                                        className={cls(styles.typeItem, hotActiveKey === item.ITEM_VALUE ? styles.activeItem : null)}
+                                        onClick={() => this.changeHotActiveKey(item.ITEM_VALUE)}>
+                                        {item.ITEM_TEXT}
+                                    </span>
+                                );
+                            })
+                        }
+                        <span className={styles.more}>更多</span>
+                    </div>
+                );
+            }
+            // 字体语系
+            if (item.code === 'FONT_LANGUAGE_SYSTEM') {
+                fontLanguageSystem = (
+                    <div className={styles.classification}>
+                        {
+                            item.list.map(item => {
+                                return (
+                                    <span
+                                        style={{ 'cursor': 'pointer' }}
+                                        // key={i++}
+                                        className={cls(styles.typeItem, hotActiveKey === item.ITEM_VALUE ? styles.activeItem : null)}
+                                        onClick={() => this.changeHotActiveKey(item.ITEM_VALUE)}>
+                                        {item.ITEM_TEXT}
+                                    </span>
+                                );
+                            })
+                        }
+                        <span className={styles.more}>更多</span>
+                    </div>
+                );
+            }
+            // 风格
+            if (item.code === 'FONT_STYLE') {
+                fontStyle = (
+                    <div className={styles.classification}>
+                        {
+                            item.list.map(item => {
+                                return (
+                                    <span
+                                        style={{ 'cursor': 'pointer' }}
+                                        // key={i++}
+                                        className={cls(styles.typeItem, hotActiveKey === item.ITEM_VALUE ? styles.activeItem : null)}
+                                        onClick={() => this.changeHotActiveKey(item.ITEM_VALUE)}>
+                                        {item.ITEM_TEXT}
+                                    </span>
+                                );
+                            })
+                        }
+                        <span className={styles.more}>更多</span>
+                    </div>
+                );
+            }
+
+            if (item.code === 'FONT_CODING') {
+                fontCoding = (
+                    <div className={styles.classification}>
+                        {
+                            item.list.map(item => {
+                                return (
+                                    <span
+                                        style={{ 'cursor': 'pointer' }}
+                                        // key={i++}
+                                        className={cls(styles.typeItem, hotActiveKey === item.ITEM_VALUE ? styles.activeItem : null)}
+                                        onClick={() => this.changeHotActiveKey(item.ITEM_VALUE)}>
+                                        {item.ITEM_TEXT}
+                                    </span>
+                                );
+                            })
+                        }
+                        <span className={styles.more}>更多</span>
+                    </div>
+                );
+            }
+        });
+
         return (
             <div className={styles.fontsPage}>
                 <div className={styles.topBox}>
@@ -160,27 +270,16 @@ export default class FontsPage extends Component {
                         </div>
                     </div>
                 </div>
+                
                 <div className={styles.pageItem}>
                     <div className={styles.itemTitle}>
                         <span>字体类型</span>
                         <span className={styles.titleEnglish}>ZITILEIXING</span>
                     </div>
                     <div className={styles.itemContent}>
-                        <div className={styles.classification}>
-                            {
-                                fontTypeTitle.map(item => {
-                                    return (
-                                        <span
-                                            key={item.key}
-                                            className={cls(styles.typeItem, hotActiveKey === item.key ? styles.activeItem : null)}
-                                            onClick={() => this.changeHotActiveKey(item.key)}>
-                                            {item.title}
-                                        </span>
-                                    );
-                                })
-                            }
-                            <span className={styles.more}>更多</span>
-                        </div>
+
+                        {fontType}
+
                         <div className={styles.contentBox}>
                             <Row gutter={[16, 0]}>
                                 {
@@ -206,7 +305,9 @@ export default class FontsPage extends Component {
                         <span className={styles.titleEnglish}>ZITIYUXI</span>
                     </div>
                     <div className={styles.itemContent}>
-                        <div className={styles.classification}>
+                        {
+                            fontLanguageSystem
+                        /* <div className={styles.classification}>
                             {
                                 fontTypeTitle.map(item => {
                                     return (
@@ -220,7 +321,7 @@ export default class FontsPage extends Component {
                                 })
                             }
                             <span className={styles.more}>更多</span>
-                        </div>
+                        </div> */}
                         <div className={styles.contentBox}>
                             <Row gutter={[16, 0]}>
                                 {
@@ -244,7 +345,9 @@ export default class FontsPage extends Component {
                         <span className={styles.titleEnglish}>FENGGE</span>
                     </div>
                     <div className={styles.itemContent}>
-                        <div className={styles.classification}>
+                        {
+                            fontStyle
+                        /* <div className={styles.classification}>
                             {
                                 fontTypeTitle.map(item => {
                                     return (
@@ -258,7 +361,7 @@ export default class FontsPage extends Component {
                                 })
                             }
                             <span className={styles.more}>更多</span>
-                        </div>
+                        </div> */}
                         <div className={styles.contentBox}>
                             <Row gutter={[16, 0]}>
                                 {
@@ -282,7 +385,9 @@ export default class FontsPage extends Component {
                         <span className={styles.titleEnglish}>ZITIBIANMA/ZISHU</span>
                     </div>
                     <div className={styles.itemContent}>
-                        <div className={styles.classification}>
+                        {
+                            fontCoding
+                        /* <div className={styles.classification}>
                             {
                                 fontTypeTitle.map(item => {
                                     return (
@@ -296,7 +401,7 @@ export default class FontsPage extends Component {
                                 })
                             }
                             <span className={styles.more}>更多</span>
-                        </div>
+                        </div> */}
                         <div className={styles.contentBox}>
                             <Row gutter={[16, 0]}>
                                 {
