@@ -4,7 +4,6 @@ import { Row, Col } from 'antd';
 import cls from 'classnames';
 import { Link } from 'react-router-dom';
 
-
 export default class FontsPage extends Component {
     state = {
         fontList: [
@@ -81,9 +80,9 @@ export default class FontsPage extends Component {
                                                         <div className={styles.storeAddressBox}>
                                                             <div className={styles.loction}>湖南长沙</div>
                                                             <span className={styles.goStore}>
-                                                            <Link to={{ pathname: '/userCenter/16', state: { id: 1 } }}>
+                                                                <Link to={{ pathname: '/userCenter/16', state: { id: 1 } }}>
                                                                  店铺》
-                                                           </Link>
+                                                                </Link>
                                                             </span>
                                                         </div>
                                                     </div>

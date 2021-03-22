@@ -112,7 +112,6 @@ class DocumentUploading extends React.Component {
         fontLanguageSystem: [],
         // 编码
         fontCoding: [],
-        shareProfit: [],
         // 店鋪id
         mallId: '',
         fileList: [],
@@ -126,7 +125,71 @@ class DocumentUploading extends React.Component {
         previewVisible: false,
         previewImage: '',
         category: '',
-        lout: false
+        lout: false,
+        // 标签
+        keyword: [],
+        shareProfit: [],
+        // 获取三种图片的信息
+        imagesText: [],
+        visible: false,
+        columns: [
+            {
+                title: '授权类型',
+                dataIndex: 'remarks'
+            }, {
+                title: '图片类型',
+                dataIndex: 'authorizationTypeInformation'
+            }, {
+                title: '产品详细信息',
+                dataIndex: 'type',
+                render: (text, row, index) => {
+                     
+                    if (row.authorizationTypeCode === 'DESIGN_NONCOMMERCIAL' ) {
+                        return '商用元素设计介绍';
+                    }
+ 
+                    if (row.authorizationTypeCode === 'DESIGN_COMMERCIAL') {
+                        return '非商用元素设计介绍';
+                    }
+ 
+                }
+ 
+            }, {
+                title: '市场价(元)',
+                dataIndex: '',
+                render: (text, row, index) => {
+ 
+                    if (this.state.fileList.length > 1 ) {
+                           
+                        return <InputNumber onChange={this.priceChange.bind(this, row)} placeholder="价格"/>;
+                
+                    }
+ 
+                    // if (row.authorizationTypeCode === 'DESIGN_COMMERCIAL') {
+                    //     if (this.state.fileList.length >= 2 ) {
+                    //         return <InputNumber onChange={this.priceChange.bind(this, row)} placeholder="价格"/>;
+                
+                    //     }
+                    // }
+                   
+                }
+                 
+            }, {
+                title: '售价(元)',
+                dataIndex: '',
+                render: (text, row, index) => {
+ 
+                    if (this.state.fileList.length > 1 ) {
+                           
+                        return <InputNumber onChange={this.priceSellChange.bind(this, row)} placeholder="价格"/>;
+                   
+                    }
+                     
+                }
+            }
+             
+        ],
+        dataSource: []
 
     };
     handleCancel = () => this.setState({ previewVisible: false });
@@ -149,22 +212,25 @@ class DocumentUploading extends React.Component {
         if (this.state.pause) {
             return;
         }
+        let fileTypelen = 'COVER';
         if (this.state.fileList.length === 0) {
             this.setState({
                 fileType: 'COVER'
             });
+            fileTypelen = 'COVER';
         }
       
         if (this.state.fileList.length >= 1) {
             this.setState({
                 fileType: 'OFFICE'
             });
+            fileTypelen = 'OFFICE';
 
         }
         claimUploadId({
             catalog: file.lastModified,
             fileName: file.name,
-            type: this.state.fileType
+            type: fileTypelen
         }).then(res => {
             if (res.data.code === 200) {
                 this.UploadPost(file, res);
@@ -174,7 +240,7 @@ class DocumentUploading extends React.Component {
     }
 
     UploadPost =(file, res) => {
-
+        console.log(file);
         let size = file.size;
 
         let totalSize = 1 * 1024 * 1024;
@@ -315,27 +381,65 @@ class DocumentUploading extends React.Component {
     selectfontCoding = value => {
         console.log(value);
     }
+    handleOk = e => {
+      
+        this.setState({
+            visible: false
+        });
+
+    };
+    handleCancelModel = e => {
+        this.setState({
+            visible: false
+        });
+    };
+    rowKey = e => {
+       
+        return e.authorizationId;
+    }
+    fontClick = e => {
+        this.setState({
+            fontValue: 0
+        });
+    }
+    fontClick1 = e => {
+        this.setState({
+            fontValue: 1
+        });
+    }
+    showModal=value => {
+        this.setState({
+            visible: true
+        });
+    }
 
     render() {
              
         const { getFieldDecorator } = this.props.form;
-        const {  fileList, lout, fontStyle, fontType, fontLanguageSystem, fontCoding, shareProfit  } = this.state;
-        const uploadButton = (
-            <div>
-                <Icon type="plus" />
-                <div className="ant-upload-text">上传字体文件</div>
-                <div className="ant-upload-text">(不要打包,直接上传)</div>
-            </div>
-        );
-        const uploadButton1 = (
-            <div>
-                <Icon type="plus" />
-                <div className="ant-upload-text">6:4字体封面图</div>
-                <div className="ant-upload-text">所上文件不要带水印标签</div>
-                <div className="ant-upload-text">大小5MB</div>
+        const {  fileList, lout, fontStyle, fontType, fontLanguageSystem, fontCoding, shareProfit, visible, columns, dataSource  } = this.state;
+        let uploadButton;
+        if (fileList.length === 0) {
+            uploadButton =  (
+                <div>
+                    <Icon type="plus" />
+                    <div className="ant-upload-text">上传字体文件</div>
+                    <div className="ant-upload-text">(不要打包,直接上传)</div>
+                </div>
+            );
+        }
+       
+        if (fileList.length === 1) {
+            uploadButton =  (
+                <div>
+                    <Icon type="plus" />
+                    <div className="ant-upload-text">6:4字体封面图</div>
+                    <div className="ant-upload-text">所上文件不要带水印标签</div>
+                    <div className="ant-upload-text">大小5MB</div>
             
-            </div>
-        );
+                </div>
+            );
+        }
+
         const props = {
             onRemove: file => {
                 this.setState(state => {
@@ -370,8 +474,7 @@ class DocumentUploading extends React.Component {
                     <Upload {...props}
                         listType="picture-card"
                         disabled={this.state.percent === 0 && lout ? false : true}>
-                        {fileList.length >= 8 || fileList.length === 0 ? null : uploadButton}
-                        {fileList.length === 0 ? uploadButton1 : null}
+                        {fileList.length >= 3 ?   null : uploadButton}
                     </Upload>
                     <Progress  percent={this.state.percent} />
 
@@ -420,6 +523,11 @@ class DocumentUploading extends React.Component {
                                         rules: [{ required: true, message: '格式不能为空' }]
                                     })(<Input placeholder="文件格式"/>)}
                                 </Form.Item>
+                                <Form.Item label="类型|格式">
+                                    {getFieldDecorator('detailOfficeVoList.fileFormat', {
+                                        rules: [{ required: true, message: '格式不能为空' }]
+                                    })(<Input placeholder="文件格式"/>)}
+                                </Form.Item>
 
                                 <Form.Item label="风格">
                                     {getFieldDecorator('genreStyle.fontStyle', {
@@ -440,7 +548,8 @@ class DocumentUploading extends React.Component {
                                         </Select>
                                     )}
                                 </Form.Item>
-                                <Form.Item label="类型">
+
+                                <Form.Item label="字体类型">
                                     {getFieldDecorator('genreStyle.fontType', {
                                         rules: [{ required: true, message: '类型不能为空' }]
                                     })(
@@ -523,6 +632,28 @@ class DocumentUploading extends React.Component {
                             </Form>
                         </TabPane>
                     </Tabs>
+                </div>
+                <div className={styles.modal}>
+                    <Modal
+                        width="850px"
+                        title="设置价格和授权:"
+                        content="1"
+                        visible={visible}
+                        onOk={this.handleOk}
+                        onCancel={this.handleCancelModal}
+                    >
+                        <p>设置说明在对应的板块,输入对应的价格信息，没有价格信息的栏目，将不被展示出来</p>
+
+                        <Form >
+                            <Table 
+                                columns={columns}
+                                onSubmit={this.handleOk}
+                                dataSource={dataSource}
+                                rowKey={this.rowKey}
+                            />
+
+                        </Form>
+                    </Modal>
                 </div>
             </div>
         );
