@@ -4,6 +4,7 @@ import { Row, Col } from 'antd';
 import cls from 'classnames';
 import { Link } from 'react-router-dom';
 
+
 export default class FontsPage extends Component {
     state = {
         fontList: [
@@ -73,18 +74,16 @@ export default class FontsPage extends Component {
                                         return (
                                             <Col key={item.key} className={styles.gutterBox} span={6}>
                                                 <div className={styles.fontItemBox}>
-                                                    <div className={styles.storeAvatar}>
-                                                        <img width="" src="https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=2220420611,1081221264&fm=26&gp=0.jpg" alt="" srcset=""/>
-                                                    </div>
+                                                    <div className={styles.storeAvatar}></div>
                                                     <div className={styles.storeBox}>
                                                         <div className={styles.follow}>+关注</div>
                                                         <div className={styles.storeName}>卖图片的小姐姐到这里</div>
                                                         <div className={styles.storeAddressBox}>
                                                             <div className={styles.loction}>湖南长沙</div>
                                                             <span className={styles.goStore}>
-                                                                <Link to={{ pathname: '/userCenter/16', state: { id: 1 } }}>
-                                                                店铺》
-                                                                </Link>
+                                                            <Link to={{ pathname: '/userCenter/16', state: { id: 1 } }}>
+                                                                 店铺》
+                                                           </Link>
                                                             </span>
                                                         </div>
                                                     </div>

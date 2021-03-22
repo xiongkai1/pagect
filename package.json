@@ -71,7 +71,8 @@
     "spark-md5": "^3.0.1",
     "superagent": "^6.1.0",
     "swiper": "^6.3.5",
-    "umi": "^3.3.9"
+    "umi": "^3.3.9",
+    "video-react": "^0.14.1"
   },
   "devDependencies": {
     "@babel/core": "^7.0.1",

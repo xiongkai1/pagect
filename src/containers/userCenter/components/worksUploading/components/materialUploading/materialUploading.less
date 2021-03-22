@@ -1,3 +1,4 @@
+
 .materialUploading {
     .clearfix{
         width: 1050px;
@@ -23,18 +24,59 @@
         width: 350px;
         float:right;
 
-        .keyword{
-            .keywordSpan{
-                padding-right: 5px;
-            }
-        }
-
         :global{
             .ant-form-item{
                 margin-bottom:0px;
             }
             .ant-form-item-label{
                 line-height: 20px;
+            }
+            .ant-tabs-tab{
+                font-size:12px;
+                margin: 0;
+
+            }
+        }
+        .button{
+            margin-top: 40px;
+            :global{
+                .ant-btn{
+                    width: 160px;
+                    height: 50px;
+                    margin-left: 15px;
+                }
+            }
+        }
+        .inputPut{
+            :global{
+                .ant-input:nth-child(1) {
+                    width: 150px;
+                    float: left;
+                }
+                .ant-input:nth-child(2) {
+                    width: 150px;
+                    float:right
+                    
+                }
+            }
+        }
+
+        .keyword{
+            .keywordSpan{
+                padding-right: 5px;
+            }
+        }
+
+       
+
+        .information{
+            .author{
+                .float{
+                    
+                }
+                .right{
+                    color: #ccc;
+                }
             }
         }
     }

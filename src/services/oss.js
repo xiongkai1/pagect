@@ -29,7 +29,7 @@ export function claimUploadId(data) {
         url: '/shopping-center/oss/claimUploadId',
         method: HttpMethod.GET,
         headers: {
-            token: getToken()
+            // token: getToken()
         },
         params: data
     });
@@ -43,7 +43,7 @@ export function completeMultipartUpload(data) {
         url: '/shopping-center/oss/completeMultipartUpload',
         method: HttpMethod.GET,
         headers: {
-            token: getToken()
+            // token: getToken()
         },
         params: data
     });
@@ -55,7 +55,7 @@ export function partUploader(data) {
         method: HttpMethod.POST,
         // processData: null,        
         headers: {
-            token: getToken()
+            // token: getToken()
         },
         data
     });

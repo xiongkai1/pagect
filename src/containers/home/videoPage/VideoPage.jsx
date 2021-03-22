@@ -6,31 +6,97 @@ import NewArrival from '../components/newArrival/NewArrival';
 import HotRecommendation from '../components/newArrival/HotRecommendation';
 import { Row, Col, Select, Input } from 'antd';
 import { SEARCH_OPTION } from '../../../constants/common';
+import { Link } from 'react-router-dom';
 import { Carousel } from 'element-react';
 import { commodityClassification } from 'Services/classification';
+import { hotList, videoClassificationList, videoNewEntrantsList, videoShotList } from 'Services/videoHomePage';
 
 const { Search } = Input;
 const { Option } = Select;
 
-export default class ImagesPage extends Component {
+export default class VideoPage extends Component {
     constructor() {
         super();
         commodityClassification({
             type: 3
         }).then(res => {
             if (res.data.code === 200) {
-                let data = res.data.data;
+                let dataLog = res.data.data[0].children;
 
                 this.setState({
-                    fontTypeTitle: res.data.data
+                    fontTypeTitle: dataLog
                 });
             } else {
                 message.error(res.data.msg);
             }
         });
+
+        hotList({
+            current: 1,
+            size: 4
+        }).then(e => {
+            if (e.data.code === 200) {
+                let dataList = e.data.data;
+
+                this.setState({
+                    hotList: dataList.data
+                });
+
+            }
+        });
+
+        videoClassificationList({
+            current: 1,
+            size: 4,
+            type: 1
+        }).then(e => {
+            if (e.data.code === 200) {
+                let dataList = e.data.data;
+
+                this.setState({
+                    videoClassificationList: dataList.data
+                });
+
+            }
+        });
+
+        videoNewEntrantsList({
+            current: 1,
+            size: 4,
+            type: 1
+        }).then(e => {
+            if (e.data.code === 200) {
+                let dataList = e.data.data;
+
+                this.setState({
+                    videoNewEntrantsList: dataList.data
+                });
+
+            }
+        });
+
+        videoShotList({
+            current: 1,
+            size: 4,
+            type: 1
+        }).then(e => {
+            if (e.data.code === 200) {
+                let dataList = e.data.data;
+
+                this.setState({
+                    videoShotList: dataList.data
+                });
+
+            }
+        });
+
     }
 
     state = {
+        hotList: [],
+        videoClassificationList: [],
+        videoNewEntrantsList: [],
+        videoShotList: [],
         commontPartList: [
             { key: 1, imgurl: require('../images/boutique.png'),
                 title: '原创精品',
@@ -54,15 +120,7 @@ export default class ImagesPage extends Component {
             { key: 3, title: '平台推荐' }
         ],
         fontTypeTitle: [
-            // { key: 1, title: '常规' },
-            // { key: 2, title: '航拍' },
-            // { key: 3, title: '延时' },
-            // { key: 4, title: '慢动作' },
-            // { key: 5, title: '微距' },
-            // { key: 6, title: '红外' },
-            // { key: 7, title: '跟踪' },
-            // { key: 8, title: '计时' },
-            // { key: 9, title: '其他' }
+          
         ],
         fontList: [
             { key: 1, value: require('../../../images/img1.JPG') },
@@ -100,7 +158,8 @@ export default class ImagesPage extends Component {
         window.location.href = '/search';
     }
     render() {
-        let { commontPartList, hotActiveKey, hotTypeTitle, fontList, videoArray, fontTypeTitle, storeList } = this.state;
+        let { commontPartList, hotActiveKey, hotTypeTitle, fontList, videoArray, fontTypeTitle, storeList,
+            hotList, videoClassificationList, videoNewEntrantsList, videoShotList } = this.state;
         let videoType;
         // 拍摄手法
         let shootingTechnique;
@@ -111,14 +170,14 @@ export default class ImagesPage extends Component {
                 videoType = (
                     <div className={styles.classification}>
                         {
-                            item.list.map(item => {
+                            item.children.map(item => {
                                 return (
                                     <span
                                         style={{ 'cursor': 'pointer' }}
                                         // key={i++}
-                                        className={cls(styles.typeItem, hotActiveKey === item.ITEM_VALUE ? styles.activeItem : null)}
-                                        onClick={() => this.changeHotActiveKey(item.ITEM_VALUE)}>
-                                        {item.ITEM_TEXT}
+                                        className={cls(styles.typeItem, hotActiveKey === item.catId ? styles.activeItem : null)}
+                                        onClick={() => this.changeHotActiveKey(item.catId)}>
+                                        {item.name}
                                     </span>
                                 );
                             })
@@ -132,14 +191,14 @@ export default class ImagesPage extends Component {
                 shootingTechnique = (
                     <div className={styles.classification}>
                         {
-                            item.list.map(item => {
+                            item.children.map(item => {
                                 return (
                                     <span
                                         style={{ 'cursor': 'pointer' }}
                                         // key={i++}
-                                        className={cls(styles.typeItem, hotActiveKey === item.ITEM_VALUE ? styles.activeItem : null)}
-                                        onClick={() => this.changeHotActiveKey(item.ITEM_VALUE)}>
-                                        {item.ITEM_TEXT}
+                                        className={cls(styles.typeItem, hotActiveKey === item.catId ? styles.activeItem : null)}
+                                        onClick={() => this.changeHotActiveKey(item.catId)}>
+                                        {item.name}
                                     </span>
                                 );
                             })
@@ -218,7 +277,7 @@ export default class ImagesPage extends Component {
                                         return (
                                             <Col key={item.key} className={styles.gutterBox} span={6}>
                                                 <div className={styles.fontItemBox}>
-                                                    <img width="100%" height="100%" src={item.value}/>
+                                                    <img width="100%" height="100%" src={item.commodityCoverUrl}/>
                                                 </div>
                                             </Col>
                                         );
@@ -234,32 +293,18 @@ export default class ImagesPage extends Component {
                         <span className={styles.titleEnglish}>PAISHESHOUFA</span>
                     </div>
                     <div className={styles.itemContent}>
-                        {videoType
-                        
-                        /* <div className={styles.classification}>
-                            {
-                                fontTypeTitle.map(item => {
-                                    return (
-                                        <span
-                                            key={item.key}
-                                            className={cls(styles.typeItem, hotActiveKey === item.key ? styles.activeItem : null)}
-                                            onClick={() => this.changeHotActiveKey(item.key)}>
-                                            {item.title}
-                                        </span>
-                                    );
-                                })
-                            }
-                            <span className={styles.more}>更多</span>
-                        </div> */}
+                        {videoType}
                         <div className={styles.contentBox}>
                             <Row gutter={[16, 16]}>
                                 {
-                                    fontList.map(item => {
+                                    videoShotList.map(item => {
                                         return (
                                             <Col key={item.key} className={styles.gutterBox} span={6}>
-                                                <div className={styles.fontItemBox}>
-                                                    <img width="100%" height="100%" src={item.value}/>
-                                                </div>
+                                                <Link to={{ pathname: '/details', state: { id: 1 } }}>
+                                                    <div className={styles.fontItemBox}>
+                                                        <img width="100%" height="100%" src={item.commodityCoverUrl}/>
+                                                    </div>
+                                                </Link>
                                             </Col>
                                         );
                                     })
@@ -274,32 +319,18 @@ export default class ImagesPage extends Component {
                         <span className={styles.titleEnglish}>FENLEI</span>
                     </div>
                     <div className={styles.itemContent}>
-                        {
-                            shootingTechnique
-                        /* <div className={styles.classification}>
-                            {
-                                fontTypeTitle.map(item => {
-                                    return (
-                                        <span
-                                            key={item.key}
-                                            className={cls(styles.typeItem, hotActiveKey === item.key ? styles.activeItem : null)}
-                                            onClick={() => this.changeHotActiveKey(item.key)}>
-                                            {item.title}
-                                        </span>
-                                    );
-                                })
-                            }
-                            <span className={styles.more}>更多</span>
-                        </div> */}
+                        {shootingTechnique}
                         <div className={styles.contentBox}>
                             <Row gutter={[16, 16]}>
                                 {
-                                    fontList.map(item => {
+                                    videoClassificationList.map(item => {
                                         return (
                                             <Col key={item.key} className={styles.gutterBox} span={6}>
-                                                <div className={styles.fontItemBox}>
-                                                    <img width="100%" height="100%" src={item.value}/>
-                                                </div>
+                                                <Link to={{ pathname: '/details', state: { id: 1 } }}>
+                                                    <div className={styles.fontItemBox}>
+                                                        <img width="100%" height="100%" src={item.commodityCoverUrl}/>
+                                                    </div>
+                                                </Link>
                                             </Col>
                                         );
                                     })

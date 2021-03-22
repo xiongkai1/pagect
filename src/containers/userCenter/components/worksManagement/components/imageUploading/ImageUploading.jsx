@@ -129,10 +129,12 @@ export default function ImageUploading() {
                         if (e.data.code === 200) {
                             let data = e.data.data;
                             setCommodityList(data.data);
+
                             let pagnation = {};
                             pagnation.current = data.current;
                             pagnation.pageSize = data.size;
                             pagnation.total = data.total;
+                            console.log(pagnation);
                             setPagination(pagnation);
                         }
                         

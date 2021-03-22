@@ -9,6 +9,7 @@ import { Row, Col, Carousel, Select, Input, message } from 'antd';
 import { SEARCH_OPTION } from '../../../constants/common';
 
 import { commodityClassification } from 'Services/classification';
+import { fontCodeNumberList, fontLanguageFamilyList, fontNewEntrantsList, fontStyleList, fontTypeList, hotList } from 'Services/fontHomePage';
 
 const { Search } = Input;
 const { Option } = Select;
@@ -19,17 +20,106 @@ export default class FontsPage extends Component {
             type: 1
         }).then(res => {
             if (res.data.code === 200) {
-                let data = res.data.data;
-
+                let dataLog = res.data.data[0].children;
                 this.setState({
-                    fontTypeTitle: res.data.data
+                    fontTypeTitle: dataLog
                 });
             } else {
                 message.error(res.data.msg);
             }
         });
+
+        fontCodeNumberList({
+            current: 1,
+            size: 4,
+            typeCode: 1
+        }).then(e => {
+            
+            if (e.data.code === 200) {
+                let dataList = e.data.data;
+
+                this.setState({
+                    fontCodeNumber: dataList.data
+                });
+
+            }
+
+        });
+
+        fontLanguageFamilyList({
+            current: 1,
+            size: 4,
+            typeCode: 1
+        }).then(e => {
+            if (e.data.code === 200) {
+                let dataList = e.data.data;
+
+                this.setState({
+                    fontLanguageFamily: dataList.data
+                });
+
+            }
+        });
+
+        // 最新入驻商家
+        fontNewEntrantsList().then(e => {
+
+        });
+
+        fontStyleList({
+            current: 1,
+            size: 4,
+            typeCode: 1
+        }).then(e => {
+            if (e.data.code === 200) {
+                let dataList = e.data.data;
+
+                this.setState({
+                    fontStyle1: dataList.data
+                });
+
+            }
+        });
+
+        fontTypeList({
+            current: 1,
+            size: 4,
+            type: 1
+        }).then(e => {
+            if (e.data.code === 200) {
+                let dataList = e.data.data;
+
+                this.setState({
+                    fontType1: dataList.data
+                });
+
+            }
+        });
+
+        hotList({
+            current: 1,
+            size: 4,
+            typeCode: 1
+        }).then(e => {
+            if (e.data.code === 200) {
+                let dataList = e.data.data;
+
+                this.setState({
+                    hot: dataList.data
+                });
+
+            }
+        });
+
     }
     state = {
+        fontCodeNumber: [],
+        fontLanguageFamily: [],
+        fontNewEntrants: [],
+        fontStyle1: [],
+        fontType1: [],
+        hot: [],
+
         commontPartList: [
             { key: 1, imgurl: require('../images/xinanFonts.png'),
                 title: '心安字库',
@@ -53,18 +143,7 @@ export default class FontsPage extends Component {
             { key: 3, title: '平台推荐' }
         ],
         fontTypeTitle: [
-            // { key: 1, title: '全体' },
-            // { key: 2, title: '黑体' },
-            // { key: 3, title: '魏碑' },
-            // { key: 4, title: '全体' },
-            // { key: 5, title: '黑体' },
-            // { key: 6, title: '魏碑' },
-            // { key: 7, title: '全体' },
-            // { key: 8, title: '黑体' },
-            // { key: 9, title: '魏碑' },
-            // { key: 10, title: '全体' },
-            // { key: 11, title: '黑体' },
-            // { key: 12, title: '魏碑' }
+
         ],
 
         fontList: [
@@ -98,7 +177,9 @@ export default class FontsPage extends Component {
         window.location.href = '/search';
     }
     render() {
-        let { commontPartList, hotActiveKey, hotTypeTitle, fontList, fontList2, fontList3, fontTypeTitle, storeList } = this.state;
+        let { commontPartList, hotActiveKey, hotTypeTitle, fontList, fontList2, fontList3, fontTypeTitle, storeList,  
+            fontCodeNumber, fontLanguageFamily, fontNewEntrants, fontStyle1, fontType1, hot } = this.state;
+
         let fontType;
         let fontLanguageSystem;
         let fontStyle;
@@ -109,14 +190,15 @@ export default class FontsPage extends Component {
                 fontType = (
                     <div className={styles.classification}>
                         {
-                            item.list.map(item => {
+                            item.children.map(item => {
+                                console.log(item);
                                 return (
                                     <span
                                         style={{ 'cursor': 'pointer' }}
-                                        // key={i++}
-                                        className={cls(styles.typeItem, hotActiveKey === item.ITEM_VALUE ? styles.activeItem : null)}
-                                        onClick={() => this.changeHotActiveKey(item.ITEM_VALUE)}>
-                                        {item.ITEM_TEXT}
+                                        key={item.catId}
+                                        className={cls(styles.typeItem, hotActiveKey === item.catId ? styles.activeItem : null)}
+                                        onClick={() => this.changeHotActiveKey(item.catId)}>
+                                        {item.name}
                                     </span>
                                 );
                             })
@@ -130,14 +212,14 @@ export default class FontsPage extends Component {
                 fontLanguageSystem = (
                     <div className={styles.classification}>
                         {
-                            item.list.map(item => {
+                            item.children.map(item => {
                                 return (
                                     <span
                                         style={{ 'cursor': 'pointer' }}
                                         // key={i++}
-                                        className={cls(styles.typeItem, hotActiveKey === item.ITEM_VALUE ? styles.activeItem : null)}
-                                        onClick={() => this.changeHotActiveKey(item.ITEM_VALUE)}>
-                                        {item.ITEM_TEXT}
+                                        className={cls(styles.typeItem, hotActiveKey === item.catId ? styles.activeItem : null)}
+                                        onClick={() => this.changeHotActiveKey(item.catId)}>
+                                        {item.name}
                                     </span>
                                 );
                             })
@@ -151,14 +233,14 @@ export default class FontsPage extends Component {
                 fontStyle = (
                     <div className={styles.classification}>
                         {
-                            item.list.map(item => {
+                            item.children.map(item => {
                                 return (
                                     <span
                                         style={{ 'cursor': 'pointer' }}
                                         // key={i++}
-                                        className={cls(styles.typeItem, hotActiveKey === item.ITEM_VALUE ? styles.activeItem : null)}
-                                        onClick={() => this.changeHotActiveKey(item.ITEM_VALUE)}>
-                                        {item.ITEM_TEXT}
+                                        className={cls(styles.typeItem, hotActiveKey === item.catId ? styles.activeItem : null)}
+                                        onClick={() => this.changeHotActiveKey(item.catId)}>
+                                        {item.name}
                                     </span>
                                 );
                             })
@@ -172,14 +254,14 @@ export default class FontsPage extends Component {
                 fontCoding = (
                     <div className={styles.classification}>
                         {
-                            item.list.map(item => {
+                            item.children.map(item => {
                                 return (
                                     <span
                                         style={{ 'cursor': 'pointer' }}
                                         // key={i++}
-                                        className={cls(styles.typeItem, hotActiveKey === item.ITEM_VALUE ? styles.activeItem : null)}
-                                        onClick={() => this.changeHotActiveKey(item.ITEM_VALUE)}>
-                                        {item.ITEM_TEXT}
+                                        className={cls(styles.typeItem, hotActiveKey === item.catId ? styles.activeItem : null)}
+                                        onClick={() => this.changeHotActiveKey(item.catId)}>
+                                        {item.name}
                                     </span>
                                 );
                             })
@@ -256,12 +338,15 @@ export default class FontsPage extends Component {
                         <div className={styles.contentBox}>
                             <Row gutter={[16, 0]}>
                                 {
-                                    fontList.map(item => {
+                                    hot.map(item => {
                                         return (
+                                             
                                             <Col key={item.key} className={styles.gutterBox} span={6}>
-                                                <div className={styles.fontItemBox}>
-                                                    <img width="100%" height="100%" src={item.value}/>
-                                                </div>
+                                                <Link to={{ pathname: '/details', state: { id: 1 } }}>
+                                                    <div className={styles.fontItemBox}>
+                                                        <img width="100%" height="100%" src={item.commodityCoverUrl}/>
+                                                    </div>
+                                                </Link>
                                             </Col>
                                         );
                                     })
@@ -283,12 +368,13 @@ export default class FontsPage extends Component {
                         <div className={styles.contentBox}>
                             <Row gutter={[16, 0]}>
                                 {
-                                    fontList2.map(item => {
+                                    fontType1.map(item => {
                                         return (
+                                            
                                             <Col key={item.key} className={styles.gutterBox} span={6}>
                                                 <Link to={{ pathname: '/details', state: { id: 1 } }}>
                                                     <div className={styles.fontItemBox}>
-                                                        <img width="100%" height="100%" src={item.value}/>
+                                                        <img width="100%" height="100%" src={item.commodityCoverUrl}/>
                                                     </div>
                                                 </Link>
                                             </Col>
@@ -305,32 +391,19 @@ export default class FontsPage extends Component {
                         <span className={styles.titleEnglish}>ZITIYUXI</span>
                     </div>
                     <div className={styles.itemContent}>
-                        {
-                            fontLanguageSystem
-                        /* <div className={styles.classification}>
-                            {
-                                fontTypeTitle.map(item => {
-                                    return (
-                                        <span
-                                            key={item.key}
-                                            className={cls(styles.typeItem, hotActiveKey === item.key ? styles.activeItem : null)}
-                                            onClick={() => this.changeHotActiveKey(item.key)}>
-                                            {item.title}
-                                        </span>
-                                    );
-                                })
-                            }
-                            <span className={styles.more}>更多</span>
-                        </div> */}
+                        {fontLanguageSystem}
                         <div className={styles.contentBox}>
                             <Row gutter={[16, 0]}>
                                 {
-                                    fontList3.map(item => {
+                                    fontLanguageFamily.map(item => {
                                         return (
+                                            
                                             <Col key={item.key} className={styles.gutterBox} span={6}>
-                                                <div className={styles.fontItemBox}>
-                                                    <img width="100%" height="100%" src={item.value}/>
-                                                </div>
+                                                <Link to={{ pathname: '/details', state: { id: 1 } }}>
+                                                    <div className={styles.fontItemBox}>
+                                                        <img width="100%" height="100%" src={item.commodityCoverUrl}/>
+                                                    </div>
+                                                </Link>
                                             </Col>
                                         );
                                     })
@@ -365,12 +438,15 @@ export default class FontsPage extends Component {
                         <div className={styles.contentBox}>
                             <Row gutter={[16, 0]}>
                                 {
-                                    fontList.map(item => {
+                                    fontStyle1.map(item => {
                                         return (
+                                            
                                             <Col key={item.key} className={styles.gutterBox} span={6}>
-                                                <div className={styles.fontItemBox}>
-                                                    <img width="100%" height="100%" src={item.value}/>
-                                                </div>
+                                                <Link to={{ pathname: '/details', state: { id: 1 } }}>
+                                                    <div className={styles.fontItemBox}>
+                                                        <img width="100%" height="100%" src={item.commodityCoverUrl}/>
+                                                    </div>
+                                                </Link>
                                             </Col>
                                         );
                                     })
@@ -405,12 +481,15 @@ export default class FontsPage extends Component {
                         <div className={styles.contentBox}>
                             <Row gutter={[16, 0]}>
                                 {
-                                    fontList3.map(item => {
+                                    fontCodeNumber.map(item => {
                                         return (
+                                            
                                             <Col key={item.key} className={styles.gutterBox} span={6}>
-                                                <div className={styles.fontItemBox}>
-                                                    <img width="100%" height="100%" src={item.value}/>
-                                                </div>
+                                                <Link to={{ pathname: '/details', state: { id: 1 } }}>
+                                                    <div className={styles.fontItemBox}>
+                                                        <img width="100%" height="100%" src={item.commodityCoverUrl}/>
+                                                    </div>
+                                                </Link>
                                             </Col>
                                         );
                                     })

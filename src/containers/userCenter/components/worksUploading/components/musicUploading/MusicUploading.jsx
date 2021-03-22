@@ -113,6 +113,22 @@ class MusicUploading extends React.Component {
         if (this.state.pause) {
             return;
         }
+        if (this.state.fileList.length === 0) {
+            this.setState({
+                fileType: 'COVER'
+            });
+        }
+        if (this.state.fileList.length === 1 ) {
+            this.setState({
+                fileType: 'COPYRIGHT'
+            });
+        }
+        if (this.state.fileList.length > 1) {
+            this.setState({
+                fileType: 'MUSIC'
+            });
+
+        }
         claimUploadId({
             catalog: file.lastModified,
             fileName: file.name,
@@ -156,6 +172,16 @@ class MusicUploading extends React.Component {
         let dataRes = res;
         formData.set('file', block);
         formData.set('uploadId', res.data.data); 
+        if (fileList.length === 0) {
+            formData.set('type', 'COVER');
+        }
+        if (fileList.length === 1 ) {
+            formData.set('type', 'COPYRIGHT');
+        }
+        if (fileList.length > 1) {
+            formData.set('type', this.state.fileType);
+
+        }
         formData.set('type', this.state.fileType);
         formData.set('partNumber', this.state.index + 1);
         reqwest({

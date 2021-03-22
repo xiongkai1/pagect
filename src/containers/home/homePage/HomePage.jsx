@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Row, Col, Input, Avatar, Select } from 'antd';
 import { Carousel } from 'element-react';
 import cls from 'classnames';
+import { Link } from 'react-router-dom';
 import styles from './homePage.less';
 import 'element-theme-default';
 import { SEARCH_OPTION } from '../../../constants/common';
@@ -11,29 +12,24 @@ const { Option } = Select;
 export default class HomePage extends Component {
     state = {
         fontList: [
-            { key: 1, value: '' },
-            { key: 2, value: '' },
-            { key: 3, value: '' },
-            { key: 4, value: '' },
-            { key: 5, value: '' },
-            { key: 6, value: '' },
-            { key: 7, value: '' },
-            { key: 8, value: '' },
-            { key: 9, value: '' },
-            { key: 10, value: '' },
-            { key: 11, value: '' },
-            { key: 12, value: '' },
-            { key: 13, value: '' },
-            { key: 14, value: '' },
-            { key: 15, value: '' },
-            { key: 16, value: '' },
-            { key: 17, value: '' },
-            { key: 18, value: '' },
-            { key: 19, value: '' },
-            { key: 20, value: '' },
-            { key: 21, value: '' },
-            { key: 22, value: '' },
-            { key: 23, value: '' }
+            { key: 1, value: '微软雅黑' },
+            { key: 2, value: '宋体' },
+            { key: 3, value: '黑体' },
+            { key: 4, value: '圆体' },
+            { key: 5, value: '楷体' },
+            { key: 6, value: '隶书' },
+            { key: 7, value: '哥特体' },
+            { key: 8, value: '手写' },
+            { key: 9, value: '草书' },
+            { key: 10, value: '行书' },
+            { key: 11, value: '篆体' },
+            { key: 12, value: '楷体' },
+            { key: 13, value: '细黑' },
+            { key: 14, value: '毛笔' },
+            { key: 15, value: '书法' },
+            { key: 16, value: '魏体' },
+            { key: 17, value: '行楷' }
+         
         ],
         galleryTypeTitle: [
             { key: 1, title: '古典' },
@@ -244,39 +240,56 @@ export default class HomePage extends Component {
                             </Col>
                             <Col className={styles.gutterBox} span={6}>
                                 <div className={styles.otherBox}>
-                                    <div className={styles.shopBox}>我要开店》</div>
-                                    <div className={styles.moreFont}>更多字体》</div>
+                                    <div className={styles.shopBox}>
+                                        <Link className={styles.shopBoxLink} to={{ pathname: '/userCenter/7', state: { id: 1 } }}>
+                                          我要开店》
+                                        </Link>
+                                    </div>
+                                    <div className={styles.moreFont}>
+                                        <Link className={styles.shopBoxLink} to={{ pathname: '/home/fonts', state: { id: 1 } }}>
+                                             更多字体》
+                                        </Link>
+                                  
+                                    </div>
                                 </div>
                             </Col>
                             {
                                 fontList.map(item => {
                                     return (
                                         <Col key={item.key} className={styles.gutterBox} span={6}>
-                                            <div className={styles.fontItemBox}>
-                                                <div className={styles.showBox}>
-                                                    <div className={styles.fontGoodsImg}>
-                                                        <img width="100%" height="100%" src={require('../images/img1.jpg')}/>
+                                            <Link to={{ pathname: '/details', state: { id: 1 } }}>
+                                                <div className={styles.fontItemBox}>
+                                                    <div className={styles.showBox}>
+                                                        <div className={styles.fontGoodsImg}>
+                                                            <img width="100%" height="100%" src={require('../images/img1.jpg')}/>
+                                                        </div>
+                                                        <div className={styles.fontGoodsName}>
+                                                            {item.value}
+                                                        </div>
                                                     </div>
-                                                    <div className={styles.fontGoodsName}>
-                                                        微软雅黑
+                                                    <div className={styles.hideBox}>
+                                                        <div className={styles.operationBox}>
+                                                            <img className={styles.imgCart}/>
+                                                            <img className={styles.imgDetails}/>
+                                                            <img className={styles.imgCollection}/>
+                                                            <img className={styles.imgDownload}/>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                                <div className={styles.hideBox}>
-                                                    <div className={styles.operationBox}>
-                                                        <img className={styles.imgCart}/>
-                                                        <img className={styles.imgDetails}/>
-                                                        <img className={styles.imgCollection}/>
-                                                        <img className={styles.imgDownload}/>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                            </Link>
+                                           
                                         </Col>
                                     );
                                 })
                             }
                         </Row>
                     </div>
-                    <div className={styles.moreLoading}>加载更多</div>
+                    <div className={styles.moreLoading}>
+                   
+                        <Link className={styles.shopBoxLink} to={{ pathname: '/home/fonts', state: { id: 1 } }}>
+                        加载更多
+                        </Link>
+                    </div>
                 </div>
                 <div className={styles.modularBox}>
                     <div className={styles.modularTitle}>
@@ -293,7 +306,11 @@ export default class HomePage extends Component {
                             <span>计划<span className={styles.redFont}>10,000,000</span>级别巨作量</span>
                             <span>覆盖<span className={styles.redFont}>45</span>个领域，近<span className={styles.redFont}>1000</span>种行业</span>
                         </div>
-                        <div className={styles.openStore}>我要开店》</div>
+                        <div className={styles.openStore}>
+                            <Link className={styles.shopBoxLink} to={{ pathname: '/userCenter/7', state: { id: 1 } }}>
+                                   我要开店》
+                            </Link>
+                        </div>
                     </div>
                     <div className={styles.moudularContent}>
                         <div className={styles.classification}>
@@ -315,32 +332,40 @@ export default class HomePage extends Component {
                                 {
                                     galleryList.map(item => {
                                         return (
-                                            <div className={styles.imgItemBox} key={item.key}>
-                                                <img width="100%" height="100%" src={item.src}/>
-                                                <div className={styles.hideCommonBox}>
-                                                    <div className={styles.download}>
-                                                        <img className={styles.imgDownload}/>
-                                                    </div>
-                                                    <div className={styles.otherOperation}>
-                                                        <div className={styles.rowBox}>
-                                                            <div className={styles.logoBox}></div>
-                                                            <img width="50px" height="20px" src={require('../../../images/followActive.png')}></img>
+                                            <Link to={{ pathname: '/details/fontDetails', state: { id: 1 } }}>
+                                                <div className={styles.imgItemBox} key={item.key}>
+                                                    <img width="100%" height="100%" src={item.src}/>
+                                                    <div className={styles.hideCommonBox}>
+                                                        <div className={styles.download}>
+                                                            <img className={styles.imgDownload}/>
                                                         </div>
-                                                        <div className={styles.rowBox}>
-                                                            <img className={styles.imgGood}/>
-                                                            <img className={styles.imgCollection}/>
-                                                            <img className={styles.imgCart}/>
+                                                        <div className={styles.otherOperation}>
+                                                            <div className={styles.rowBox}>
+                                                                <div className={styles.logoBox}></div>
+                                                                <img width="50px" height="20px" src={require('../../../images/followActive.png')}></img>
+                                                            </div>
+                                                            <div className={styles.rowBox}>
+                                                                <img className={styles.imgGood}/>
+                                                                <img className={styles.imgCollection}/>
+                                                                <img className={styles.imgCart}/>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
+                                            </Link>
+                                            
                                         );
                                     })
                                 }
                             </div>
                         </div>
                     </div>
-                    <div className={styles.moreLoading}>加载更多</div>
+                    <div className={styles.moreLoading}>
+                        
+                        <Link className={styles.shopBoxLink} to={{ pathname: '/home/fonts', state: { id: 1 } }}>
+                        加载更多
+                        </Link>
+                    </div>
                 </div>
                 <div className={styles.modularBox}>
                     <div className={styles.modularTitle}>
@@ -408,7 +433,12 @@ export default class HomePage extends Component {
                             </Row>
                         </div>
                     </div>
-                    <div className={styles.moreLoading}>加载更多</div>
+                    <div className={styles.moreLoading}>
+                        
+                        <Link className={styles.shopBoxLink} to={{ pathname: '/home/fonts', state: { id: 1 } }}>
+                        加载更多
+                        </Link>
+                    </div>
                 </div>
                 <div className={styles.modularBox}>
                     <div className={styles.modularTitle}>
@@ -425,7 +455,11 @@ export default class HomePage extends Component {
                             <span>超<span className={styles.redFont}>10,000,000+</span>模板任您选</span>
                             <span>找海量模板，就上心安元素</span>
                         </div>
-                        <div className={styles.openStore}>我要开店》</div>
+                        <div className={styles.openStore}>
+                            <Link className={styles.shopBoxLink} to={{ pathname: '/userCenter/7', state: { id: 1 } }}>
+                                          我要开店》
+                            </Link>
+                        </div>
                     </div>
                     <div className={styles.moudularContent}>
                         <div className={styles.modularTitleBox}>
@@ -472,7 +506,12 @@ export default class HomePage extends Component {
                             </Row>
                         </div>
                     </div>
-                    <div className={styles.moreLoading}>加载更多</div>
+                    <div className={styles.moreLoading}>
+                        
+                        <Link className={styles.shopBoxLink} to={{ pathname: '/home/fonts', state: { id: 1 } }}>
+                        加载更多
+                        </Link>
+                    </div>
                 </div>
                 <div className={styles.modularBox}>
                     <div className={styles.modularTitle}>
@@ -489,7 +528,11 @@ export default class HomePage extends Component {
                             <span>计划<span className={styles.redFont}>10,000,000</span>首殿堂级音乐</span>
                             <span>覆盖<span className={styles.redFont}>45</span>个领域，近<span className={styles.redFont}>1000</span>种行业</span>
                         </div>
-                        <div className={styles.openStore}>我要开店》</div>
+                        <div className={styles.openStore}>
+                            <Link className={styles.shopBoxLink} to={{ pathname: '/userCenter/7', state: { id: 1 } }}>
+                                          我要开店》
+                            </Link>
+                        </div>
                     </div>
                     <div className={styles.moudularContent}>
                         <div className={styles.classification}>
@@ -541,7 +584,12 @@ export default class HomePage extends Component {
                             </Row>
                         </div>
                     </div>
-                    <div className={styles.moreLoading}>加载更多</div>
+                    <div className={styles.moreLoading}>
+                        
+                        <Link className={styles.shopBoxLink} to={{ pathname: '/home/fonts', state: { id: 1 } }}>
+                        加载更多
+                        </Link>
+                    </div>
                 </div>
                 <div className={styles.modularBox}>
                     <div className={styles.modularTitle}>
@@ -584,7 +632,12 @@ export default class HomePage extends Component {
                             </div>
                         </div>
                     </div>
-                    <div className={styles.moreLoading}>加载更多</div>
+                    <div className={styles.moreLoading}>
+                        
+                        <Link className={styles.shopBoxLink} to={{ pathname: '/home/fonts', state: { id: 1 } }}>
+                        加载更多
+                        </Link>
+                    </div>
                 </div>
                 <div className={styles.modularBox}>
                     <div className={styles.modularTitle}>

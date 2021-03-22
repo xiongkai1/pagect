@@ -14,6 +14,8 @@ const Rank = lazyload(() => import(/* webpackPrefetch: true */ 'Containers/rank/
 const Search = lazyload(() => import(/* webpackPrefetch: true */ 'Containers/search/Search'));
 const Details = lazyload(() => import(/* webpackPrefetch: true */ 'Containers/details/Details'));
 const NotFound = lazyload(() => import(/* webpackPrefetch: true */ 'Containers/notFound/NotFound'));
+const DetailsFont = lazyload(() => import(/* webpackPrefetch: true */ 'Containers/details/fontDetails/FontDetails'));
+
 /**
  * @desc 页面主框架组件
  */
@@ -34,6 +36,7 @@ export default function MainLayout() {
                     <Route exact path="/rank" component={Rank} />
                     <Route exact path="/search" component={Search} />
                     <Route exact path="/details" component={Details} />
+                    <Route exact path="/details/fontDetails" component={DetailsFont} />
                     <Route path="*" component={NotFound} />
                 </Switch>
             </div>

@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import styles from './documentUploading.less';
 import { Input, Select, Button, Table, message } from 'antd';
 import { selectShopInfoList } from 'Services/mallinfo';
 import { shopCommodityList } from 'Services/commodityinfo';
 import Cookies from 'Utils/cookie';
+
 const InputGroup = Input.Group;
 const { Option } = Select;
 

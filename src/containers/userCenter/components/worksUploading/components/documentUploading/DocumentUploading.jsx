@@ -1,12 +1,15 @@
 import React from 'react';
 import styles from './documentUploading.less';
-import {  Button,  Radio, Form, Input, Upload, Icon, Select, Progress, Tabs, message  } from 'antd';
+import {  Button,  Radio, Form, Input, Upload, Icon, Select, Progress, Tabs, message, Modal, Table, InputNumber, Checkbox } from 'antd';
 import Cookies from 'Utils/cookie';
 import reqwest from 'reqwest';
 import { partUploader, claimUploadId, completeMultipartUpload } from 'Services/oss';
 import { commodityClassification } from 'Services/classification';
 import { shopOfficeUpload } from 'Services/commodityinfo';
 import { selectShopInfoList } from 'Services/mallinfo';
+import { authorizedPrice } from 'Services/commoditypriceinfo';
+import { listProfit } from 'Services/dictItem';
+const { TextArea } = Input;
 
 const { TabPane } = Tabs;
 const { Option } = Select;
@@ -82,6 +85,23 @@ class DocumentUploading extends React.Component {
                 }
             }
         });
+
+        // 获取商品授权类型价格
+        authorizedPrice({
+            type: 5
+        }).then(e => {
+            this.setState({
+                dataSource: e.data.data
+            });
+        });
+
+        // 获取分润比例
+        listProfit().then(e => {
+            this.setState({
+                shareProfit: e.data.data
+            });
+        });
+
     }
     state = {
         // 字体格式
@@ -92,6 +112,7 @@ class DocumentUploading extends React.Component {
         fontLanguageSystem: [],
         // 编码
         fontCoding: [],
+        shareProfit: [],
         // 店鋪id
         mallId: '',
         fileList: [],
@@ -127,6 +148,18 @@ class DocumentUploading extends React.Component {
     Upload =(file) => {
         if (this.state.pause) {
             return;
+        }
+        if (this.state.fileList.length === 0) {
+            this.setState({
+                fileType: 'COVER'
+            });
+        }
+      
+        if (this.state.fileList.length >= 1) {
+            this.setState({
+                fileType: 'OFFICE'
+            });
+
         }
         claimUploadId({
             catalog: file.lastModified,
@@ -286,7 +319,7 @@ class DocumentUploading extends React.Component {
     render() {
              
         const { getFieldDecorator } = this.props.form;
-        const {  fileList, lout, fontStyle, fontType, fontLanguageSystem, fontCoding  } = this.state;
+        const {  fileList, lout, fontStyle, fontType, fontLanguageSystem, fontCoding, shareProfit  } = this.state;
         const uploadButton = (
             <div>
                 <Icon type="plus" />
@@ -324,6 +357,11 @@ class DocumentUploading extends React.Component {
                 return false;
             }
         };
+        const plainOptions = [
+            { label: 'Apple', value: 'Apple' },
+            { label: 'Pear', value: 'Pear' },
+            { label: 'Orange', value: 'Orange' }
+        ];
 
         return (
             <div className={styles.documentUploading}>
@@ -352,26 +390,31 @@ class DocumentUploading extends React.Component {
                                         rules: [{ required: true, message: '描述不能为空' }]
                                     })(<Input placeholder="产品描述"/>)}
                                 </Form.Item>
-                                {/* <Form.Item label="区块地址">
-                                    {getFieldDecorator('blockchainAddress', {
-                                        rules: [{ required: true, message: '区块地址不能为空' }]
-                                    })(<Input placeholder="区块地址"/>)}
-                                </Form.Item> */}
-                                <Form.Item label="市场价">
+                                <Form.Item onClick={this.showModal} className={styles.inputPut} label="授权 | 价格">
                                     {getFieldDecorator('officePriceInfoVoList.authorizationPrice', {
-                                        rules: [{ required: true, message: '价格不能为空' }]
-                                    })(<Input placeholder="按照授权，设置价格"/>)}
-                                </Form.Item>
-                                <Form.Item label="售价">
+                                    })(<Input  placeholder="按照授权，设置价格"/>)
+                                    }
                                     {getFieldDecorator('officePriceInfoVoList.authorizationPriceSell', {
-                                        rules: [{ required: true, message: '价格不能为空' }]
                                     })(<Input placeholder="按照授权，设置价格"/>)}
                                 </Form.Item>
+
                                 <Form.Item label="分润">
                                     {getFieldDecorator('shareProfit', {
                                         rules: [{ required: true, message: '分润不能为空' }]
-                                    })(<Input placeholder="你分给平台的比例，比例越高，产品越靠前"/>)}
+                                    })(
+                                        <Select placeholder="你分给平台的比例，比例越高，产品越靠前"
+                                        >
+                                            {
+                                                shareProfit.map((item, index) => {
+                                                    return (
+                                                        <Option key={index} value={item.item_text}>{item.item_text}</Option>
+                                                    );
+                                                })
+                                            }
+                                        </Select>)
+                                    }
                                 </Form.Item>
+
                                 <Form.Item label="格式">
                                     {getFieldDecorator('detailOfficeVoList.fileFormat', {
                                         rules: [{ required: true, message: '格式不能为空' }]
@@ -454,23 +497,24 @@ class DocumentUploading extends React.Component {
                                         </Select>
                                     )}
                                 </Form.Item>
-                                <Form.Item label="关键字,标签">
+                                <Form.Item label="给此产品打标签">
                                     {getFieldDecorator('keyword', {
                                         rules: [{ required: true, message: '关键字标签不能为空' }]
                                     })(
                                         <div className={styles.keyword}>
-                                            <Radio.Group>
-                                                {/* <span className={styles.keywordSpan}></span> */}
-                                                <Radio value="黑体">黑体</Radio>
-                                                <Radio value="宋体">宋体</Radio>
-                                                <Radio value="行书">行书</Radio>
-                                                <Radio value="楷书">楷书</Radio>
-                                                <Radio value="草书">草书</Radio>
-                                                <Radio value="好看">好看</Radio>
-                                                <Radio value="平易近人">平易近人</Radio>
-                                                <Radio value="很多标签">很多标签</Radio>
-                                            </Radio.Group>
+                                            <Checkbox.Group options={plainOptions} onChange={this.onchangeKeyword}/>
                                         </div>
+                                    )}
+                                </Form.Item>
+                           
+                                <Form.Item label="给作品添加关键字">
+                                    {getFieldDecorator('keyword1', {
+                                        rules: [{ required: true, message: '关键字标签不能为空' }]
+                                    })(
+                                        <TextArea
+                                            placeholder="可输入10个关键字,用空格隔开"
+                                            autoSize={{ minRows: 3, maxRows: 5 }}
+                                        />
                                     )}
                                 </Form.Item>
                                 <Form.Item >

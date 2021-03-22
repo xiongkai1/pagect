@@ -7,12 +7,268 @@ import HotRecommendation from '../components/newArrival/HotRecommendation';
 import { Link } from 'react-router-dom';
 import { Row, Col, Carousel, Select, Input } from 'antd';
 import { SEARCH_OPTION } from '../../../constants/common';
+import { commodityClassification } from 'Services/classification';
+import { hotList,
+    pictureAnimalList,
+    pictureArchitectureList,
+    pictureBotanyList,
+    pictureBusinessAffairsList,
+    pictureCharacterList,
+    pictureDeliciousFoodList,
+    pictureEducationList,
+    pictureFestivalList,
+    pictureFinanceList,
+    pictureLifeList,
+    pictureMedicalCareList,
+    pictureNaturalList,
+    pictureNewEntrantsList
+} from 'Services/pictureHomePage';
 
 const { Search } = Input;
 const { Option } = Select;
 
 export default class ImagesPage extends Component {
+    constructor() {
+        super();
+        commodityClassification({
+            type: 2
+        }).then(res => {
+            if (res.data.code === 200) {
+                let dataLog = res.data.data[0].children;
+                this.setState({
+                    fontTypeTitle: dataLog
+                });
+            } else {
+                message.error(res.data.msg);
+            }
+        });
+
+        hotList({
+            current: 1,
+            size: 4
+        }).then(e => {
+            if (e.data.code === 200) {
+                let dataList = e.data.data;
+
+                this.setState({
+                    hotList: dataList.data
+                });
+
+            }
+        });
+
+        pictureAnimalList({
+            current: 1,
+            size: 8,
+            type: 1
+        }).then(e => {
+            if (e.data.code === 200) {
+                let dataList = e.data.data;
+
+                this.setState({
+                    pictureAnimalList: dataList.data
+                });
+
+            }
+        });
+
+        pictureArchitectureList({
+            current: 1,
+            size: 8,
+            type: 1
+        }).then(e => {
+            if (e.data.code === 200) {
+                let dataList = e.data.data;
+
+                this.setState({
+                    pictureArchitectureList: dataList.data
+                });
+
+            }
+        });
+
+        pictureBotanyList({
+            current: 1,
+            size: 8,
+            type: 1
+        }).then(e => {
+            if (e.data.code === 200) {
+                let dataList = e.data.data;
+
+                this.setState({
+                    pictureBotanyList: dataList.data
+                });
+
+            }
+        });
+
+        pictureBusinessAffairsList({
+            current: 1,
+            size: 8,
+            type: 1
+        }).then(e => {
+            if (e.data.code === 200) {
+                let dataList = e.data.data;
+
+                this.setState({
+                    pictureBusinessAffairsList: dataList.data
+                });
+
+            }
+        });
+
+        pictureCharacterList({
+            current: 1,
+            size: 8,
+            type: 1
+        }).then(e => {
+            if (e.data.code === 200) {
+                let dataList = e.data.data;
+
+                this.setState({
+                    pictureCharacterList: dataList.data
+                });
+
+            }
+        });
+
+        pictureDeliciousFoodList({
+            current: 1,
+            size: 8,
+            type: 1
+        }).then(e => {
+            if (e.data.code === 200) {
+                let dataList = e.data.data;
+
+                this.setState({
+                    pictureDeliciousFoodList: dataList.data
+                });
+
+            }
+        });
+
+        pictureEducationList({
+            current: 1,
+            size: 8,
+            type: 1
+        }).then(e => {
+            if (e.data.code === 200) {
+                let dataList = e.data.data;
+
+                this.setState({
+                    pictureEducationList: dataList.data
+                });
+
+            }
+        });
+
+        pictureFestivalList({
+            current: 1,
+            size: 8,
+            type: 1
+        }).then(e => {
+            if (e.data.code === 200) {
+                let dataList = e.data.data;
+
+                this.setState({
+                    pictureFestivalList: dataList.data
+                });
+
+            }
+        });
+
+        pictureFinanceList({
+            current: 1,
+            size: 8,
+            type: 1
+        }).then(e => {
+            if (e.data.code === 200) {
+                let dataList = e.data.data;
+
+                this.setState({
+                    pictureFinanceList: dataList.data
+                });
+
+            }
+        });
+
+        pictureLifeList({
+            current: 1,
+            size: 8,
+            type: 1
+        }).then(e => {
+            if (e.data.code === 200) {
+                let dataList = e.data.data;
+
+                this.setState({
+                    pictureLifeList: dataList.data
+                });
+
+            }
+        });
+
+        pictureMedicalCareList({
+            current: 1,
+            size: 8,
+            type: 1
+        }).then(e => {
+            if (e.data.code === 200) {
+                let dataList = e.data.data;
+
+                this.setState({
+                    pictureMedicalCareList: dataList.data
+                });
+
+            }
+        });
+
+        pictureNaturalList({
+            current: 1,
+            size: 8,
+            type: 1
+        }).then(e => {
+            if (e.data.code === 200) {
+                let dataList = e.data.data;
+
+                this.setState({
+                    pictureNaturalList: dataList.data
+                });
+
+            }
+        });
+
+        pictureNewEntrantsList({
+            current: 1,
+            size: 8,
+            type: 1
+        }).then(e => {
+            if (e.data.code === 200) {
+                let dataList = e.data.data;
+
+                this.setState({
+                    pictureNewEntrantsList: dataList.data
+                });
+
+            }
+        });
+
+    }
     state = {
+
+        hotList: [],
+        pictureAnimalList: [],
+        pictureArchitectureList: [],
+        pictureBotanyList: [],
+        pictureBusinessAffairsList: [],
+        pictureCharacterList: [],
+        pictureDeliciousFoodList: [],
+        pictureEducationList: [],
+        pictureFestivalList: [],
+        pictureFinanceList: [],
+        pictureLifeList: [],
+        pictureMedicalCareList: [],
+        pictureNaturalList: [],
+        pictureNewEntrantsList: [],
         commontPartList: [
             { key: 1, imgurl: require('../images/global.png'),
                 title: '全球覆盖',
@@ -36,13 +292,7 @@ export default class ImagesPage extends Component {
             { key: 3, title: '平台推荐' }
         ],
         fontTypeTitle: [
-            { key: 1, title: '山' },
-            { key: 2, title: '河' },
-            { key: 3, title: '海' },
-            { key: 4, title: '城市' },
-            { key: 5, title: '日出日落' },
-            { key: 6, title: '雪景' },
-            { key: 7, title: '其他' }
+          
         ],
         fontList: [
             { key: 1, value: require('../../../images/img1.JPG') },
@@ -67,7 +317,292 @@ export default class ImagesPage extends Component {
         window.location.href = '/search';
     }
     render() {
-        let { commontPartList, hotActiveKey, hotTypeTitle, fontList, fontTypeTitle, storeList } = this.state;
+        let { commontPartList, hotActiveKey, hotTypeTitle, fontList, fontTypeTitle, storeList, 
+            hotList, pictureAnimalList,
+            pictureArchitectureList,
+            pictureBotanyList,
+            pictureBusinessAffairsList,
+            pictureCharacterList,
+            pictureDeliciousFoodList,
+            pictureEducationList,
+            pictureFestivalList,
+            pictureFinanceList,
+            pictureLifeList,
+            pictureMedicalCareList,
+            pictureNaturalList,
+            pictureNewEntrantsList
+        } = this.state;
+
+        let NATURAL_LANDSCAPE;
+        let DINING;
+        let BUILDING;
+        let CHARACTER_IMAGE;
+        let WAY_OF_LIFE;
+        let BUSINESS_OFFICE;
+        let EDUCATION_CULTURE;
+        let MEDICAL_HEALTH;
+        let FINTECH;
+        let FESTIVAL_SOLAR_TERMS;
+        let ANIMAL;
+        let PLANT;
+
+        fontTypeTitle.map(item => {
+            // 图片类型
+            if (item.code === 'NATURAL_LANDSCAPE') {
+                NATURAL_LANDSCAPE = (
+                    <div className={styles.classification}>
+                        {
+                            item.children.map(item => {
+                                
+                                console.log(item);
+                                return (
+                                    <span
+                                        key={item.catId}
+                                        className={cls(styles.typeItem, hotActiveKey === item.key ? styles.activeItem : null)}
+                                        onClick={() => this.changeHotActiveKey(item.catId)}>
+                                        {item.name}
+                                    </span>
+                                );
+                            })
+                        }
+                        <span className={styles.more}>更多</span>
+                    </div>
+                );
+            }
+            if (item.code === 'DINING') {
+                DINING = (
+                    <div className={styles.classification}>
+                        {
+                            item.children.map(item => {
+                                
+                                console.log(item);
+                                return (
+                                    <span
+                                        key={item.catId}
+                                        className={cls(styles.typeItem, hotActiveKey === item.key ? styles.activeItem : null)}
+                                        onClick={() => this.changeHotActiveKey(item.catId)}>
+                                        {item.name}
+                                    </span>
+                                );
+                            })
+                        }
+                        <span className={styles.more}>更多</span>
+                    </div>
+                );
+            }
+            if (item.code === 'BUILDING') {
+                BUILDING = (
+                    <div className={styles.classification}>
+                        {
+                            item.children.map(item => {
+                                
+                                console.log(item);
+                                return (
+                                    <span
+                                        key={item.catId}
+                                        className={cls(styles.typeItem, hotActiveKey === item.key ? styles.activeItem : null)}
+                                        onClick={() => this.changeHotActiveKey(item.catId)}>
+                                        {item.name}
+                                    </span>
+                                );
+                            })
+                        }
+                        <span className={styles.more}>更多</span>
+                    </div>
+                );
+            }
+            if (item.code === 'CHARACTER_IMAGE') {
+                CHARACTER_IMAGE = (
+                    <div className={styles.classification}>
+                        {
+                            item.children.map(item => {
+                                
+                                console.log(item);
+                                return (
+                                    <span
+                                        key={item.catId}
+                                        className={cls(styles.typeItem, hotActiveKey === item.key ? styles.activeItem : null)}
+                                        onClick={() => this.changeHotActiveKey(item.catId)}>
+                                        {item.name}
+                                    </span>
+                                );
+                            })
+                        }
+                        <span className={styles.more}>更多</span>
+                    </div>
+                );
+            }
+            if (item.code === 'WAY_OF_LIFE') {
+                WAY_OF_LIFE = (
+                    <div className={styles.classification}>
+                        {
+                            item.children.map(item => {
+                                
+                                console.log(item);
+                                return (
+                                    <span
+                                        key={item.catId}
+                                        className={cls(styles.typeItem, hotActiveKey === item.key ? styles.activeItem : null)}
+                                        onClick={() => this.changeHotActiveKey(item.catId)}>
+                                        {item.name}
+                                    </span>
+                                );
+                            })
+                        }
+                        <span className={styles.more}>更多</span>
+                    </div>
+                );
+            }
+            if (item.code === 'BUSINESS_OFFICE') {
+                BUSINESS_OFFICE = (
+                    <div className={styles.classification}>
+                        {
+                            item.children.map(item => {
+                                
+                                console.log(item);
+                                return (
+                                    <span
+                                        key={item.catId}
+                                        className={cls(styles.typeItem, hotActiveKey === item.key ? styles.activeItem : null)}
+                                        onClick={() => this.changeHotActiveKey(item.catId)}>
+                                        {item.name}
+                                    </span>
+                                );
+                            })
+                        }
+                        <span className={styles.more}>更多</span>
+                    </div>
+                );
+            }
+            if (item.code === 'EDUCATION_CULTURE') {
+                EDUCATION_CULTURE = (
+                    <div className={styles.classification}>
+                        {
+                            item.children.map(item => {
+                                
+                                console.log(item);
+                                return (
+                                    <span
+                                        key={item.catId}
+                                        className={cls(styles.typeItem, hotActiveKey === item.key ? styles.activeItem : null)}
+                                        onClick={() => this.changeHotActiveKey(item.catId)}>
+                                        {item.name}
+                                    </span>
+                                );
+                            })
+                        }
+                        <span className={styles.more}>更多</span>
+                    </div>
+                );
+            }
+            if (item.code === 'MEDICAL_HEALTH') {
+                MEDICAL_HEALTH = (
+                    <div className={styles.classification}>
+                        {
+                            item.children.map(item => {
+                                
+                                console.log(item);
+                                return (
+                                    <span
+                                        key={item.catId}
+                                        className={cls(styles.typeItem, hotActiveKey === item.key ? styles.activeItem : null)}
+                                        onClick={() => this.changeHotActiveKey(item.catId)}>
+                                        {item.name}
+                                    </span>
+                                );
+                            })
+                        }
+                        <span className={styles.more}>更多</span>
+                    </div>
+                );
+            }
+            if (item.code === 'FINTECH') {
+                FINTECH = (
+                    <div className={styles.classification}>
+                        {
+                            item.children.map(item => {
+                                
+                                console.log(item);
+                                return (
+                                    <span
+                                        key={item.catId}
+                                        className={cls(styles.typeItem, hotActiveKey === item.key ? styles.activeItem : null)}
+                                        onClick={() => this.changeHotActiveKey(item.catId)}>
+                                        {item.name}
+                                    </span>
+                                );
+                            })
+                        }
+                        <span className={styles.more}>更多</span>
+                    </div>
+                );
+            }
+            if (item.code === 'FESTIVAL_SOLAR_TERMS') {
+                FESTIVAL_SOLAR_TERMS = (
+                    <div className={styles.classification}>
+                        {
+                            item.children.map(item => {
+                                
+                                console.log(item);
+                                return (
+                                    <span
+                                        key={item.catId}
+                                        className={cls(styles.typeItem, hotActiveKey === item.key ? styles.activeItem : null)}
+                                        onClick={() => this.changeHotActiveKey(item.catId)}>
+                                        {item.name}
+                                    </span>
+                                );
+                            })
+                        }
+                        <span className={styles.more}>更多</span>
+                    </div>
+                );
+            }
+            if (item.code === 'ANIMAL') {
+                ANIMAL = (
+                    <div className={styles.classification}>
+                        {
+                            item.children.map(item => {
+                                
+                                console.log(item);
+                                return (
+                                    <span
+                                        key={item.catId}
+                                        className={cls(styles.typeItem, hotActiveKey === item.key ? styles.activeItem : null)}
+                                        onClick={() => this.changeHotActiveKey(item.catId)}>
+                                        {item.name}
+                                    </span>
+                                );
+                            })
+                        }
+                        <span className={styles.more}>更多</span>
+                    </div>
+                );
+            }
+            if (item.code === 'PLANT') {
+                PLANT = (
+                    <div className={styles.classification}>
+                        {
+                            item.children.map(item => {
+                                
+                                console.log(item);
+                                return (
+                                    <span
+                                        key={item.catId}
+                                        className={cls(styles.typeItem, hotActiveKey === item.key ? styles.activeItem : null)}
+                                        onClick={() => this.changeHotActiveKey(item.catId)}>
+                                        {item.name}
+                                    </span>
+                                );
+                            })
+                        }
+                        <span className={styles.more}>更多</span>
+                    </div>
+                );
+            }
+
+        });
+
         return (
             <div className={styles.fontsPage}>
                 <div className={styles.topBox}>
@@ -125,12 +660,12 @@ export default class ImagesPage extends Component {
                         <div className={styles.contentBox}>
                             <Row gutter={[16, 16]}>
                                 {
-                                    fontList.map(item => {
+                                    hotList.map(item => {
                                         return (
                                             <Col key={item.key} className={styles.gutterBox} span={6}>
                                                 <Link to={{ pathname: '/details', state: { id: 2 } }}>
                                                     <div className={styles.fontItemBox}>
-                                                        <img width="100%" height="100%" src={item.value}/>
+                                                        <img width="100%" height="100%" src={item.commodityCoverUrl}/>
                                                     </div>
                                                 </Link>
                                             </Col>
@@ -147,30 +682,18 @@ export default class ImagesPage extends Component {
                         <span className={styles.titleEnglish}>ZIRANJINGGUAN</span>
                     </div>
                     <div className={styles.itemContent}>
-                        <div className={styles.classification}>
-                            {
-                                fontTypeTitle.map(item => {
-                                    return (
-                                        <span
-                                            key={item.key}
-                                            className={cls(styles.typeItem, hotActiveKey === item.key ? styles.activeItem : null)}
-                                            onClick={() => this.changeHotActiveKey(item.key)}>
-                                            {item.title}
-                                        </span>
-                                    );
-                                })
-                            }
-                            <span className={styles.more}>更多</span>
-                        </div>
+                        {NATURAL_LANDSCAPE}
                         <div className={styles.contentBox}>
                             <Row gutter={[16, 16]}>
                                 {
-                                    fontList.map(item => {
+                                    pictureAnimalList.map(item => {
                                         return (
                                             <Col key={item.key} className={styles.gutterBox} span={6}>
-                                                <div className={styles.fontItemBox}>
-                                                    <img width="100%" height="100%" src={item.value}/>
-                                                </div>
+                                                <Link to={{ pathname: '/details', state: { id: 1 } }}>
+                                                    <div className={styles.fontItemBox}>
+                                                        <img width="100%" height="100%" src={item.commodityCoverUrl}/>
+                                                    </div>
+                                                </Link>
                                             </Col>
                                         );
                                     })
@@ -185,30 +708,18 @@ export default class ImagesPage extends Component {
                         <span className={styles.titleEnglish}>CANYINMEISHI</span>
                     </div>
                     <div className={styles.itemContent}>
-                        <div className={styles.classification}>
-                            {
-                                fontTypeTitle.map(item => {
-                                    return (
-                                        <span
-                                            key={item.key}
-                                            className={cls(styles.typeItem, hotActiveKey === item.key ? styles.activeItem : null)}
-                                            onClick={() => this.changeHotActiveKey(item.key)}>
-                                            {item.title}
-                                        </span>
-                                    );
-                                })
-                            }
-                            <span className={styles.more}>更多</span>
-                        </div>
+                        {DINING}
                         <div className={styles.contentBox}>
                             <Row gutter={[16, 16]}>
                                 {
-                                    fontList.map(item => {
+                                    pictureDeliciousFoodList.map(item => {
                                         return (
                                             <Col key={item.key} className={styles.gutterBox} span={6}>
-                                                <div className={styles.fontItemBox}>
-                                                    <img width="100%" height="100%" src={item.value}/>
-                                                </div>
+                                                <Link to={{ pathname: '/details', state: { id: 1 } }}>
+                                                    <div className={styles.fontItemBox}>
+                                                        <img width="100%" height="100%" src={item.commodityCoverUrl}/>
+                                                    </div>
+                                                </Link>
                                             </Col>
                                         );
                                     })
@@ -223,30 +734,18 @@ export default class ImagesPage extends Component {
                         <span className={styles.titleEnglish}>JIANZHU</span>
                     </div>
                     <div className={styles.itemContent}>
-                        <div className={styles.classification}>
-                            {
-                                fontTypeTitle.map(item => {
-                                    return (
-                                        <span
-                                            key={item.key}
-                                            className={cls(styles.typeItem, hotActiveKey === item.key ? styles.activeItem : null)}
-                                            onClick={() => this.changeHotActiveKey(item.key)}>
-                                            {item.title}
-                                        </span>
-                                    );
-                                })
-                            }
-                            <span className={styles.more}>更多</span>
-                        </div>
+                        {BUILDING}
                         <div className={styles.contentBox}>
                             <Row gutter={[16, 16]}>
                                 {
-                                    fontList.map(item => {
+                                    pictureArchitectureList.map(item => {
                                         return (
                                             <Col key={item.key} className={styles.gutterBox} span={6}>
-                                                <div className={styles.fontItemBox}>
-                                                    <img width="100%" height="100%" src={item.value}/>
-                                                </div>
+                                                <Link to={{ pathname: '/details', state: { id: 1 } }}>
+                                                    <div className={styles.fontItemBox}>
+                                                        <img width="100%" height="100%" src={item.commodityCoverUrl}/>
+                                                    </div>
+                                                </Link>
                                             </Col>
                                         );
                                     })
@@ -261,30 +760,18 @@ export default class ImagesPage extends Component {
                         <span className={styles.titleEnglish}>RENWUXINGXINAG</span>
                     </div>
                     <div className={styles.itemContent}>
-                        <div className={styles.classification}>
-                            {
-                                fontTypeTitle.map(item => {
-                                    return (
-                                        <span
-                                            key={item.key}
-                                            className={cls(styles.typeItem, hotActiveKey === item.key ? styles.activeItem : null)}
-                                            onClick={() => this.changeHotActiveKey(item.key)}>
-                                            {item.title}
-                                        </span>
-                                    );
-                                })
-                            }
-                            <span className={styles.more}>更多</span>
-                        </div>
+                        {CHARACTER_IMAGE}
                         <div className={styles.contentBox}>
                             <Row gutter={[16, 16]}>
                                 {
-                                    fontList.map(item => {
+                                    pictureCharacterList.map(item => {
                                         return (
                                             <Col key={item.key} className={styles.gutterBox} span={6}>
-                                                <div className={styles.fontItemBox}>
-                                                    <img width="100%" height="100%" src={item.value}/>
-                                                </div>
+                                                <Link to={{ pathname: '/details', state: { id: 1 } }}>
+                                                    <div className={styles.fontItemBox}>
+                                                        <img width="100%" height="100%" src={item.commodityCoverUrl}/>
+                                                    </div>
+                                                </Link>
                                             </Col>
                                         );
                                     })
@@ -299,30 +786,18 @@ export default class ImagesPage extends Component {
                         <span className={styles.titleEnglish}>SHENGHUOFANGSHI</span>
                     </div>
                     <div className={styles.itemContent}>
-                        <div className={styles.classification}>
-                            {
-                                fontTypeTitle.map(item => {
-                                    return (
-                                        <span
-                                            key={item.key}
-                                            className={cls(styles.typeItem, hotActiveKey === item.key ? styles.activeItem : null)}
-                                            onClick={() => this.changeHotActiveKey(item.key)}>
-                                            {item.title}
-                                        </span>
-                                    );
-                                })
-                            }
-                            <span className={styles.more}>更多</span>
-                        </div>
+                        {WAY_OF_LIFE}
                         <div className={styles.contentBox}>
                             <Row gutter={[16, 16]}>
                                 {
-                                    fontList.map(item => {
+                                    pictureLifeList.map(item => {
                                         return (
                                             <Col key={item.key} className={styles.gutterBox} span={6}>
-                                                <div className={styles.fontItemBox}>
-                                                    <img width="100%" height="100%" src={item.value}/>
-                                                </div>
+                                                <Link to={{ pathname: '/details', state: { id: 1 } }}>
+                                                    <div className={styles.fontItemBox}>
+                                                        <img width="100%" height="100%" src={item.commodityCoverUrl}/>
+                                                    </div>
+                                                </Link>
                                             </Col>
                                         );
                                     })
@@ -337,30 +812,18 @@ export default class ImagesPage extends Component {
                         <span className={styles.titleEnglish}>SHANGWUBANGONG</span>
                     </div>
                     <div className={styles.itemContent}>
-                        <div className={styles.classification}>
-                            {
-                                fontTypeTitle.map(item => {
-                                    return (
-                                        <span
-                                            key={item.key}
-                                            className={cls(styles.typeItem, hotActiveKey === item.key ? styles.activeItem : null)}
-                                            onClick={() => this.changeHotActiveKey(item.key)}>
-                                            {item.title}
-                                        </span>
-                                    );
-                                })
-                            }
-                            <span className={styles.more}>更多</span>
-                        </div>
+                        {BUSINESS_OFFICE}
                         <div className={styles.contentBox}>
                             <Row gutter={[16, 16]}>
                                 {
-                                    fontList.map(item => {
+                                    pictureBusinessAffairsList.map(item => {
                                         return (
                                             <Col key={item.key} className={styles.gutterBox} span={6}>
-                                                <div className={styles.fontItemBox}>
-                                                    <img width="100%" height="100%" src={item.value}/>
-                                                </div>
+                                                <Link to={{ pathname: '/details', state: { id: 1 } }}>
+                                                    <div className={styles.fontItemBox}>
+                                                        <img width="100%" height="100%" src={item.commodityCoverUrl}/>
+                                                    </div>
+                                                </Link>
                                             </Col>
                                         );
                                     })
@@ -375,30 +838,18 @@ export default class ImagesPage extends Component {
                         <span className={styles.titleEnglish}>JIAOYUWENHUA</span>
                     </div>
                     <div className={styles.itemContent}>
-                        <div className={styles.classification}>
-                            {
-                                fontTypeTitle.map(item => {
-                                    return (
-                                        <span
-                                            key={item.key}
-                                            className={cls(styles.typeItem, hotActiveKey === item.key ? styles.activeItem : null)}
-                                            onClick={() => this.changeHotActiveKey(item.key)}>
-                                            {item.title}
-                                        </span>
-                                    );
-                                })
-                            }
-                            <span className={styles.more}>更多</span>
-                        </div>
+                        {EDUCATION_CULTURE}
                         <div className={styles.contentBox}>
                             <Row gutter={[16, 16]}>
                                 {
-                                    fontList.map(item => {
+                                    pictureEducationList.map(item => {
                                         return (
                                             <Col key={item.key} className={styles.gutterBox} span={6}>
-                                                <div className={styles.fontItemBox}>
-                                                    <img width="100%" height="100%" src={item.value}/>
-                                                </div>
+                                                <Link to={{ pathname: '/details', state: { id: 1 } }}>
+                                                    <div className={styles.fontItemBox}>
+                                                        <img width="100%" height="100%" src={item.commodityCoverUrl}/>
+                                                    </div>
+                                                </Link>
                                             </Col>
                                         );
                                     })
@@ -413,30 +864,18 @@ export default class ImagesPage extends Component {
                         <span className={styles.titleEnglish}>YILIAOJIANKANG</span>
                     </div>
                     <div className={styles.itemContent}>
-                        <div className={styles.classification}>
-                            {
-                                fontTypeTitle.map(item => {
-                                    return (
-                                        <span
-                                            key={item.key}
-                                            className={cls(styles.typeItem, hotActiveKey === item.key ? styles.activeItem : null)}
-                                            onClick={() => this.changeHotActiveKey(item.key)}>
-                                            {item.title}
-                                        </span>
-                                    );
-                                })
-                            }
-                            <span className={styles.more}>更多</span>
-                        </div>
+                        {MEDICAL_HEALTH}
                         <div className={styles.contentBox}>
                             <Row gutter={[16, 16]}>
                                 {
-                                    fontList.map(item => {
+                                    pictureMedicalCareList.map(item => {
                                         return (
                                             <Col key={item.key} className={styles.gutterBox} span={6}>
-                                                <div className={styles.fontItemBox}>
-                                                    <img width="100%" height="100%" src={item.value}/>
-                                                </div>
+                                                <Link to={{ pathname: '/details', state: { id: 1 } }}>
+                                                    <div className={styles.fontItemBox}>
+                                                        <img width="100%" height="100%" src={item.commodityCoverUrl}/>
+                                                    </div>
+                                                </Link>
                                             </Col>
                                         );
                                     })
@@ -451,30 +890,18 @@ export default class ImagesPage extends Component {
                         <span className={styles.titleEnglish}>JIRONGKEJI</span>
                     </div>
                     <div className={styles.itemContent}>
-                        <div className={styles.classification}>
-                            {
-                                fontTypeTitle.map(item => {
-                                    return (
-                                        <span
-                                            key={item.key}
-                                            className={cls(styles.typeItem, hotActiveKey === item.key ? styles.activeItem : null)}
-                                            onClick={() => this.changeHotActiveKey(item.key)}>
-                                            {item.title}
-                                        </span>
-                                    );
-                                })
-                            }
-                            <span className={styles.more}>更多</span>
-                        </div>
+                        {FINTECH}
                         <div className={styles.contentBox}>
                             <Row gutter={[16, 16]}>
                                 {
-                                    fontList.map(item => {
+                                    pictureFinanceList.map(item => {
                                         return (
                                             <Col key={item.key} className={styles.gutterBox} span={6}>
-                                                <div className={styles.fontItemBox}>
-                                                    <img width="100%" height="100%" src={item.value}/>
-                                                </div>
+                                                <Link to={{ pathname: '/details', state: { id: 1 } }}>
+                                                    <div className={styles.fontItemBox}>
+                                                        <img width="100%" height="100%" src={item.commodityCoverUrl}/>
+                                                    </div>
+                                                </Link>
                                             </Col>
                                         );
                                     })
@@ -489,30 +916,18 @@ export default class ImagesPage extends Component {
                         <span className={styles.titleEnglish}>JIERIJIEQI</span>
                     </div>
                     <div className={styles.itemContent}>
-                        <div className={styles.classification}>
-                            {
-                                fontTypeTitle.map(item => {
-                                    return (
-                                        <span
-                                            key={item.key}
-                                            className={cls(styles.typeItem, hotActiveKey === item.key ? styles.activeItem : null)}
-                                            onClick={() => this.changeHotActiveKey(item.key)}>
-                                            {item.title}
-                                        </span>
-                                    );
-                                })
-                            }
-                            <span className={styles.more}>更多</span>
-                        </div>
+                        {FESTIVAL_SOLAR_TERMS}
                         <div className={styles.contentBox}>
                             <Row gutter={[16, 16]}>
                                 {
-                                    fontList.map(item => {
+                                    pictureFestivalList.map(item => {
                                         return (
                                             <Col key={item.key} className={styles.gutterBox} span={6}>
-                                                <div className={styles.fontItemBox}>
-                                                    <img width="100%" height="100%" src={item.value}/>
-                                                </div>
+                                                <Link to={{ pathname: '/details', state: { id: 1 } }}>
+                                                    <div className={styles.fontItemBox}>
+                                                        <img width="100%" height="100%" src={item.commodityCoverUrl}/>
+                                                    </div>
+                                                </Link>
                                             </Col>
                                         );
                                     })
@@ -527,30 +942,18 @@ export default class ImagesPage extends Component {
                         <span className={styles.titleEnglish}>DONGWU/CHONG</span>
                     </div>
                     <div className={styles.itemContent}>
-                        <div className={styles.classification}>
-                            {
-                                fontTypeTitle.map(item => {
-                                    return (
-                                        <span
-                                            key={item.key}
-                                            className={cls(styles.typeItem, hotActiveKey === item.key ? styles.activeItem : null)}
-                                            onClick={() => this.changeHotActiveKey(item.key)}>
-                                            {item.title}
-                                        </span>
-                                    );
-                                })
-                            }
-                            <span className={styles.more}>更多</span>
-                        </div>
+                        {ANIMAL}
                         <div className={styles.contentBox}>
                             <Row gutter={[16, 16]}>
                                 {
-                                    fontList.map(item => {
+                                    pictureAnimalList.map(item => {
                                         return (
                                             <Col key={item.key} className={styles.gutterBox} span={6}>
-                                                <div className={styles.fontItemBox}>
-                                                    <img width="100%" height="100%" src={item.value}/>
-                                                </div>
+                                                <Link to={{ pathname: '/details', state: { id: 1 } }}>
+                                                    <div className={styles.fontItemBox}>
+                                                        <img width="100%" height="100%" src={item.commodityCoverUrl}/>
+                                                    </div>
+                                                </Link>
                                             </Col>
                                         );
                                     })
@@ -565,30 +968,18 @@ export default class ImagesPage extends Component {
                         <span className={styles.titleEnglish}>植物</span>
                     </div>
                     <div className={styles.itemContent}>
-                        <div className={styles.classification}>
-                            {
-                                fontTypeTitle.map(item => {
-                                    return (
-                                        <span
-                                            key={item.key}
-                                            className={cls(styles.typeItem, hotActiveKey === item.key ? styles.activeItem : null)}
-                                            onClick={() => this.changeHotActiveKey(item.key)}>
-                                            {item.title}
-                                        </span>
-                                    );
-                                })
-                            }
-                            <span className={styles.more}>更多</span>
-                        </div>
+                        {PLANT}
                         <div className={styles.contentBox}>
                             <Row gutter={[16, 16]}>
                                 {
-                                    fontList.map(item => {
+                                    pictureBotanyList.map(item => {
                                         return (
                                             <Col key={item.key} className={styles.gutterBox} span={6}>
-                                                <div className={styles.fontItemBox}>
-                                                    <img width="100%" height="100%" src={item.value}/>
-                                                </div>
+                                                <Link to={{ pathname: '/details', state: { id: 1 } }}>
+                                                    <div className={styles.fontItemBox}>
+                                                        <img width="100%" height="100%" src={item.commodityCoverUrl}/>
+                                                    </div>
+                                                </Link>
                                             </Col>
                                         );
                                     })

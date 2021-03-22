@@ -1,12 +1,15 @@
 import React from 'react';
 import styles from './fontUploading.less';
-import {  Button,  Radio, Form, Input, Upload, Icon, Select, Progress, Tabs, message  } from 'antd';
+import {  Button,  Radio, Form, Input, Upload, Icon, Select, Progress, Tabs, message, Modal, Table, InputNumber, Checkbox } from 'antd';
 import Cookies from 'Utils/cookie';
 import reqwest from 'reqwest';
 import { partUploader, claimUploadId, completeMultipartUpload } from 'Services/oss';
 import { commodityClassification } from 'Services/classification';
 import { shopFontUpload } from 'Services/commodityinfo';
 import { selectShopInfoList } from 'Services/mallinfo';
+import { authorizedPrice } from 'Services/commoditypriceinfo';
+import { listProfit } from 'Services/dictItem';
+const { TextArea } = Input;
 
 const { TabPane } = Tabs;
 const { Option } = Select;
@@ -27,27 +30,29 @@ class FontUploading extends React.Component {
             type: 1
         }).then(e => {
             if (e.data.code === 200) {
-                let dataList = e.data.data;
+                console.log(e.data.data[0]);
+                let dataList = e.data.data[0].children;
+                console.log(dataList);
                 dataList.forEach(data => {
                     if (data.code === 'FONT_STYLE') {
                         console.log(data);
                         this.setState({
-                            fontStyle: data.list
+                            fontStyle: data.children
                         });
                     }   
                     if (data.code === 'FONT_TYPE') {
                         this.setState({
-                            fontType: data.list
+                            fontType: data.children
                         });
                     }   
                     if (data.code === 'FONT_LANGUAGE_SYSTEM') {
                         this.setState({
-                            fontLanguageSystem: data.list
+                            fontLanguageSystem: data.children
                         });
                     }   
                     if (data.code === 'FONT_CODING') {
                         this.setState({
-                            fontCoding: data.list
+                            fontCoding: data.children
                         });
                     }
                 });        
@@ -80,12 +85,37 @@ class FontUploading extends React.Component {
                     message.error('你还没有店铺,请去申请店铺');
                 }
 
+            } else {
+                message.error(e.data.data);   
             }
+        });
+
+        // 获取商品授权类型价格
+        authorizedPrice({
+            type: 1
+        }).then(e => {
+            this.setState({
+                dataSource: e.data.data
+            });
+        });
+
+        // 获取分润比例
+        listProfit().then(e => {
+            this.setState({
+                shareProfit: e.data.data
+            });
         });
     }
     state = {
+        // 上传时间
+        uploadTime: '',
+        // 大小
+        uploadSize: '',
+
         // 字体格式
         fontStyle: [],
+        // 分润比例
+        shareProfit: [],
         // 类型
         fontType: [],
         // 语系
@@ -94,21 +124,128 @@ class FontUploading extends React.Component {
         fontCoding: [],
         // 店鋪id
         mallId: '',
+        // 标签
+        keyword: [],
         fileList: [],
         uploading: false,
         index: 0,
         uploadId: '',
         pause: false, // 暂停
         fileType: 'FONT',
+        fileType1: 'FONT',
         percent: 0, // 进度
         previewVisible: false,
         previewImage: '',
         category: '',
         lout: false,
         fileSize: '',
-        uploadTime: ''
+        // uploadTime: '',
+        visible: false,
+        fontValue: 0,
+
+        // 自定义年
+        customYear: '',
+       
+        columns: [
+            {
+                title: '授权年限',
+                dataIndex: 'authorizationTypeInformation',
+                render: (text, row, index) => {
+                    if (row.authorizationTypeCode === 'PERSONAL_FONT' || row.authorizationTypeCode === 'PERSONAL_ENTERPRISE') {
+                        return row.authorizationTypeInformation;
+                    }
+                    if (row.authorizationTypeInformation === '自定义') {
+                        console.log(index);
+                        console.log(text);
+                        console.log(row);
+                        return  <InputNumber onChange={this.customYearChang.bind(this, row)}  placeholder="自定义"/>;
+                        
+                    }
+
+                    return row.authorizationTypeInformation + '年';
+                }
+            }, {
+                title: '版本类型',
+                dataIndex: 'remarks'
+            }, 
+            {
+                title: '授权范围(可编辑)',
+                dataIndex: 'type',
+                render: (text, row, index) => {
+                    if (row.authorizationTypeCode === 'PERSONAL_FONT' || row.authorizationTypeCode === 'PERSONAL_ENTERPRISE') {
+                        return '';
+                    }
+                    
+                    return <Input  onChange={this.typeChang.bind(this, row)}></Input>;
+                  
+                }
+            },
+            {
+                title: '市场价(元)',
+                dataIndex: '',
+                render: (text, row, index) => {
+                    if (row.authorizationTypeCode === 'PERSONAL_FONT' || row.authorizationTypeCode === 'PERSONAL_ENTERPRISE') {
+                        return '';
+                    }
+                    
+                    return <InputNumber onChange={this.priceChange.bind(this, row)} placeholder="价格"/>;
+                  
+                }
+            }, {
+                title: '授价(元)',
+                dataIndex: '',
+                render: (text, row, index) => {
+                    if (row.authorizationTypeCode === 'PERSONAL_FONT' || row.authorizationTypeCode === 'PERSONAL_ENTERPRISE') {
+                        return '';
+                    }
+                    
+                    return <InputNumber onChange={this.priceSellChange.bind(this, row)} placeholder="价格"/>;
+                  
+                }
+            }
+        ],
+        dataSource: []
 
     };
+
+    // 授权信息 
+    customYearChang = (value, event) => {
+        this.state.dataSource.forEach(dataSource => {
+            dataSource.children.forEach(children => {
+                if (children.authorizationTypeCode === value.authorizationTypeCode) {
+                    children.authorizationTypeInformation = event;
+                }
+            });
+        });
+    }
+    typeChang =(value, event) => {
+        this.state.dataSource.forEach(dataSource => {
+            dataSource.children.forEach(children => {
+                if (children.authorizationTypeCode === value.authorizationTypeCode) {
+                    children.type = event.target.value;
+                }
+            });
+        });
+    }
+    priceChange =(value, event) => {
+        this.state.dataSource.forEach(dataSource => {
+            dataSource.children.forEach(children => {
+                if (children.authorizationTypeCode === value.authorizationTypeCode) {
+                    children.authorizationPrice = event;
+                }
+            });
+        });
+    }
+    priceSellChange=(value, event) => {
+        this.state.dataSource.forEach(dataSource => {
+            dataSource.children.forEach(children => {
+                if (children.authorizationTypeCode === value.authorizationTypeCode) {
+                    children.authorizationPriceSell = event;
+                }
+            });
+        });
+    }
+
     handleCancel = () => this.setState({ previewVisible: false });
 
     handleUpload = () => {
@@ -129,10 +266,30 @@ class FontUploading extends React.Component {
         if (this.state.pause) {
             return;
         }
+        let fileListAll = '';
+        if (this.state.fileList.length === 0) {
+            this.setState({
+                fileType: 'COVER'
+            });
+            fileListAll = 'COVER';
+        }
+        if (this.state.fileList.length === 1 ) {
+            this.setState({
+                fileType: 'COPYRIGHT'
+            });
+            fileListAll = 'COPYRIGHT';
+        }
+        if (this.state.fileList.length > 1) {
+            this.setState({
+                fileType: 'FONT'
+            });
+            fileListAll = 'FONT';
+         
+        }
         claimUploadId({
             catalog: file.lastModified,
             fileName: file.name,
-            type: this.state.fileType
+            type: fileListAll
         }).then(res => {
             if (res.data.code === 200) {
                 this.UploadPost(file, res);
@@ -156,6 +313,7 @@ class FontUploading extends React.Component {
                 this.state.fileList.push(res.data.data);
                 if (this.state.fileList.length  === 2) {
                     var myDate = new Date();
+                    
                     var mytime = myDate.toLocaleTimeString();     // 获取当前时间
 
                     this.setState({
@@ -229,6 +387,18 @@ class FontUploading extends React.Component {
                 const authorizationPrice = values.commodityTypefacePriceInfoVoList.authorizationPrice;// 价格
                 const authorizationPriceSell = values.commodityTypefacePriceInfoVoList.authorizationPriceSell;// 价格
                 const priceVoList =  values.commodityTypefacePriceInfoVoList = [];
+                let indexI = 0;
+                this.state.dataSource.forEach((dataSource) => {
+                    dataSource.children.forEach(data => {
+                        if (data.authorizationPrice !== '' 
+                        && data.authorizationPriceSell !== '' 
+                        && typeof (data.authorizationPrice) !== 'undefined' 
+                        && typeof (data.authorizationPriceSell) !== 'undefined' ) {
+                            priceVoList.push(data);
+                            indexI++;
+                        }
+                    });
+                });
 
                 this.state.fileList.forEach((list, index) => {
                     if (index >= 3) {
@@ -236,22 +406,12 @@ class FontUploading extends React.Component {
                         data.fileFormat = fileFormat;
                         data.dataUrl = list;
                         faceVoList.push(data);
-
-                        var prictData = {};
-                        prictData.authorizationPrice = authorizationPrice;
-                        prictData.authorizationPriceSell = authorizationPriceSell;
-                        // 授权年现
-                        prictData.authorizationTime = '3';
-                        // 授权类型
-                        prictData.authorizationTypeCode = '1';
-                        // 授权范围信息
-                        prictData.authorizationInfo = '';
-                        priceVoList.push(prictData);
                     }
 
                 });
                 values.mallId = this.state.mallId;
-                values.commodityStatus = '0';
+                console.log('this.state.fontValue', this.state.fontValue);
+                values.commodityStatus = this.state.fontValue;
                 values.coverUrl = this.state.fileList[0];
                 const commodityTypefaceVo = values;
 
@@ -263,16 +423,31 @@ class FontUploading extends React.Component {
                 mus.uploadTime = this.state.uploadTime;
                 values.typefaceWorkInformationVo = mus;
 
-                shopFontUpload(commodityTypefaceVo).then(e => {
-                    console.log(e);
-                    if (e.data.code === 200) {
-                        message.success(e.data.msg);
-                    }
-
-                    if (e.data.code === 604) {
-                        message.error(e.data.data);
-                    }
-                });
+                // 获取标签
+                const keywordles =  this.state.keyword;
+                const keywordles1 =  keywordles.join(' ');
+                const keyword1 = values.keyword1;
+                values.keyword = keyword1 + ' ' + keywordles1;
+                if (indexI === 0) {
+                    message.error('请先填写价格和授权');
+                    this.setState({
+                        visible: true
+                    });
+                } else {
+                    shopFontUpload(commodityTypefaceVo).then(e => {
+                        console.log(e);
+                        if (e.data.code === 200) {
+                            message.success(e.data.msg);
+                        }
+    
+                        if (e.data.code === 604) {
+                            message.error(e.data.data);
+                        }
+                        if (e.data.code === 500) {
+                            message.error(e.data.msg);
+                        }
+                    });
+                }
 
             }
         });
@@ -289,11 +464,54 @@ class FontUploading extends React.Component {
     selectfontCoding = value => {
         console.log(value);
     }
+    onchangeKeyword= value => {
+        this.setState({
+            keyword: value
+        });
+    }
+    showModal=value => {
+        this.setState({
+            visible: true
+        });
+        console.log(value);
+    }
+    handleOk = e => {
+      
+        this.setState({
+            visible: false
+        });
 
+    };
+    handleCancelModel = e => {
+        console.log(e);
+        this.setState({
+            visible: false
+        });
+    };
+    rowKey = e => {
+       
+        return e.authorizationId;
+    }
+    fontClick = e => {
+        this.setState({
+            fontValue: 0
+        });
+    }
+    fontClick1 = e => {
+        this.setState({
+            fontValue: 1
+        });
+    }
+    
     render() {
-             
+        // const components = {
+        //     body: {
+        //         row: EditableFormRow,
+        //         cell: EditableCell
+        //     }
+        // };
         const { getFieldDecorator } = this.props.form;
-        const {  fileList, fontStyle, fontType, fontLanguageSystem, fontCoding, lout } = this.state;
+        const {  fileList, fontStyle, fontType, fontLanguageSystem, fontCoding, lout, visible, columns, dataSource, shareProfit, uploadTime, fileSize } = this.state;
         const uploadButton = (
             <div>
                 <Icon type="plus" />
@@ -334,6 +552,7 @@ class FontUploading extends React.Component {
                         fileList: newFileList
                     };
                 });
+                console.log(fileList);
             },
             beforeUpload: file => {
                 this.Upload(file);
@@ -345,6 +564,11 @@ class FontUploading extends React.Component {
             }
             
         };
+        const plainOptions = [
+            { label: 'Apple', value: 'Apple' },
+            { label: 'Pear', value: 'Pear' },
+            { label: 'Orange', value: 'Orange' }
+        ];
 
         return (
             <div className={styles.fontUploading}>
@@ -362,9 +586,10 @@ class FontUploading extends React.Component {
 
                 </div>
                 <div className={styles.worksDetails}>
-                    <Tabs>
-                        <TabPane tab="作品设置" key="1">
-                            <Form onSubmit={this.handleSubmit}>
+                    <Form onSubmit={this.handleSubmit}>
+                        <Tabs>
+                            <TabPane tab="作品设置" key="1">
+                         
                                 <Form.Item label="标题">
                                     {getFieldDecorator('commName', {
                                         rules: [{ required: true, message: '标题不能为空' }]
@@ -375,20 +600,32 @@ class FontUploading extends React.Component {
                                         rules: [{ required: true, message: '描述不能为空' }]
                                     })(<Input placeholder="产品描述"/>)}
                                 </Form.Item>
-                                <Form.Item label="市场价">
+                                <Form.Item onClick={this.showModal} className={styles.inputPut} label="授权 | 价格">
                                     {getFieldDecorator('commodityTypefacePriceInfoVoList.authorizationPrice', {
-                                        rules: [{ required: true, message: '价格不能为空' }]
-                                    })(<Input placeholder="按照授权，设置价格"/>)}
-                                </Form.Item>
-                                <Form.Item label="售价">
+                                        // rules: [{ required: true, message: '价格不能为空' }]
+                                    })(<Input  placeholder="按照授权，设置价格"/>)
+                                    }
                                     {getFieldDecorator('commodityTypefacePriceInfoVoList.authorizationPriceSell', {
-                                        rules: [{ required: true, message: '价格不能为空' }]
+                                        // rules: [{ required: true, message: '价格不能为空' }]
                                     })(<Input placeholder="按照授权，设置价格"/>)}
                                 </Form.Item>
+
                                 <Form.Item label="分润">
                                     {getFieldDecorator('shareProfit', {
                                         rules: [{ required: true, message: '分润不能为空' }]
-                                    })(<Input placeholder="你分给平台的比例，比例越高，产品越靠前"/>)}
+                                    })(
+                                        <Select placeholder="你分给平台的比例，比例越高，产品越靠前"
+                                        >
+                                            {
+                                                shareProfit.map((item, index) => {
+                                                    return (
+                                                        <Option key={index} value={item.item_text}>{item.item_text}</Option>
+                                                    );
+                                                })
+                                            }
+                                        </Select>
+                                    
+                                    )}
                                 </Form.Item>
                                 {/* <Form.Item label="保存到字体文件夹">
                                     {getFieldDecorator('shareProfit', {
@@ -412,7 +649,7 @@ class FontUploading extends React.Component {
                                             {
                                                 fontStyle.map((item, index) => {
                                                     return (
-                                                        <Option key={index} value={item.ITEM_TEXT}>{item.ITEM_TEXT}</Option>
+                                                        <Option key={index} value={item.catId}>{item.name}</Option>
                                                     );
                                                 })
                                             }
@@ -431,7 +668,7 @@ class FontUploading extends React.Component {
                                             {
                                                 fontType.map((item, index) => {
                                                     return (
-                                                        <Option key={index} value={item.ITEM_TEXT}>{item.ITEM_TEXT}</Option>
+                                                        <Option key={index} value={item.catId}>{item.name}</Option>
                                                     );
                                                 })
                                             }
@@ -450,7 +687,7 @@ class FontUploading extends React.Component {
                                             {
                                                 fontLanguageSystem.map((item, index) => {
                                                     return (
-                                                        <Option key={index} value={item.ITEM_TEXT}>{item.ITEM_TEXT}</Option>
+                                                        <Option key={index} value={item.catId}>{item.name}</Option>
                                                     );
                                                 })
                                             }
@@ -469,7 +706,7 @@ class FontUploading extends React.Component {
                                             {
                                                 fontCoding.map((item, index) => {
                                                     return (
-                                                        <Option key={index} value={item.ITEM_TEXT}>{item.ITEM_TEXT}</Option>
+                                                        <Option key={index} value={item.catId}>{item.name}</Option>
                                                     );
                                                 })
                                             }
@@ -477,31 +714,87 @@ class FontUploading extends React.Component {
                                         </Select>
                                     )}
                                 </Form.Item>
-                                <Form.Item label="关键字,标签">
+                                <Form.Item label="给此产品打标签">
                                     {getFieldDecorator('keyword', {
                                         rules: [{ required: true, message: '关键字标签不能为空' }]
                                     })(
                                         <div className={styles.keyword}>
-                                            <Radio.Group>
-                                                {/* <span className={styles.keywordSpan}></span> */}
-                                                <Radio value="黑体">黑体</Radio>
-                                                <Radio value="宋体">宋体</Radio>
-                                                <Radio value="行书">行书</Radio>
-                                                <Radio value="楷书">楷书</Radio>
-                                                <Radio value="草书">草书</Radio>
-                                                <Radio value="好看">好看</Radio>
-                                                <Radio value="平易近人">平易近人</Radio>
-                                                <Radio value="很多标签">很多标签</Radio>
-                                            </Radio.Group>
+                                            <Checkbox.Group options={plainOptions} onChange={this.onchangeKeyword}/>
                                         </div>
                                     )}
                                 </Form.Item>
-                                <Form.Item >
-                                    <Button type="danger" htmlType="submit" disabled={this.state.percent === 0 && lout && fileList.length > 1 && fileList.length > 3 ? false : true}>上传</Button>
+                           
+                                <Form.Item label="给作品添加关键字">
+                                    {getFieldDecorator('keyword1', {
+                                        rules: [{ required: true, message: '关键字标签不能为空' }]
+                                    })(
+                                        <TextArea
+                                            placeholder="可输入10个关键字,用空格隔开"
+                                            autoSize={{ minRows: 3, maxRows: 5 }}
+                                        />
+                                    )}
                                 </Form.Item>
-                            </Form>
-                        </TabPane>
-                    </Tabs>
+                            
+                            </TabPane>
+                            <TabPane tab="作品信息" key="2">
+                                <div className={styles.information}>
+                                    <div className={styles.author}>
+                                        <span className={styles.float}>
+                                            作品ID:
+                                        </span>
+                                        <span className={styles.right}>
+                                            系统自动生成
+                                        </span>
+                                    </div>
+
+                                    <div className={styles.author}>
+                                        <span className={styles.float}>
+                                            上传时间:
+                                        </span>
+                                        <span className={styles.right}>
+                                            {uploadTime}
+                                        </span>
+                                    </div>
+
+                                    <div className={styles.author}>
+                                        <span className={styles.float}>
+                                            大小:
+                                        </span>
+                                        <span className={styles.right}>
+                                            {fileSize}
+                                        </span>
+                                    </div>
+                                </div>
+                            </TabPane>
+                        </Tabs>
+                        <Form.Item className={styles.button}>
+                            <Button type="danger" htmlType="submit" disabled={this.state.percent === 0 && lout && fileList.length > 1 && fileList.length > 3 ? false : true} onClick={this.fontClick}>上传</Button>
+                            <Button type="danger" htmlType="submit" disabled={this.state.percent === 0 && lout && fileList.length > 1 && fileList.length > 3 ? false : true} onClick={this.fontClick1}>保存到作品管理中心</Button>
+                        </Form.Item>
+                    </Form>
+                </div>
+                
+                <div className={styles.modal}>
+                    <Modal
+                        width="850px"
+                        title="设置价格和授权:"
+                        content="1"
+                        visible={visible}
+                        onOk={this.handleOk}
+                        onCancel={this.handleCancelModal}
+                    >
+                        <p>设置说明在对应的板块,输入对应的价格信息，没有价格信息的栏目，将不被展示出来</p>
+
+                        <Form >
+                            <Table 
+                                columns={columns}
+                                onSubmit={this.handleOk}
+                                dataSource={dataSource}
+                                rowKey={this.rowKey}
+                            />
+
+                        </Form>
+                    </Modal>
                 </div>
             </div>
         );

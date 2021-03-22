@@ -24,7 +24,7 @@ export default function FontUploading() {
             dataIndex: 'coverUrl',
             // eslint-disable-next-line react/no-multi-comp
             render: (text, record, index) => {
-                return <img src={text} alt=""/>;
+                return <img style={{ width: '50px', height: '50px' }} src={text} alt=""/>;
             }
         },
         {
